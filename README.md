@@ -11,7 +11,7 @@ I have a couple of YouTube channels dedicated to VTOL VR.
 They aren't the best but they aren't bad either. They are videos to try to help show and understand how the mission editor works in VTOL VR.
 
 ## The Shlabovian Conflict
-I am trying to create an arc in VTOL VT called The Shlabovian Conflict or TSC and made the first entry in the series [here](https://steamcommunity.com/sharedfiles/filedetails/?id=2366824583). I was not able to finish the game as my computer had issues and I lost files so it is dead. Which is ok because I'll just move onto other games I planned. 
+I am trying to create an arc in VTOL VR called The Shlabovian Conflict or TSC and made the first entry in the series [here](https://steamcommunity.com/sharedfiles/filedetails/?id=2366824583). I was not able to finish the game as my computer had issues and I lost files so it is dead. Which is ok because I'll just move onto other games I planned. 
 
 Anyway, enough about me.
 
