@@ -4,8 +4,8 @@ I am diditoday on the Discord server, my name is Aaron and I love designing miss
 
 ## My YouTube
 I have a couple of YouTube channels dedicated to VTOL VR. 
-VTOL VR Make Stuff - https://www.youtube.com/playlist?list=PL6zz6YGMo8_QdAXaQzZOAAgu7B42P00rU
-VTOL VR Learn Stuff - https://www.youtube.com/playlist?list=PL6zz6YGMo8_RTIzyZupO-wV9wDDusJRyS
+*VTOL VR Make Stuff - https://www.youtube.com/playlist?list=PL6zz6YGMo8_QdAXaQzZOAAgu7B42P00rU
+*VTOL VR Learn Stuff - https://www.youtube.com/playlist?list=PL6zz6YGMo8_RTIzyZupO-wV9wDDusJRyS
 
 They are the best but they are bad either. They are videos to try to help show and understand how the mission editor in VTOL VR works.
 
