@@ -1,5 +1,5 @@
 # Me
-I am diditoday on the Discord server, my name is Aaron and I love designing missions for VTOL VR.
+My name is Aaron and I am diditoday on the Discord server. I love designing missions for VTOL VR.
 
 ## My YouTube
 I have a couple of YouTube channels dedicated to VTOL VR. 
