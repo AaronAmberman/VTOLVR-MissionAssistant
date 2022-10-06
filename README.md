@@ -14,6 +14,8 @@ They aren't the best but they are bad either. They are videos to try to help sho
 ## The Shlabovian Conflict
 I am trying to create an arc in VTOL VT called The Shlabovian Conflict or TSC and made the first entry in the series [here](https://steamcommunity.com/sharedfiles/filedetails/?id=2366824583). I was not able to finish the game as my computer had issues and I lost files so it is dead. Which is ok because I'll just move onto other games I planned. 
 
+Anyway, enough about me.
+
 ## The Project
 It is just me on this project for now but others may join in the future who knows. 
 
