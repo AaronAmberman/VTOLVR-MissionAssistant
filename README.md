@@ -1,5 +1,4 @@
-# VTOLVR-MissionAssistant
-## Me
+# Me
 I am diditoday on the Discord server, my name is Aaron and I love designing missions for VTOL VR.
 
 ## My YouTube
@@ -16,6 +15,7 @@ I am trying to create an arc in VTOL VT called The Shlabovian Conflict or TSC an
 
 Anyway, enough about me.
 
+# VTOLVR-MissionAssistant
 ## The Project
 It is just me on this project for now but others may join in the future who knows. 
 
