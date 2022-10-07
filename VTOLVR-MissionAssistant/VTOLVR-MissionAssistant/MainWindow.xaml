@@ -1,0 +1,52 @@
+﻿<Window x:Class="VTOLVR_MissionAssistant.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VTOLVR_MissionAssistant"
+        xmlns:properties="clr-namespace:VTOLVR_MissionAssistant.Properties;assembly=VTOLVR-MissionAssistant"
+        xmlns:viewModels="clr-namespace:VTOLVR_MissionAssistant.ViewModels"
+        xmlns:id="clr-namespace:WPF.InternalDialogs;assembly=WPF.InternalDialogs"
+        xmlns:customControls="clr-namespace:WPF.CustomControls;assembly=WPF.CustomControls"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance {x:Type viewModels:MainWindowViewModel}}"
+        Icon="pack://application:,,,/Images/Icon.ico"
+        Title="{x:Static properties:Resources.MainWindowTitle}" 
+        Height="768" Width="1024" WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded" Closing="Window_Closing" Closed="Window_Closed">
+    <Grid x:Name="mainGrid" Style="{StaticResource DarkThemeGridStyle}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid x:Name="toolBarGrid" Grid.Row="0" Margin="5">
+
+        </Grid>
+        <Grid x:Name="innerMainGrid" Grid.Row="1" Margin="5">
+
+        </Grid>
+        <id:MessageBoxInternalDialog x:Name="mbDialog" Foreground="White"
+                                     MessageBoxBackground="#FF2F2F2F" TitleAreaBackground="#FF101010" ButtonAreaBackground="#FF2F2F2F"
+                                     Visibility="{Binding MessageBoxViewModel.MessageBoxVisibility}" Message="{Binding MessageBoxViewModel.MessageBoxMessage}"
+                                     Title="{Binding MessageBoxViewModel.MessageBoxTitle}" MessageBoxImage="{Binding MessageBoxViewModel.MessageBoxImage}"
+                                     Result="{Binding MessageBoxViewModel.MessageBoxResult, Mode=TwoWay}" IsModal="{Binding MessageBoxViewModel.MessageBoxIsModal}"
+                                     MessageBoxButton="{Binding MessageBoxViewModel.MessageBoxButton}"
+                                     FocusParent="{Binding ElementName=mainGrid}"
+                                     ButtonTextCancel="{x:Static properties:Resources.Cancel}" ButtonTextNo="{x:Static properties:Resources.No}"
+                                     ButtonTextOk="{x:Static properties:Resources.OK}" ButtonTextYes="{x:Static properties:Resources.Yes}">
+            <id:MessageBoxInternalDialog.CloseButtonStyle>
+                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                    <Setter Property="Background" Value="#00000000" />
+                    <Setter Property="BorderBrush" Value="#00000000" />
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Setter Property="Content" Value="{StaticResource CloseX}" />
+                </Style>
+            </id:MessageBoxInternalDialog.CloseButtonStyle>
+            <id:MessageBoxInternalDialog.ButtonStyle>
+                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                    <Setter Property="MinWidth" Value="50" />
+                </Style>
+            </id:MessageBoxInternalDialog.ButtonStyle>
+        </id:MessageBoxInternalDialog>
+    </Grid>
+</Window>

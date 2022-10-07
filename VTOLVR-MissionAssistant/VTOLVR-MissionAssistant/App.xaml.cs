@@ -1,0 +1,87 @@
+﻿using System;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Threading;
+using System.Windows;
+using System.Windows.Threading;
+
+namespace VTOLVR_MissionAssistant
+{
+    public partial class App : Application
+    {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            // ensure we have a culture, if not back to English
+            if (string.IsNullOrWhiteSpace(VTOLVR_MissionAssistant.Properties.Settings.Default.Culture))
+            {
+                VTOLVR_MissionAssistant.Properties.Settings.Default.Culture = "en";
+            }
+
+            // set our culture to the current one from settings
+            Thread.CurrentThread.CurrentCulture = new CultureInfo(VTOLVR_MissionAssistant.Properties.Settings.Default.Culture);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(VTOLVR_MissionAssistant.Properties.Settings.Default.Culture);
+
+            //Thread.CurrentThread.CurrentCulture = new CultureInfo("ru");
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("ru");
+
+            // check to make sure VTOL is not running
+            Process vtol = Process.GetProcesses().FirstOrDefault(p => p.ProcessName == "VTOLVR");
+
+            if (vtol != null)
+            {
+                MessageBox.Show(VTOLVR_MissionAssistant.Properties.Resources.VTOLRunningMessage, 
+                    VTOLVR_MissionAssistant.Properties.Resources.VTOLRunningTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+
+                Environment.Exit(-1);
+                return;
+            }
+
+            // ensure we have a custom log path, if not...use application location
+            if (string.IsNullOrWhiteSpace(VTOLVR_MissionAssistant.Properties.Settings.Default.LogLocation))
+            {
+                try
+                {
+                    string location = Assembly.GetExecutingAssembly().Location;
+
+                    if (!string.IsNullOrWhiteSpace(location))
+                    {
+                        // do not set the setting because the user did not choose the path
+                        ServiceLocator.Instance.Logger.LogFile = Path.Combine(location, "VTOLVR Mission Assistant.log");
+                    }
+                }
+                catch
+                {
+                    // we cannot determine location for some reason, use desktop
+                    ServiceLocator.Instance.Logger.LogFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "VTOLVR Mission Assistant.log");
+                }
+            }
+            else
+            {
+                ServiceLocator.Instance.Logger.LogFile = Path.Combine(VTOLVR_MissionAssistant.Properties.Settings.Default.LogLocation, "VTOLVR Mission Assistant.log");
+            }
+        }
+
+        private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            e.Handled = true;
+
+            try
+            {
+                ServiceLocator.Instance.Logger.Error($"An unhandled exception occurred. Details:{Environment.NewLine}{e.Exception}");
+
+                // we don't know what happened, tell the user and carry on
+                MessageBox.Show("An unhandled exception occurred in the application. We have logged it. Please see log for further details.",
+                    "Unhandled Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"An error occurred ensuring the log file exists or an error occurred trying to write to the log file.{Environment.NewLine}{ex}");
+            }
+
+            Current.Shutdown(e.Exception.HResult);
+        }
+    }
+}

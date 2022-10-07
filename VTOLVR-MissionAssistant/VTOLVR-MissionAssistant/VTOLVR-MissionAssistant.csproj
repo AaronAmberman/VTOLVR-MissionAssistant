@@ -1,0 +1,102 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>VTOLVR_MissionAssistant</RootNamespace>
+    <Nullable>disable</Nullable>
+    <UseWPF>true</UseWPF>
+    <Authors>Aaron Amberman</Authors>
+    <Description>Assist in managing VTOL mission files.</Description>
+    <Copyright>Aaron Amberman 2022</Copyright>
+    <PackageProjectUrl>https://github.com/AaronAmberman/VTOLVR-MissionAssistant.git</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/AaronAmberman/VTOLVR-MissionAssistant.git</RepositoryUrl>
+    <AssemblyVersion>0.0.0.0</AssemblyVersion>
+    <FileVersion>0.0.0.0</FileVersion>
+    <Version>0.0.0.0</Version>
+    <ApplicationIcon>Images\Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Resources.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Images\Icon-128x128.png" />
+    <None Remove="Images\Icon-16x16.png" />
+    <None Remove="Images\Icon-24x24.png" />
+    <None Remove="Images\Icon-32x32.png" />
+    <None Remove="Images\Icon-48x48.png" />
+    <None Remove="Images\Icon-64x64.png" />
+    <None Remove="Images\Icon.ico" />
+    <None Remove="Images\Icon.psd" />
+    <None Remove="Images\Icon128x128.png" />
+    <None Remove="Images\Icon16x16.png" />
+    <None Remove="Images\Icon24x24.png" />
+    <None Remove="Images\Icon32x32.png" />
+    <None Remove="Images\Icon48x48.png" />
+    <None Remove="Images\Icon64x64.png" />
+    <None Remove="Images\VTOLVR-Image.png" />
+    <None Remove="Images\VTOLVR-Image.psd" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VTOLVR-MissionAssistant.Core\VTOLVR-MissionAssistant.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="WPF.CustomControls">
+      <HintPath>..\dependencies\WPF.CustomControls\WPF.CustomControls.dll</HintPath>
+    </Reference>
+    <Reference Include="WPF.InternalDialogs">
+      <HintPath>..\dependencies\WPF.InternalDialogs\WPF.InternalDialogs.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Icon.ico" />
+    <Resource Include="Images\Icon128x128.png" />
+    <Resource Include="Images\Icon16x16.png" />
+    <Resource Include="Images\Icon24x24.png" />
+    <Resource Include="Images\Icon32x32.png" />
+    <Resource Include="Images\Icon48x48.png" />
+    <Resource Include="Images\Icon64x64.png" />
+    <Resource Include="Images\VTOLVR-Image.png" />
+  </ItemGroup>
+
+</Project>
