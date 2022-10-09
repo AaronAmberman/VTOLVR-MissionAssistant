@@ -70,11 +70,38 @@ namespace VTOLVR_MissionAssistant.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About VTOL VR Mission Assistant.
+        /// </summary>
+        public static string AboutApp {
+            get {
+                return ResourceManager.GetString("AboutApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This application is intended to provide assistance in managing the VTS file in ways that are not built into VTOL VR. You can sequentially re-index your units so there are not gaps and you can get an accurate count of how many units you have. It can copy most any object in the VTS file as well. Also, it can map out what is used where by tracking index references..
+        /// </summary>
+        public static string AboutAppMessage {
+            get {
+                return ResourceManager.GetString("AboutAppMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Browse.
         /// </summary>
         public static string Browse {
             get {
                 return ResourceManager.GetString("Browse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select VTS File.
+        /// </summary>
+        public static string BrowseTitle {
+            get {
+                return ResourceManager.GetString("BrowseTitle", resourceCulture);
             }
         }
         
@@ -120,6 +147,15 @@ namespace VTOLVR_MissionAssistant.Properties {
         public static string OK {
             get {
                 return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
             }
         }
         

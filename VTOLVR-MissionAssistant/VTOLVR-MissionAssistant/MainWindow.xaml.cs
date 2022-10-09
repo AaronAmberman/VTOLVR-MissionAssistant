@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -31,9 +33,26 @@ namespace VTOLVR_MissionAssistant
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            string ver = string.Empty;
+
+            try
+            {
+                ver = Assembly.GetExecutingAssembly()?.GetName()?.Version?.ToString();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"An error occurred attempting to get the version information.{Environment.NewLine}{ex}");
+                ServiceLocator.Instance.Logger.Error($"An error occurred attempting to get the version information.{Environment.NewLine}{ex}");
+
+                ver = "Unable to retrieve version information.";
+            }
+
             MainWindowViewModel viewModel = new MainWindowViewModel
             {
-                MessageBoxViewModel = new MessageBoxViewModel()
+                DataNeededVisibility = Visibility.Visible, // show data needed control right away
+                MessageBoxViewModel = new MessageBoxViewModel(),
+                SettingsViewModel = new SettingsViewModel(),
+                Version = ver,
             };
 
             DataContext = viewModel;

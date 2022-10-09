@@ -120,8 +120,17 @@
   <data name="About" xml:space="preserve">
     <value>About</value>
   </data>
+  <data name="AboutApp" xml:space="preserve">
+    <value>About VTOL VR Mission Assistant</value>
+  </data>
+  <data name="AboutAppMessage" xml:space="preserve">
+    <value>This application is intended to provide assistance in managing the VTS file in ways that are not built into VTOL VR. You can sequentially re-index your units so there are not gaps and you can get an accurate count of how many units you have. It can copy most any object in the VTS file as well. Also, it can map out what is used where by tracking index references.</value>
+  </data>
   <data name="Browse" xml:space="preserve">
     <value>Browse</value>
+  </data>
+  <data name="BrowseTitle" xml:space="preserve">
+    <value>Select VTS File</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
@@ -137,6 +146,9 @@
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Version</value>
