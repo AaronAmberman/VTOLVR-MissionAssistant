@@ -5,7 +5,7 @@
     <Setting Name="Culture" Type="System.String" Scope="User">
       <Value Profile="(Default)">en</Value>
     </Setting>
-    <Setting Name="LogLocation" Type="System.String" Scope="User">
+    <Setting Name="LogFile" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

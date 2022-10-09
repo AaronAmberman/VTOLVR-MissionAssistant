@@ -120,8 +120,14 @@
   <data name="About" xml:space="preserve">
     <value>About</value>
   </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Browse</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
+  </data>
+  <data name="DataTitle" xml:space="preserve">
+    <value>VTS Data Needed</value>
   </data>
   <data name="MainWindowTitle" xml:space="preserve">
     <value>VTOL VR Mission Assistant</value>
@@ -140,6 +146,9 @@
   </data>
   <data name="VTOLRunningTitle" xml:space="preserve">
     <value>VTOL VR Running</value>
+  </data>
+  <data name="VTSFile" xml:space="preserve">
+    <value>VTS File</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>

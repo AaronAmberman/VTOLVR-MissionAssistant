@@ -38,12 +38,12 @@ namespace VTOLVR_MissionAssistant.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LogLocation {
+        public string LogFile {
             get {
-                return ((string)(this["LogLocation"]));
+                return ((string)(this["LogFile"]));
             }
             set {
-                this["LogLocation"] = value;
+                this["LogFile"] = value;
             }
         }
     }

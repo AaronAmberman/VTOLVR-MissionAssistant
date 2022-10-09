@@ -32,15 +32,15 @@ namespace VTOLVR_MissionAssistant
 
             if (vtol != null)
             {
-                MessageBox.Show(VTOLVR_MissionAssistant.Properties.Resources.VTOLRunningMessage, 
-                    VTOLVR_MissionAssistant.Properties.Resources.VTOLRunningTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(VTOLVR_MissionAssistant.Properties.Strings.VTOLRunningMessage, 
+                    VTOLVR_MissionAssistant.Properties.Strings.VTOLRunningTitle, MessageBoxButton.OK, MessageBoxImage.Error);
 
                 Environment.Exit(-1);
                 return;
             }
 
             // ensure we have a custom log path, if not...use application location
-            if (string.IsNullOrWhiteSpace(VTOLVR_MissionAssistant.Properties.Settings.Default.LogLocation))
+            if (string.IsNullOrWhiteSpace(VTOLVR_MissionAssistant.Properties.Settings.Default.LogFile))
             {
                 try
                 {
@@ -60,7 +60,8 @@ namespace VTOLVR_MissionAssistant
             }
             else
             {
-                ServiceLocator.Instance.Logger.LogFile = Path.Combine(VTOLVR_MissionAssistant.Properties.Settings.Default.LogLocation, "VTOLVR Mission Assistant.log");
+                // if we are using the user provided value then just read the whole setting as they can specify a custom file name if desired
+                ServiceLocator.Instance.Logger.LogFile = Path.Combine(VTOLVR_MissionAssistant.Properties.Settings.Default.LogFile);
             }
         }
 
