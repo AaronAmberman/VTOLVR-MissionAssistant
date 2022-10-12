@@ -1,4 +1,5 @@
 ﻿using VTOLVR_MissionAssistant.Core;
+using VTOLVR_MissionAssistant.Core.Services;
 using VTOLVR_MissionAssistant.ViewModels;
 
 namespace VTOLVR_MissionAssistant
@@ -30,6 +31,8 @@ namespace VTOLVR_MissionAssistant
 
         public Logger Logger { get; set; }
 
+        public VtsDataProcessorService VtsDataProcessorService { get; set; }
+
         #endregion
 
         #region Constructors
@@ -37,6 +40,7 @@ namespace VTOLVR_MissionAssistant
         private ServiceLocator()
         {
             Logger = new Logger();
+            VtsDataProcessorService = new VtsDataProcessorService();
         }
 
         #endregion

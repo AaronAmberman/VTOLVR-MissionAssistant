@@ -99,4 +99,8 @@
     <Resource Include="Images\VTOLVR-Image.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>

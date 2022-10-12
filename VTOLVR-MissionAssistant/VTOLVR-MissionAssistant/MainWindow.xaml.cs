@@ -58,6 +58,9 @@ namespace VTOLVR_MissionAssistant
             DataContext = viewModel;
 
             ServiceLocator.Instance.MainWindowViewModel = viewModel;
+
+            // gets our focus in the "popup" so the controls it covers can't be interacted with via the keyboard
+            browseForFile.Focus();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

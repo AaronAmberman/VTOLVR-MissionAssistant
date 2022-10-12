@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VTOLVR-MissionAssistant", "VTOLVR-MissionAssistant\VTOLVR-MissionAssistant.csproj", "{57CF8887-4E93-4538-857C-CB5EF3E25EE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VTOLVR-MissionAssistant", "VTOLVR-MissionAssistant\VTOLVR-MissionAssistant.csproj", "{57CF8887-4E93-4538-857C-CB5EF3E25EE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VTOLVR-MissionAssistant.Core", "VTOLVR-MissionAssistant.Core\VTOLVR-MissionAssistant.Core.csproj", "{9978F890-5673-415F-844F-113EA6799B16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VTOLVR-MissionAssistant.Core", "VTOLVR-MissionAssistant.Core\VTOLVR-MissionAssistant.Core.csproj", "{9978F890-5673-415F-844F-113EA6799B16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VTOLVR-VtsFileParser", "VTOLVR-VtsFileParser\VTOLVR-VtsFileParser.csproj", "{D17A028E-2372-4CD2-BD51-8CC67D3FDFD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{9978F890-5673-415F-844F-113EA6799B16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9978F890-5673-415F-844F-113EA6799B16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9978F890-5673-415F-844F-113EA6799B16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D17A028E-2372-4CD2-BD51-8CC67D3FDFD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D17A028E-2372-4CD2-BD51-8CC67D3FDFD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D17A028E-2372-4CD2-BD51-8CC67D3FDFD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D17A028E-2372-4CD2-BD51-8CC67D3FDFD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

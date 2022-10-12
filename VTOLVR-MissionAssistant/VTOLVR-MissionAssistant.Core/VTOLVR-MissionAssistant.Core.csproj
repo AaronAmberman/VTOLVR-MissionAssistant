@@ -21,4 +21,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\VTOLVR-VtsFileParser\VTOLVR-VtsFileParser.csproj" />
+  </ItemGroup>
+
 </Project>

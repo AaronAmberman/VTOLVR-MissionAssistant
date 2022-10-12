@@ -121,6 +121,10 @@ namespace VTOLVR_MissionAssistant.ViewModels
             string file = ofd.FileName;
 
             FileForData = file;
+
+            DataNeededVisibility = Visibility.Collapsed;
+
+            ServiceLocator.Instance.VtsDataProcessorService.ProcessFile(file);
         }
 
         private void ShowSettings()

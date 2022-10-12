@@ -27,17 +27,18 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="2" Margin="0,0,5,0" Style="{StaticResource ToolBarButton}" Content="{StaticResource Settings}" 
+            <Button Grid.Column="2" Margin="0,0,5,0" TabIndex="1" Style="{StaticResource ToolBarButton}" Content="{StaticResource Settings}" 
                     Command="{Binding ShowSettingsCommand}" ToolTip="{x:Static properties:Strings.Settings}" />
-            <Button Grid.Column="3" Style="{StaticResource ToolBarButton}" Content="{StaticResource QuestionMark}"
+            <Button Grid.Column="3" TabIndex="2" Style="{StaticResource ToolBarButton}" Content="{StaticResource QuestionMark}"
                     Command="{Binding AboutCommand}" ToolTip="{x:Static properties:Strings.About}" />
         </Grid>
         <Grid x:Name="innerMainGrid" Grid.Row="1" Margin="5">
             <Grid>
 
             </Grid>
-            <id:InternalDialog x:Name="dataNeededDialog" Background="#AA000000" CloseOnEscape="False"
-                               FocusParent="{Binding ElementName=innerMainGrid}" Visibility="{Binding DataNeededVisibility}">
+            <Border Background="#33000000" BorderBrush="Transparent" BorderThickness="0" 
+                    KeyboardNavigation.TabNavigation="Cycle"
+                    Visibility="{Binding DataNeededVisibility}">
                 <Border BorderBrush="White" BorderThickness="3" CornerRadius="10" Padding="10"
                         VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Grid>
@@ -61,14 +62,14 @@
                                        Text="{x:Static properties:Strings.DataTitle}" Style="{StaticResource DarkThemeTextBlockStyle}"/>
                             <TextBlock Grid.Column="0" Grid.Row="1" Margin="0,25,0,0"
                                        Text="{x:Static properties:Strings.VTSFile}" Style="{StaticResource DarkThemeTextBlockStyle}" />
-                            <TextBox Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Margin="5,25,5,0" Width="600" IsReadOnly="True"
+                            <TextBox x:Name="vtsFileTextBox" Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Margin="5,25,5,0" Width="600" IsReadOnly="True" TabIndex="3"
                                      Text="{Binding FileForData, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <Button Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" Margin="0,24,0,0"
+                            <Button x:Name="browseForFile" Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" Margin="0,24,0,0" TabIndex="4"
                                     Content="{x:Static properties:Strings.Browse}" Command="{Binding BrowseCommand}" />
                         </Grid>
                     </Grid>
                 </Border>
-            </id:InternalDialog>
+            </Border>            
         </Grid>
         <id:MovableResizableInternalDialog x:Name="settingsDialog" Grid.Row="0" Grid.RowSpan="2"
                                            ResizableMinHeight="256" ResizableMinWidth="512" ResizableMaxHeight="512" ResizableMaxWidth="768"
