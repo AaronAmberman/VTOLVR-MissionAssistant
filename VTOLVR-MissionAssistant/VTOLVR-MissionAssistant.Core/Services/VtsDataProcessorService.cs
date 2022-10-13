@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VTOLVR_MissionAssistant.Core.Types;
-using VTOLVR_VtsFileParser;
+using VtsFileManager;
 
 namespace VTOLVR_MissionAssistant.Core.Services
 {
@@ -26,8 +26,7 @@ namespace VTOLVR_MissionAssistant.Core.Services
 
         public CustomScenario ProcessFile(string file)
         {
-            VtsFileParser parser = new VtsFileParser();
-            VtsCustomScenario vtsCustomScenario = parser.ParseVtsFile(file);
+            VtsCustomScenario vtsCustomScenario = VtsReader.ReadVtsFile(file);
 
             if (vtsCustomScenario == null) return null;
 

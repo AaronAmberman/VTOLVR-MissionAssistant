@@ -22,7 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VTOLVR-VtsFileParser\VTOLVR-VtsFileParser.csproj" />
+    <Reference Include="VtsFileManager">
+      <HintPath>..\dependencies\VtsFileManager\VtsFileManager.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

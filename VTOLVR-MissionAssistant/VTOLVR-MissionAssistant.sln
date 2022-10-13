@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VTOLVR-MissionAssistant", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VTOLVR-MissionAssistant.Core", "VTOLVR-MissionAssistant.Core\VTOLVR-MissionAssistant.Core.csproj", "{9978F890-5673-415F-844F-113EA6799B16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VTOLVR-VtsFileParser", "VTOLVR-VtsFileParser\VTOLVR-VtsFileParser.csproj", "{D17A028E-2372-4CD2-BD51-8CC67D3FDFD6}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{9978F890-5673-415F-844F-113EA6799B16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9978F890-5673-415F-844F-113EA6799B16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9978F890-5673-415F-844F-113EA6799B16}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D17A028E-2372-4CD2-BD51-8CC67D3FDFD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D17A028E-2372-4CD2-BD51-8CC67D3FDFD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D17A028E-2372-4CD2-BD51-8CC67D3FDFD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D17A028E-2372-4CD2-BD51-8CC67D3FDFD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
