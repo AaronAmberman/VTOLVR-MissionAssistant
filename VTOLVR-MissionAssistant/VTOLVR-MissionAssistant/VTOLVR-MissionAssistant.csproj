@@ -16,6 +16,7 @@
     <FileVersion>0.0.0.0</FileVersion>
     <Version>0.0.0.0</Version>
     <ApplicationIcon>Images\Icon.ico</ApplicationIcon>
+    <PackageLicenseFile>..\..\LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>

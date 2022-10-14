@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VTOLVR_MissionAssistant.Core.Types;
+﻿using VTOLVR_MissionAssistant.Core.Types;
 using VtsFileManager;
 
 namespace VTOLVR_MissionAssistant.Core.Services
@@ -30,8 +25,8 @@ namespace VTOLVR_MissionAssistant.Core.Services
 
             if (vtsCustomScenarioObject == null) return null;
 
-            string temp = @"C:\Users\Aaron\Desktop\temp-vts-file.vts";
-            bool success = VtsWriter.WriteVtsFile(vtsCustomScenarioObject, temp);
+            //string temp = @"C:\Users\Aaron\Desktop\temp-vts-file.vts";
+            //bool success = VtsWriter.WriteVtsFile(vtsCustomScenarioObject, temp);
 
             CustomScenario customScenario = new CustomScenario();
 
