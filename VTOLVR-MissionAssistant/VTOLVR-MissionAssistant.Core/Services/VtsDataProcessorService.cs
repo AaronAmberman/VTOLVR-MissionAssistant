@@ -26,9 +26,12 @@ namespace VTOLVR_MissionAssistant.Core.Services
 
         public CustomScenario ProcessFile(string file)
         {
-            VtsCustomScenario vtsCustomScenario = VtsReader.ReadVtsFile(file);
+            VtsCustomScenarioObject vtsCustomScenarioObject = VtsReader.ReadVtsFile(file);
 
-            if (vtsCustomScenario == null) return null;
+            if (vtsCustomScenarioObject == null) return null;
+
+            string temp = @"C:\Users\Aaron\Desktop\temp-vts-file.vts";
+            bool success = VtsWriter.WriteVtsFile(vtsCustomScenarioObject, temp);
 
             CustomScenario customScenario = new CustomScenario();
 
