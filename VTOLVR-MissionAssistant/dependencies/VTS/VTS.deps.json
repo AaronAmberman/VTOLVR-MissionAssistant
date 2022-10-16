@@ -6,15 +6,15 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v6.0": {
-      "VtsFileManager/1.0.0.0": {
+      "VTS/1.0.0.0": {
         "runtime": {
-          "VtsFileManager.dll": {}
+          "VTS.dll": {}
         }
       }
     }
   },
   "libraries": {
-    "VtsFileManager/1.0.0.0": {
+    "VTS/1.0.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

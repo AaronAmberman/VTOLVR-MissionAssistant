@@ -1,5 +1,6 @@
 ﻿using VTOLVR_MissionAssistant.Core.Types;
-using VtsFileManager;
+using VTS.Data.Raw;
+using VTS.File;
 
 namespace VTOLVR_MissionAssistant.Core.Services
 {
