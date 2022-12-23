@@ -22,8 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="VtsFileManager">
-      <HintPath>..\dependencies\VtsFileManager\VtsFileManager.dll</HintPath>
+    <Reference Include="VTS">
+      <HintPath>..\dependencies\VTS\VTS.dll</HintPath>
     </Reference>
   </ItemGroup>
 
