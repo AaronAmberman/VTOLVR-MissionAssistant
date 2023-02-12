@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+﻿using System;
 using VTS.Data;
 using VTS.Data.Abstractions;
 using VTS.Data.Diagnostics;
@@ -31,19 +31,27 @@ namespace VTOLVR_MissionAssistant.Core.Services
 
             //bool success = VtsWriter.WriteVtsFile(vtsCustomScenarioObject, temp);
 
+            DiagnosticOptions.OutputCustomScenarioConversionTime = true;
             //DiagnosticOptions.OutputUnitFieldsGroups = true;
             //CustomScenario customScenario = CustomScenario.ReadVtsFile(file);
 
             //if (customScenario == null) return;
 
             //CustomScenario clone = customScenario.Clone();
-            //clone.File = @"C:\Users\Aaron\Desktop\temp-vts-file.vts";
+            //clone.File = @"C:\Users\Aaron\Desktop\VTS Files\temp-vts-file.vts";
 
             //bool success = CustomScenario.WriteVtsFile(clone);
 
             //VTS.Data.Runtime.CustomScenario scenario = new VTS.Data.Runtime.CustomScenario(customScenario);
-
             VTS.Data.Runtime.CustomScenario scenario = new VTS.Data.Runtime.CustomScenario(file);
+
+            if (!scenario.HasError)
+            {
+                VTS.Data.Runtime.CustomScenario clone = scenario.Clone();
+                clone.File = @"C:\Users\Aaron\Desktop\VTS Files\temp-vts-file.vts";
+
+                bool success = clone.Save();
+            }
         }
 
         #endregion
