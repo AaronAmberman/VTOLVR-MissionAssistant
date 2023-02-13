@@ -2,6 +2,7 @@
 using System;
 using System.Windows;
 using System.Windows.Input;
+using VTS.Data.Runtime;
 
 namespace VTOLVR_MissionAssistant.ViewModels
 {
@@ -19,6 +20,7 @@ namespace VTOLVR_MissionAssistant.ViewModels
         private SettingsViewModel settingsViewModel;
         private ICommand showSettingsCommand;
         private string version;
+        private CustomScenario vtsFile;
 
         #endregion
 
@@ -27,8 +29,8 @@ namespace VTOLVR_MissionAssistant.ViewModels
         public ICommand AboutCommand => aboutCommand ??= new RelayCommand(About);
 
         public Visibility AboutBoxVisibility
-        { 
-            get => aboutBoxVisibility; 
+        {
+            get => aboutBoxVisibility;
             set
             {
                 aboutBoxVisibility = value;
@@ -90,6 +92,16 @@ namespace VTOLVR_MissionAssistant.ViewModels
             }
         }
 
+        public CustomScenario VtsFile 
+        { 
+            get => vtsFile;
+            set
+            {
+                vtsFile = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -124,12 +136,22 @@ namespace VTOLVR_MissionAssistant.ViewModels
 
             DataNeededVisibility = Visibility.Collapsed;
 
-            ServiceLocator.Instance.VtsDataProcessorService.ProcessFile(file);
+            CustomScenario scenario = new CustomScenario(file, WriteVtsApiWarnings);
+
+            if (scenario.HasError)
+            {
+
+            }
         }
 
         private void ShowSettings()
         {
             SettingsViewModel.Visibility = Visibility.Visible;
+        }
+
+        private void WriteVtsApiWarnings(string message)
+        {
+
         }
 
         #endregion

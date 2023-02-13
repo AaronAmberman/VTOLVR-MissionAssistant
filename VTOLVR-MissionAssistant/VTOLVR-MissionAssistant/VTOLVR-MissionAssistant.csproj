@@ -54,6 +54,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="SimpleLogger">
+      <HintPath>..\dependencies\SimpleLogger\SimpleLogger.dll</HintPath>
+    </Reference>
+    <Reference Include="VTS">
+      <HintPath>..\dependencies\VTS\VTS.dll</HintPath>
+    </Reference>
     <Reference Include="WPF.CustomControls">
       <HintPath>..\dependencies\WPF.CustomControls\WPF.CustomControls.dll</HintPath>
     </Reference>
