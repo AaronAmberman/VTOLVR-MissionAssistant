@@ -1,4 +1,4 @@
-﻿using VTOLVR_MissionAssistant.Services;
+﻿using SimpleLogger;
 using VTOLVR_MissionAssistant.ViewModels;
 
 namespace VTOLVR_MissionAssistant
