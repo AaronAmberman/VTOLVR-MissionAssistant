@@ -77,8 +77,8 @@ namespace VTOLVR_MissionAssistant
                 ServiceLocator.Instance.Logger.Error($"An unhandled exception occurred. Details:{Environment.NewLine}{e.Exception}");
 
                 // we don't know what happened, tell the user and carry on
-                MessageBox.Show("An unhandled exception occurred in the application. We have logged it. Please see log for further details.",
-                    "Unhandled Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(VTOLVR_MissionAssistant.Properties.Strings.UnhandledErrorMessage,
+                    VTOLVR_MissionAssistant.Properties.Strings.UnhandledErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (Exception ex)
             {

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 
-namespace VTOLVR_MissionAssistant.Core
+namespace VTOLVR_MissionAssistant
 {
     /// <summary>Extension methods</summary>
     public static class ExtensionMethods

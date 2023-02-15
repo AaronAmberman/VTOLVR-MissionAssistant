@@ -232,6 +232,24 @@ namespace VTOLVR_MissionAssistant.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An unhandled exception occurred in the application. We have logged it. Please see log for further details..
+        /// </summary>
+        public static string UnhandledErrorMessage {
+            get {
+                return ResourceManager.GetString("UnhandledErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unhandled Error.
+        /// </summary>
+        public static string UnhandledErrorTitle {
+            get {
+                return ResourceManager.GetString("UnhandledErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Version.
         /// </summary>
         public static string Version {

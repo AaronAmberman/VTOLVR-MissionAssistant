@@ -1,6 +1,7 @@
-﻿using System.Timers;
+﻿using System;
+using System.Timers;
 
-namespace VTOLVR_MissionAssistant.Core
+namespace VTOLVR_MissionAssistant
 {
     public class SingleShotTimer
     {

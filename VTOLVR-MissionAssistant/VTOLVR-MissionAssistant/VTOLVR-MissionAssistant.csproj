@@ -50,10 +50,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VTOLVR-MissionAssistant.Core\VTOLVR-MissionAssistant.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="SimpleLogger">
       <HintPath>..\dependencies\SimpleLogger\SimpleLogger.dll</HintPath>
     </Reference>

@@ -87,7 +87,7 @@ namespace VTOLVR_MissionAssistant.ViewModels
             }
             else
             {
-                // null, empty or white-space ensure our log file like we did in app startup
+                // null, empty or white-space, ensure our log file like we did in app startup
                 try
                 {
                     string location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
