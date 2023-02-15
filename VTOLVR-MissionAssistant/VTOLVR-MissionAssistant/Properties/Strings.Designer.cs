@@ -88,6 +88,15 @@ namespace VTOLVR_MissionAssistant.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Begin session.
+        /// </summary>
+        public static string BeginSession {
+            get {
+                return ResourceManager.GetString("BeginSession", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Browse.
         /// </summary>
         public static string Browse {
@@ -97,7 +106,7 @@ namespace VTOLVR_MissionAssistant.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select VTS File.
+        ///   Looks up a localized string similar to Browse for File.
         /// </summary>
         public static string BrowseTitle {
             get {
@@ -120,6 +129,69 @@ namespace VTOLVR_MissionAssistant.Properties {
         public static string DataTitle {
             get {
                 return ResourceManager.GetString("DataTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End session.
+        /// </summary>
+        public static string EndSession {
+            get {
+                return ResourceManager.GetString("EndSession", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Read Error.
+        /// </summary>
+        public static string FileReadErrorTitle {
+            get {
+                return ResourceManager.GetString("FileReadErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        public static string Language {
+            get {
+                return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log file.
+        /// </summary>
+        public static string LogFile {
+            get {
+                return ResourceManager.GetString("LogFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The log file entered does not exist therefore it cannot be used..
+        /// </summary>
+        public static string LogFileNotExistsMessage {
+            get {
+                return ResourceManager.GetString("LogFileNotExistsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bad Log file.
+        /// </summary>
+        public static string LogFileNotExistsTitle {
+            get {
+                return ResourceManager.GetString("LogFileNotExistsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note: by default the application will log to where it is executing (unless this setting is set)..
+        /// </summary>
+        public static string LogSettingFileNote {
+            get {
+                return ResourceManager.GetString("LogSettingFileNote", resourceCulture);
             }
         }
         
@@ -192,6 +264,15 @@ namespace VTOLVR_MissionAssistant.Properties {
         public static string VTSFile {
             get {
                 return ResourceManager.GetString("VTSFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file could not be read properly. Please see log for more details..
+        /// </summary>
+        public static string VtsFileReadErrorMessage {
+            get {
+                return ResourceManager.GetString("VtsFileReadErrorMessage", resourceCulture);
             }
         }
         

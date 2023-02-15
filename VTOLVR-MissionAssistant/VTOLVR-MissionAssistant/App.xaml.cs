@@ -18,6 +18,7 @@ namespace VTOLVR_MissionAssistant
             if (string.IsNullOrWhiteSpace(VTOLVR_MissionAssistant.Properties.Settings.Default.Culture))
             {
                 VTOLVR_MissionAssistant.Properties.Settings.Default.Culture = "en";
+                VTOLVR_MissionAssistant.Properties.Settings.Default.Save();
             }
 
             // set our culture to the current one from settings
@@ -44,7 +45,7 @@ namespace VTOLVR_MissionAssistant
             {
                 try
                 {
-                    string location = Assembly.GetExecutingAssembly().Location;
+                    string location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
                     if (!string.IsNullOrWhiteSpace(location))
                     {
@@ -61,8 +62,10 @@ namespace VTOLVR_MissionAssistant
             else
             {
                 // if we are using the user provided value then just read the whole setting as they can specify a custom file name if desired
-                ServiceLocator.Instance.Logger.LogFile = Path.Combine(VTOLVR_MissionAssistant.Properties.Settings.Default.LogFile);
+                ServiceLocator.Instance.Logger.LogFile = VTOLVR_MissionAssistant.Properties.Settings.Default.LogFile;
             }
+
+            ServiceLocator.Instance.Logger.Info(VTOLVR_MissionAssistant.Properties.Strings.BeginSession);
         }
 
         private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
@@ -82,7 +85,12 @@ namespace VTOLVR_MissionAssistant
                 Debug.WriteLine($"An error occurred ensuring the log file exists or an error occurred trying to write to the log file.{Environment.NewLine}{ex}");
             }
 
-            Current.Shutdown(e.Exception.HResult);
+            //Current.Shutdown(e.Exception.HResult);
+        }
+
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            ServiceLocator.Instance.Logger.Info(VTOLVR_MissionAssistant.Properties.Strings.EndSession);
         }
     }
 }

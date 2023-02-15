@@ -1,8 +1,10 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 using VTS.Data.Runtime;
+using WPF.InternalDialogs;
 
 namespace VTOLVR_MissionAssistant.ViewModels
 {
@@ -14,6 +16,7 @@ namespace VTOLVR_MissionAssistant.ViewModels
         private ICommand aboutCommand;
         private Visibility aboutBoxVisibility = Visibility.Collapsed;
         private ICommand browseCommand;
+        private ICommand browseLogCommand;
         private Visibility dataNeededVisibility = Visibility.Collapsed;
         private string fileForData;
         private MessageBoxViewModel messageBoxViewModel;
@@ -39,6 +42,8 @@ namespace VTOLVR_MissionAssistant.ViewModels
         }
 
         public ICommand BrowseCommand => browseCommand ??= new RelayCommand(Browse);
+
+        public ICommand BrowseLogCommand => browseLogCommand ??= new RelayCommand(BrowseLog);
 
         public Visibility DataNeededVisibility
         {
@@ -92,8 +97,8 @@ namespace VTOLVR_MissionAssistant.ViewModels
             }
         }
 
-        public CustomScenario VtsFile 
-        { 
+        public CustomScenario VtsFile
+        {
             get => vtsFile;
             set
             {
@@ -132,16 +137,72 @@ namespace VTOLVR_MissionAssistant.ViewModels
 
             string file = ofd.FileName;
 
-            FileForData = file;
-
-            DataNeededVisibility = Visibility.Collapsed;
-
             CustomScenario scenario = new CustomScenario(file, WriteVtsApiWarnings);
 
             if (scenario.HasError)
             {
-
+                ShowMessageBox(Properties.Strings.VtsFileReadErrorMessage, Properties.Strings.FileReadErrorTitle, MessageBoxButton.OK, MessageBoxInternalDialogImage.Warning);
             }
+            else
+            {
+                FileForData = file;
+                VtsFile = scenario;
+                DataNeededVisibility = Visibility.Collapsed;
+            }
+        }
+
+        private void BrowseLog()
+        {
+            OpenFileDialog ofd = new OpenFileDialog
+            {
+                AddExtension = true,
+                CheckFileExists = true,
+                CheckPathExists = true,
+                Filter = "Text Files(*.txt)|*.txt|Log Files(*.log)|*.log",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                Multiselect = false,
+                Title = Properties.Strings.BrowseTitle,
+                ValidateNames = true
+            };
+
+            bool? result = ofd.ShowDialog();
+
+            if (!result.HasValue) return;
+            if (!result.Value) return;
+
+            string file = ofd.FileName;
+
+            SettingsViewModel.LogFile = file;
+        }
+
+        public void ShowMessageBox(string message)
+        {
+            SetMessageBoxState(message, string.Empty, true, MessageBoxButton.OK, MessageBoxInternalDialogImage.Information, Visibility.Visible);
+        }
+
+        public void ShowMessageBox(string message, string title)
+        {
+            SetMessageBoxState(message, title, true, MessageBoxButton.OK, MessageBoxInternalDialogImage.Information, Visibility.Visible);
+        }
+
+        public void ShowMessageBox(string message, string title, MessageBoxButton button)
+        {
+            SetMessageBoxState(message, title, true, button, MessageBoxInternalDialogImage.Information, Visibility.Visible);
+        }
+
+        public void ShowMessageBox(string message, string title, MessageBoxButton button, MessageBoxInternalDialogImage image)
+        {
+            SetMessageBoxState(message, title, true, button, image, Visibility.Visible);
+        }
+
+        private void SetMessageBoxState(string message, string title, bool isModal, MessageBoxButton button, MessageBoxInternalDialogImage image, Visibility visibility)
+        {
+            MessageBoxViewModel.MessageBoxMessage = message;
+            MessageBoxViewModel.MessageBoxTitle = title;
+            MessageBoxViewModel.MessageBoxIsModal = isModal;
+            MessageBoxViewModel.MessageBoxButton = button;
+            MessageBoxViewModel.MessageBoxImage = image;
+            MessageBoxViewModel.MessageBoxVisibility = visibility;
         }
 
         private void ShowSettings()
@@ -151,7 +212,12 @@ namespace VTOLVR_MissionAssistant.ViewModels
 
         private void WriteVtsApiWarnings(string message)
         {
+            Debug.WriteLine(message);
 
+            if (message.Contains("error", StringComparison.OrdinalIgnoreCase) || message.Contains("exception", StringComparison.OrdinalIgnoreCase))
+                ServiceLocator.Instance.Logger.Error(message);
+            else
+                ServiceLocator.Instance.Logger.Warning(message);
         }
 
         #endregion

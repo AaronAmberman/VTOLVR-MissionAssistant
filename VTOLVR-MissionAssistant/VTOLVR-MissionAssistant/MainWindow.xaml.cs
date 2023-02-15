@@ -51,7 +51,11 @@ namespace VTOLVR_MissionAssistant
             {
                 DataNeededVisibility = Visibility.Visible, // show data needed control right away
                 MessageBoxViewModel = new MessageBoxViewModel(),
-                SettingsViewModel = new SettingsViewModel(),
+                SettingsViewModel = new SettingsViewModel
+                {
+                    FocusLogFileTextBoxAction = logFileTextBox.Focus,
+                    LogFile = Properties.Settings.Default.LogFile,
+                },
                 Version = ver,
             };
 
