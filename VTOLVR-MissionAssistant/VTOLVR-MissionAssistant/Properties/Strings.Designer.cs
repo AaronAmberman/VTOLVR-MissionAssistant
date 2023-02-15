@@ -196,6 +196,24 @@ namespace VTOLVR_MissionAssistant.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred attempting to write to the log file. Unable to log..
+        /// </summary>
+        public static string LogWriteErrorMessage {
+            get {
+                return ResourceManager.GetString("LogWriteErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log Write Error.
+        /// </summary>
+        public static string LogWriteErrorTitle {
+            get {
+                return ResourceManager.GetString("LogWriteErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to VTOL VR Mission Assistant.
         /// </summary>
         public static string MainWindowTitle {

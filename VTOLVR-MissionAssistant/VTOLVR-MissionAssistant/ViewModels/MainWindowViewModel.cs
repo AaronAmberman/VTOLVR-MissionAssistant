@@ -109,6 +109,15 @@ namespace VTOLVR_MissionAssistant.ViewModels
 
         #endregion
 
+        #region Constructors
+
+        public MainWindowViewModel()
+        {
+            ServiceLocator.Instance.Logger.LogWriteError += Logger_LogWriteError;
+        }
+
+        #endregion
+
         #region Methods
 
         private void About()
@@ -173,6 +182,11 @@ namespace VTOLVR_MissionAssistant.ViewModels
             string file = ofd.FileName;
 
             SettingsViewModel.LogFile = file;
+        }
+
+        private void Logger_LogWriteError(object sender, EventArgs e)
+        {
+            ShowMessageBox(Properties.Strings.LogWriteErrorMessage, Properties.Strings.LogWriteErrorTitle, MessageBoxButton.OK, MessageBoxInternalDialogImage.CriticalError);
         }
 
         public void ShowMessageBox(string message)

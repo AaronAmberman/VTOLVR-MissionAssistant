@@ -162,6 +162,12 @@
   <data name="LogSettingFileNote" xml:space="preserve">
     <value>Note: by default the application will log to where it is executing (unless this setting is set).</value>
   </data>
+  <data name="LogWriteErrorMessage" xml:space="preserve">
+    <value>An error occurred attempting to write to the log file. Unable to log.</value>
+  </data>
+  <data name="LogWriteErrorTitle" xml:space="preserve">
+    <value>Log Write Error</value>
+  </data>
   <data name="MainWindowTitle" xml:space="preserve">
     <value>VTOL VR Mission Assistant</value>
   </data>
