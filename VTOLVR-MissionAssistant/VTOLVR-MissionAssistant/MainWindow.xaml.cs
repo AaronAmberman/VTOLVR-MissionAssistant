@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
+using VTOLVR_MissionAssistant.Language;
 using VTOLVR_MissionAssistant.ViewModels;
 
 namespace VTOLVR_MissionAssistant
@@ -44,8 +45,30 @@ namespace VTOLVR_MissionAssistant
                     FocusLogFileTextBoxAction = logFileTextBox.Focus,
                     LogFile = Properties.Settings.Default.LogFile,
                 },
+                Translations = ServiceLocator.Instance.Translator.CurrentTranslations,
                 Version = ver,
             };
+
+            if (Properties.Settings.Default.Culture == "en")
+            {
+                viewModel.SettingsViewModel.SelectedLanguage = viewModel.SettingsViewModel.Languages[0];
+            }
+            else if (Properties.Settings.Default.Culture == "zh-Hans")
+            {
+                viewModel.SettingsViewModel.SelectedLanguage = viewModel.SettingsViewModel.Languages[1];
+            }
+            else if (Properties.Settings.Default.Culture == "ja")
+            {
+                viewModel.SettingsViewModel.SelectedLanguage = viewModel.SettingsViewModel.Languages[2];
+            }
+            else if (Properties.Settings.Default.Culture == "ko")
+            {
+                viewModel.SettingsViewModel.SelectedLanguage = viewModel.SettingsViewModel.Languages[3];
+            }
+            else if (Properties.Settings.Default.Culture == "ru")
+            {
+                viewModel.SettingsViewModel.SelectedLanguage = viewModel.SettingsViewModel.Languages[4];
+            }
 
             DataContext = viewModel;
 

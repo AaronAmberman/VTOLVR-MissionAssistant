@@ -43,6 +43,30 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Remove="Languages\Language.en.xaml" />
+    <Page Remove="Languages\Language.ja.xaml" />
+    <Page Remove="Languages\Language.ko.xaml" />
+    <Page Remove="Languages\Language.ru.xaml" />
+    <Page Remove="Languages\Language.zh-Hans.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Languages\Language.en.xaml" />
+    <Resource Include="Languages\Language.ja.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+    <Resource Include="Languages\Language.ko.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+    <Resource Include="Languages\Language.ru.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+    <Resource Include="Languages\Language.zh-Hans.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="..\..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
@@ -65,23 +89,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Properties\Strings.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Strings.resx</DependentUpon>
-    </Compile>
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\Strings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>

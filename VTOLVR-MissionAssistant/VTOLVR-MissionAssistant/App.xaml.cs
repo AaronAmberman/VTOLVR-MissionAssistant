@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
+using VTOLVR_MissionAssistant.Language;
 
 namespace VTOLVR_MissionAssistant
 {
@@ -14,6 +15,8 @@ namespace VTOLVR_MissionAssistant
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            #region Culture
+
             // ensure we have a culture, if not back to English
             if (string.IsNullOrWhiteSpace(VTOLVR_MissionAssistant.Properties.Settings.Default.Culture))
             {
@@ -25,20 +28,76 @@ namespace VTOLVR_MissionAssistant
             Thread.CurrentThread.CurrentCulture = new CultureInfo(VTOLVR_MissionAssistant.Properties.Settings.Default.Culture);
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(VTOLVR_MissionAssistant.Properties.Settings.Default.Culture);
 
-            //Thread.CurrentThread.CurrentCulture = new CultureInfo("ru");
-            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("ru");
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(VTOLVR_MissionAssistant.Properties.Settings.Default.Culture);
+
+            #endregion
+
+            #region Translator
+
+            // setup our language resources
+            Translator translator = new Translator
+            {
+                KeyContract = new ResourceDictionary
+                {
+                    Source = new Uri("pack://application:,,,/Languages/Language.en.xaml")
+                }
+            };
+
+            try
+            {
+                translator.AddResourceDictionaryForTranslation("en", new ResourceDictionary
+                {
+                    Source = new Uri("pack://application:,,,/Languages/Language.en.xaml")
+                });
+                translator.AddResourceDictionaryForTranslation("ja", new ResourceDictionary
+                {
+                    Source = new Uri("pack://application:,,,/Languages/Language.ja.xaml")
+                });
+                translator.AddResourceDictionaryForTranslation("ko", new ResourceDictionary
+                {
+                    Source = new Uri("pack://application:,,,/Languages/Language.ko.xaml")
+                });
+                translator.AddResourceDictionaryForTranslation("ru", new ResourceDictionary
+                {
+                    Source = new Uri("pack://application:,,,/Languages/Language.ru.xaml")
+                });
+                translator.AddResourceDictionaryForTranslation("zh-Hans", new ResourceDictionary
+                {
+                    Source = new Uri("pack://application:,,,/Languages/Language.zh-Hans.xaml")
+                });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"An error occurred attempting to add a resource dictionary to the translator.{Environment.NewLine}{ex}");
+
+                MessageBox.Show("The translator for the application could be setup properly. Existing application.");
+
+                Environment.Exit(-1);
+                return;
+            }
+
+            ServiceLocator.Instance.Translator = translator;
+            ServiceLocator.Instance.Translator.CurrentTranslations = translator.Translations[VTOLVR_MissionAssistant.Properties.Settings.Default.Culture];
+
+            #endregion
+
+            #region VTOL VR
 
             // check to make sure VTOL is not running
             Process vtol = Process.GetProcesses().FirstOrDefault(p => p.ProcessName == "VTOLVR");
 
             if (vtol != null)
             {
-                MessageBox.Show(VTOLVR_MissionAssistant.Properties.Strings.VTOLRunningMessage, 
-                    VTOLVR_MissionAssistant.Properties.Strings.VTOLRunningTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ServiceLocator.Instance.Translator.CurrentTranslations.VTOLRunningMessage,
+                    ServiceLocator.Instance.Translator.CurrentTranslations.VTOLRunningTitle, MessageBoxButton.OK, MessageBoxImage.Error);
 
-                Environment.Exit(-1);
+                Environment.Exit(-2);
                 return;
             }
+
+            #endregion
+
+            #region Log File
 
             // ensure we have a custom log path, if not...use application location
             if (string.IsNullOrWhiteSpace(VTOLVR_MissionAssistant.Properties.Settings.Default.LogFile))
@@ -65,7 +124,12 @@ namespace VTOLVR_MissionAssistant
                 ServiceLocator.Instance.Logger.LogFile = VTOLVR_MissionAssistant.Properties.Settings.Default.LogFile;
             }
 
-            ServiceLocator.Instance.Logger.Info(VTOLVR_MissionAssistant.Properties.Strings.BeginSession);
+            #endregion
+
+            ServiceLocator.Instance.Logger.Info(ServiceLocator.Instance.Translator.CurrentTranslations.BeginSession);
+
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
         }
 
         private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
@@ -77,8 +141,8 @@ namespace VTOLVR_MissionAssistant
                 ServiceLocator.Instance.Logger.Error($"An unhandled exception occurred. Details:{Environment.NewLine}{e.Exception}");
 
                 // we don't know what happened, tell the user and carry on
-                MessageBox.Show(VTOLVR_MissionAssistant.Properties.Strings.UnhandledErrorMessage,
-                    VTOLVR_MissionAssistant.Properties.Strings.UnhandledErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ServiceLocator.Instance.Translator.CurrentTranslations.UnhandledErrorMessage,
+                    ServiceLocator.Instance.Translator.CurrentTranslations.UnhandledErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (Exception ex)
             {
@@ -90,7 +154,7 @@ namespace VTOLVR_MissionAssistant
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
-            ServiceLocator.Instance.Logger.Info(VTOLVR_MissionAssistant.Properties.Strings.EndSession);
+            ServiceLocator.Instance.Logger.Info(ServiceLocator.Instance.Translator.CurrentTranslations.EndSession);
         }
     }
 }

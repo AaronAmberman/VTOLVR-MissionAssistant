@@ -1,4 +1,5 @@
 ﻿using SimpleLogger;
+using VTOLVR_MissionAssistant.Language;
 using VTOLVR_MissionAssistant.ViewModels;
 
 namespace VTOLVR_MissionAssistant
@@ -29,6 +30,8 @@ namespace VTOLVR_MissionAssistant
         public MainWindowViewModel MainWindowViewModel { get; set; }
 
         public Logger Logger { get; set; }
+
+        public Translator Translator { get; set; }
 
         #endregion
 

@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using WPF.InternalDialogs;
@@ -15,6 +18,7 @@ namespace VTOLVR_MissionAssistant.ViewModels
         private string logFile;
         private ICommand okCommand;
         private MessageBoxResult result;
+        private Tuple<string, string> selectedLanguage;
         private Visibility visibility = Visibility.Collapsed;
 
         #endregion
@@ -24,6 +28,15 @@ namespace VTOLVR_MissionAssistant.ViewModels
         public ICommand CancelCommand => cancelCommand ??= new RelayCommand(Cancel);
 
         public Func<bool> FocusLogFileTextBoxAction { get; set; }
+
+        public List<Tuple<string, string>> Languages { get; set; } = new List<Tuple<string, string>>
+        {
+            new Tuple<string, string>("en", ServiceLocator.Instance.Translator.CurrentTranslations.English),
+            new Tuple<string, string>("zh-Hans", ServiceLocator.Instance.Translator.CurrentTranslations.Chinese), //Chinese (Simplified)
+            new Tuple<string, string>("ja", ServiceLocator.Instance.Translator.CurrentTranslations.Japanese),
+            new Tuple<string, string>("ko", ServiceLocator.Instance.Translator.CurrentTranslations.Korean),
+            new Tuple<string, string>("ru", ServiceLocator.Instance.Translator.CurrentTranslations.Russian)
+        };
 
         public string LogFile
         {
@@ -43,6 +56,16 @@ namespace VTOLVR_MissionAssistant.ViewModels
             set
             {
                 result = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Tuple<string, string> SelectedLanguage
+        {
+            get => selectedLanguage;
+            set
+            {
+                selectedLanguage = value;
                 OnPropertyChanged();
             }
         }
@@ -71,12 +94,35 @@ namespace VTOLVR_MissionAssistant.ViewModels
 
         private void Ok()
         {
+            ProcessLanguage();
+            ProcessLogFile();
+
+            Result = MessageBoxResult.OK;
+            Visibility = Visibility.Collapsed;
+        }
+
+        private void ProcessLanguage()
+        {
+            if (SelectedLanguage.Item1 != Properties.Settings.Default.Culture)
+            {
+                Properties.Settings.Default.Culture = SelectedLanguage.Item1;
+                Properties.Settings.Default.Save();
+
+                Thread.CurrentThread.CurrentCulture = new CultureInfo(SelectedLanguage.Item1);
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(SelectedLanguage.Item1);
+
+                CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(Properties.Settings.Default.Culture);
+            }
+        }
+
+        private void ProcessLogFile()
+        {
             if (!string.IsNullOrWhiteSpace(LogFile))
             {
                 if (!File.Exists(LogFile))
                 {
-                    ServiceLocator.Instance.MainWindowViewModel.ShowMessageBox(Properties.Strings.LogFileNotExistsMessage,
-                        Properties.Strings.LogFileNotExistsTitle, MessageBoxButton.OK, MessageBoxInternalDialogImage.CriticalError);
+                    ServiceLocator.Instance.MainWindowViewModel.ShowMessageBox(ServiceLocator.Instance.Translator.CurrentTranslations.LogFileNotExistsMessage,
+                        ServiceLocator.Instance.Translator.CurrentTranslations.LogFileNotExistsTitle, MessageBoxButton.OK, MessageBoxInternalDialogImage.CriticalError);
 
                     FocusLogFileTextBoxAction?.Invoke();
 
@@ -108,9 +154,6 @@ namespace VTOLVR_MissionAssistant.ViewModels
             // allow the setting to take the entered path or null but not bad input
             Properties.Settings.Default.LogFile = LogFile;
             Properties.Settings.Default.Save();
-
-            Result = MessageBoxResult.OK;
-            Visibility = Visibility.Collapsed;
         }
 
         #endregion

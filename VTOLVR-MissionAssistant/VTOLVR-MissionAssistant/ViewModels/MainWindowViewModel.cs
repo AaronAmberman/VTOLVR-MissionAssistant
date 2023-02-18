@@ -1,8 +1,10 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
+using VTOLVR_MissionAssistant.Language;
 using VTS.Data.Runtime;
 using WPF.InternalDialogs;
 
@@ -22,6 +24,7 @@ namespace VTOLVR_MissionAssistant.ViewModels
         private MessageBoxViewModel messageBoxViewModel;
         private SettingsViewModel settingsViewModel;
         private ICommand showSettingsCommand;
+        private dynamic translations;
         private string version;
         private CustomScenario vtsFile;
 
@@ -44,6 +47,16 @@ namespace VTOLVR_MissionAssistant.ViewModels
         public ICommand BrowseCommand => browseCommand ??= new RelayCommand(Browse);
 
         public ICommand BrowseLogCommand => browseLogCommand ??= new RelayCommand(BrowseLog);
+
+        public dynamic Translations
+        {
+            get => translations;
+            set
+            {
+                translations = value;
+                OnPropertyChanged();
+            }
+        }
 
         public Visibility DataNeededVisibility
         {
@@ -135,7 +148,7 @@ namespace VTOLVR_MissionAssistant.ViewModels
                 Filter = "VTS Files(*.vts)|*.vts",
                 InitialDirectory = @"C:\Program Files (x86)\Steam\steamapps\common\VTOL VR\CustomScenarios",
                 Multiselect = false,
-                Title = Properties.Strings.BrowseTitle,
+                Title = ServiceLocator.Instance.Translator.CurrentTranslations.BrowseTitle,
                 ValidateNames = true
             };
 
@@ -150,7 +163,7 @@ namespace VTOLVR_MissionAssistant.ViewModels
 
             if (scenario.HasError)
             {
-                ShowMessageBox(Properties.Strings.VtsFileReadErrorMessage, Properties.Strings.FileReadErrorTitle, MessageBoxButton.OK, MessageBoxInternalDialogImage.Warning);
+                ShowMessageBox(ServiceLocator.Instance.Translator.CurrentTranslations.VtsFileReadErrorMessage, ServiceLocator.Instance.Translator.CurrentTranslations.FileReadErrorTitle, MessageBoxButton.OK, MessageBoxInternalDialogImage.Warning);
             }
             else
             {
@@ -170,7 +183,7 @@ namespace VTOLVR_MissionAssistant.ViewModels
                 Filter = "Text Files(*.txt)|*.txt|Log Files(*.log)|*.log",
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
                 Multiselect = false,
-                Title = Properties.Strings.BrowseTitle,
+                Title = ServiceLocator.Instance.Translator.CurrentTranslations.BrowseTitle,
                 ValidateNames = true
             };
 
@@ -186,7 +199,7 @@ namespace VTOLVR_MissionAssistant.ViewModels
 
         private void Logger_LogWriteError(object sender, EventArgs e)
         {
-            ShowMessageBox(Properties.Strings.LogWriteErrorMessage, Properties.Strings.LogWriteErrorTitle, MessageBoxButton.OK, MessageBoxInternalDialogImage.CriticalError);
+            ShowMessageBox(ServiceLocator.Instance.Translator.CurrentTranslations.LogWriteErrorMessage, ServiceLocator.Instance.Translator.CurrentTranslations.LogWriteErrorTitle, MessageBoxButton.OK, MessageBoxInternalDialogImage.CriticalError);
         }
 
         public void ShowMessageBox(string message)
