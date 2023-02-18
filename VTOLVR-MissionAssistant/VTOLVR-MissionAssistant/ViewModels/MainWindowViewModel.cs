@@ -48,16 +48,6 @@ namespace VTOLVR_MissionAssistant.ViewModels
 
         public ICommand BrowseLogCommand => browseLogCommand ??= new RelayCommand(BrowseLog);
 
-        public dynamic Translations
-        {
-            get => translations;
-            set
-            {
-                translations = value;
-                OnPropertyChanged();
-            }
-        }
-
         public Visibility DataNeededVisibility
         {
             get => dataNeededVisibility;
@@ -99,6 +89,16 @@ namespace VTOLVR_MissionAssistant.ViewModels
         }
 
         public ICommand ShowSettingsCommand => showSettingsCommand ??= new RelayCommand(ShowSettings);
+
+        public dynamic Translations
+        {
+            get => translations;
+            set
+            {
+                translations = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string Version
         {
