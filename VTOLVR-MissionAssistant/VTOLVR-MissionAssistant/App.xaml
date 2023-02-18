@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:VTOLVR_MissionAssistant"
              xmlns:converter="clr-namespace:VTOLVR_MissionAssistant.Converters"
+             StartupUri="MainWindow.xaml"
              Startup="Application_Startup"
              DispatcherUnhandledException="Application_DispatcherUnhandledException"
              Exit="Application_Exit">

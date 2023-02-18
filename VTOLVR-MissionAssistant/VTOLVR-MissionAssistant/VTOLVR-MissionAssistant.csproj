@@ -86,6 +86,9 @@
     <Reference Include="WPF.InternalDialogs">
       <HintPath>..\dependencies\WPF.InternalDialogs\WPF.InternalDialogs.dll</HintPath>
     </Reference>
+    <Reference Include="WPF.Translations">
+      <HintPath>..\dependencies\WPF.Translations\WPF.Translations.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

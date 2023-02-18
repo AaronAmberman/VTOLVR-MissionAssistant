@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
-using VTOLVR_MissionAssistant.Language;
+using WPF.Translations;
 
 namespace VTOLVR_MissionAssistant
 {
@@ -34,37 +34,45 @@ namespace VTOLVR_MissionAssistant
 
             #region Translator
 
-            // setup our language resources
-            Translator translator = new Translator
-            {
-                KeyContract = new ResourceDictionary
-                {
-                    Source = new Uri("pack://application:,,,/Languages/Language.en.xaml")
-                }
-            };
-
             try
             {
-                translator.AddResourceDictionaryForTranslation("en", new ResourceDictionary
+                ResourceDictionaryTranslationDataProvider rdtdp = new ResourceDictionaryTranslationDataProvider();
+
+                Translation keyContract = new Translation(new ResourceDictionary
+                {
+                    Source = new Uri("pack://application:,,,/Languages/Language.en.xaml")
+                }, rdtdp);
+
+                // setup our language resources
+                Translator<ResourceDictionary> translator = new Translator<ResourceDictionary>
+                {
+                    KeyContract = keyContract,
+                    TranslationDataProvider = rdtdp
+                };
+
+                translator.AddResourceForTranslation("en", new ResourceDictionary
                 {
                     Source = new Uri("pack://application:,,,/Languages/Language.en.xaml")
                 });
-                translator.AddResourceDictionaryForTranslation("ja", new ResourceDictionary
+                translator.AddResourceForTranslation("ja", new ResourceDictionary
                 {
                     Source = new Uri("pack://application:,,,/Languages/Language.ja.xaml")
                 });
-                translator.AddResourceDictionaryForTranslation("ko", new ResourceDictionary
+                translator.AddResourceForTranslation("ko", new ResourceDictionary
                 {
                     Source = new Uri("pack://application:,,,/Languages/Language.ko.xaml")
                 });
-                translator.AddResourceDictionaryForTranslation("ru", new ResourceDictionary
+                translator.AddResourceForTranslation("ru", new ResourceDictionary
                 {
                     Source = new Uri("pack://application:,,,/Languages/Language.ru.xaml")
                 });
-                translator.AddResourceDictionaryForTranslation("zh-Hans", new ResourceDictionary
+                translator.AddResourceForTranslation("zh-Hans", new ResourceDictionary
                 {
                     Source = new Uri("pack://application:,,,/Languages/Language.zh-Hans.xaml")
                 });
+
+                ServiceLocator.Instance.Translator = translator;
+                ServiceLocator.Instance.Translator.CurrentTranslations = translator.Translations[VTOLVR_MissionAssistant.Properties.Settings.Default.Culture];
             }
             catch (Exception ex)
             {
@@ -75,9 +83,6 @@ namespace VTOLVR_MissionAssistant
                 Environment.Exit(-1);
                 return;
             }
-
-            ServiceLocator.Instance.Translator = translator;
-            ServiceLocator.Instance.Translator.CurrentTranslations = translator.Translations[VTOLVR_MissionAssistant.Properties.Settings.Default.Culture];
 
             #endregion
 
@@ -127,9 +132,6 @@ namespace VTOLVR_MissionAssistant
             #endregion
 
             ServiceLocator.Instance.Logger.Info(ServiceLocator.Instance.Translator.CurrentTranslations.BeginSession);
-
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
         }
 
         private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
@@ -155,6 +157,7 @@ namespace VTOLVR_MissionAssistant
         private void Application_Exit(object sender, ExitEventArgs e)
         {
             ServiceLocator.Instance.Logger.Info(ServiceLocator.Instance.Translator.CurrentTranslations.EndSession);
+            ServiceLocator.Instance.Translator.Dispose();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using SimpleLogger;
-using VTOLVR_MissionAssistant.Language;
+using System.Windows;
 using VTOLVR_MissionAssistant.ViewModels;
+using WPF.Translations;
 
 namespace VTOLVR_MissionAssistant
 {
@@ -31,7 +32,7 @@ namespace VTOLVR_MissionAssistant
 
         public Logger Logger { get; set; }
 
-        public Translator Translator { get; set; }
+        public Translator<ResourceDictionary> Translator { get; set; }
 
         #endregion
 

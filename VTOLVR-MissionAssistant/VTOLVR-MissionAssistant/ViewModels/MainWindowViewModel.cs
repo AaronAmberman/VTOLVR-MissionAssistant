@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
-using VTOLVR_MissionAssistant.Language;
 using VTS.Data.Runtime;
 using WPF.InternalDialogs;
 

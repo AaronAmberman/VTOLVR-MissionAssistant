@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
-using VTOLVR_MissionAssistant.Language;
 using VTOLVR_MissionAssistant.ViewModels;
 
 namespace VTOLVR_MissionAssistant

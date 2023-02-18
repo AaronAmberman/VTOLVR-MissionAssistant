@@ -22,7 +22,7 @@
     <system:String x:Key="LogSettingFileNote">Note: by default the application will log to where it is executing (unless this setting is set).</system:String>
     <system:String x:Key="LogWriteErrorMessage">An error occurred attempting to write to the log file. Unable to log.</system:String>
     <system:String x:Key="LogWriteErrorTitle">Log Write Error</system:String>
-    <system:String x:Key="MainWindowTitle">VTOL VR Mission Assistant</system:String>
+    <system:String x:Key="MainWindowTitle">VTOL VR 미션 어시스턴트</system:String>
     <system:String x:Key="No">No</system:String>
     <system:String x:Key="OK">OK</system:String>
     <system:String x:Key="Russian">Русский</system:String>
