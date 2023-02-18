@@ -114,6 +114,7 @@ namespace VTOLVR_MissionAssistant.ViewModels
                 CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(Properties.Settings.Default.Culture);
 
                 ServiceLocator.Instance.Translator.CurrentTranslations = ServiceLocator.Instance.Translator.Translations[Properties.Settings.Default.Culture];
+                ServiceLocator.Instance.MainWindowViewModel.Translations = ServiceLocator.Instance.Translator.CurrentTranslations;
             }
         }
 
