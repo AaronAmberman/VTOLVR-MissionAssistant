@@ -21,6 +21,8 @@ namespace VTOLVR_MissionAssistant.ViewModels
         private string fileForData;
         private MessageBoxViewModel messageBoxViewModel;
         private SettingsViewModel settingsViewModel;
+        private ICommand scenarioInfoCommand;
+        private ScenarioInfoViewModel scenarioInfoViewModel;
         private ICommand showSettingsCommand;
         private dynamic translations;
         private string version;
@@ -76,6 +78,16 @@ namespace VTOLVR_MissionAssistant.ViewModels
             }
         }
 
+        public ScenarioInfoViewModel ScenarioInfoViewModel 
+        { 
+            get => scenarioInfoViewModel;
+            set
+            {
+                scenarioInfoViewModel = value;
+                OnPropertyChanged();
+            }
+        }
+
         public SettingsViewModel SettingsViewModel
         {
             get { return settingsViewModel; }
@@ -85,6 +97,8 @@ namespace VTOLVR_MissionAssistant.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        public ICommand ScenarioInfoCommand => scenarioInfoCommand ??= new RelayCommand(ShowScenarioInfo);
 
         public ICommand ShowSettingsCommand => showSettingsCommand ??= new RelayCommand(ShowSettings);
 
@@ -230,6 +244,11 @@ namespace VTOLVR_MissionAssistant.ViewModels
             MessageBoxViewModel.MessageBoxVisibility = visibility;
         }
 
+        private void ShowScenarioInfo()
+        {
+            ScenarioInfoViewModel.Visibility = Visibility.Visible;
+        }
+
         private void ShowSettings()
         {
             SettingsViewModel.Visibility = Visibility.Visible;
@@ -240,9 +259,17 @@ namespace VTOLVR_MissionAssistant.ViewModels
             Debug.WriteLine(message);
 
             if (message.Contains("error", StringComparison.OrdinalIgnoreCase) || message.Contains("exception", StringComparison.OrdinalIgnoreCase))
+            {
                 ServiceLocator.Instance.Logger.Error(message);
+
+
+            }
             else
+            {
                 ServiceLocator.Instance.Logger.Warning(message);
+
+
+            }
         }
 
         #endregion
