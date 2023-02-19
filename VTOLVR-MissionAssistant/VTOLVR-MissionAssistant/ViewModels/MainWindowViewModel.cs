@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
@@ -18,6 +19,7 @@ namespace VTOLVR_MissionAssistant.ViewModels
         private ICommand browseCommand;
         private ICommand browseLogCommand;
         private Visibility dataNeededVisibility = Visibility.Collapsed;
+        private ObservableCollection<string> errors = new ObservableCollection<string>();
         private string fileForData;
         private MessageBoxViewModel messageBoxViewModel;
         private SettingsViewModel settingsViewModel;
@@ -27,6 +29,7 @@ namespace VTOLVR_MissionAssistant.ViewModels
         private dynamic translations;
         private string version;
         private CustomScenario vtsFile;
+        private ObservableCollection<string> warnings = new ObservableCollection<string>();
 
         #endregion
 
@@ -58,6 +61,16 @@ namespace VTOLVR_MissionAssistant.ViewModels
             }
         }
 
+        public ObservableCollection<string> Errors 
+        { 
+            get => errors;
+            set
+            {
+                errors = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string FileForData
         {
             get => fileForData;
@@ -78,8 +91,8 @@ namespace VTOLVR_MissionAssistant.ViewModels
             }
         }
 
-        public ScenarioInfoViewModel ScenarioInfoViewModel 
-        { 
+        public ScenarioInfoViewModel ScenarioInfoViewModel
+        {
             get => scenarioInfoViewModel;
             set
             {
@@ -128,6 +141,16 @@ namespace VTOLVR_MissionAssistant.ViewModels
             set
             {
                 vtsFile = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<string> Warnings
+        {
+            get => warnings;
+            set
+            {
+                warnings = value;
                 OnPropertyChanged();
             }
         }
@@ -262,13 +285,13 @@ namespace VTOLVR_MissionAssistant.ViewModels
             {
                 ServiceLocator.Instance.Logger.Error(message);
 
-
+                Errors.Add(message);
             }
             else
             {
                 ServiceLocator.Instance.Logger.Warning(message);
 
-
+                Warnings.Add(message);
             }
         }
 

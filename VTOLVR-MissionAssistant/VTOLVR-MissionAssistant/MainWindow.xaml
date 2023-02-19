@@ -11,7 +11,7 @@
         d:DataContext="{d:DesignInstance {x:Type viewModels:MainWindowViewModel}}"
         Icon="pack://application:,,,/Images/Icon.ico"
         Title="{Binding Translations.MainWindowTitle, FallbackValue=VTOL VR Mission Assistant}" 
-        Height="768" Width="1024" MinHeight="720" MinWidth="960" WindowStartupLocation="CenterScreen"
+        Height="768" Width="1024" WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded" Closing="Window_Closing" Closed="Window_Closed">
     <Grid x:Name="mainGrid" Style="{StaticResource DarkThemeGridStyle}">
         <Grid.RowDefinitions>
@@ -31,7 +31,7 @@
             <Button Grid.Column="3" TabIndex="2" Style="{StaticResource ToolBarButton}" Content="{StaticResource QuestionMark}"
                     Command="{Binding AboutCommand}" ToolTip="{Binding Translations.About}" />
         </Grid>
-        <Grid x:Name="innerMainGrid" Grid.Row="1" Margin="5,0,5,5">
+        <Grid x:Name="innerMainGrid" Grid.Row="1" Margin="5,10,5,5">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -121,13 +121,21 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <customControls:GridSplitterPopupExpander Grid.Column="0" Margin="0,0,5,0" Background="#FF2F2F2F"
+                    <customControls:GridSplitterPopupExpander Grid.Column="0" Margin="0,0,5,0" Background="#FF2F2F2F" ExpandDirection="Up"
                                                               Header="{Binding Translations.Warnings, FallbackValue=Warnings}">
-                        <!-- Add list view for warnings -->
+                        <Grid>
+                            <ListView ItemsSource="{Binding Warnings}">
+                                
+                            </ListView>
+                        </Grid>
                     </customControls:GridSplitterPopupExpander>
-                    <customControls:GridSplitterPopupExpander Grid.Column="1" Background="#FF2F2F2F"
+                    <customControls:GridSplitterPopupExpander Grid.Column="1" Background="#FF2F2F2F" ExpandDirection="Up"
                                                               Header="{Binding Translations.Errors, FallbackValue=Errors}">
-                        <!-- Add list view for errors -->
+                        <Grid>
+                            <ListView ItemsSource="{Binding Errors}">
+
+                            </ListView>
+                        </Grid>
                     </customControls:GridSplitterPopupExpander>
                 </Grid>
             </Grid>
