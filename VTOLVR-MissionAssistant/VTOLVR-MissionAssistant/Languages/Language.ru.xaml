@@ -43,6 +43,7 @@
     <system:String x:Key="Triggered">Triggered</system:String>
     <system:String x:Key="UnhandledErrorMessage">An unhandled exception occurred in the application. We have logged it. Please see log for further details.</system:String>
     <system:String x:Key="UnhandledErrorTitle">Unhandled Error</system:String>
+    <system:String x:Key="Units">Units</system:String>
     <system:String x:Key="Version">Version</system:String>
     <system:String x:Key="VTOLRunningMessage">VTOL VR is still running. Please close it and re-launch this application.</system:String>
     <system:String x:Key="VTOLRunningTitle">VTOL VR Running</system:String>

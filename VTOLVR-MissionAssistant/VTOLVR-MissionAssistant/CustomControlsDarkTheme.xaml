@@ -78,9 +78,9 @@
     <Style x:Key="HighlightRoundableToggleButton" TargetType="{x:Type customControls:RoundableToggleButton}" 
            BasedOn="{StaticResource {x:Type customControls:RoundableToggleButton}}">
         <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}"/>
-        <Setter Property="Background" Value="#FFDDDDDD"/>
+        <Setter Property="Background" Value="#FF2F2F2F"/>
         <Setter Property="BorderBrush" Value="#FF707070"/>
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="Foreground" Value="#FFFFFFFF"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -105,21 +105,21 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="Background" TargetName="border" Value="#FF95B5C7" />
-                            <Setter Property="BorderBrush" TargetName="border" Value="#FF2A5A80" />
+                            <Setter Property="Background" TargetName="border" Value="#FF1F1F1F" />
+                            <Setter Property="BorderBrush" TargetName="border" Value="#FF505050" />
                             <Setter Property="Visibility" TargetName="highlightBorder" Value="Visible" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" TargetName="border" Value="#FFBEE6FD"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="#FF3C7FB1"/>
+                            <Setter Property="Background" TargetName="border" Value="#FF3F3F3F"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="#FF909090"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+                            <Setter Property="Background" TargetName="border" Value="#FF0F0F0F"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="#FF404040"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                            <Setter Property="Background" TargetName="border" Value="#773D3D3D"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="#FF3D3D3D"/>
                             <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -127,4 +127,8 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <!-- Apply styles to controls -->
+    <Style BasedOn="{StaticResource HighlightWatermarkTextBox}" TargetType="customControls:WatermarkTextBox" />
+    <Style BasedOn="{StaticResource HighlightRoundableToggleButton}" TargetType="customControls:RoundableToggleButton" />
 </ResourceDictionary>

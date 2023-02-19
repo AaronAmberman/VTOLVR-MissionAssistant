@@ -31,7 +31,7 @@
             <Button Grid.Column="3" TabIndex="2" Style="{StaticResource ToolBarButton}" Content="{StaticResource QuestionMark}"
                     Command="{Binding AboutCommand}" ToolTip="{Binding Translations.About}" />
         </Grid>
-        <Grid x:Name="innerMainGrid" Grid.Row="1" Margin="5">
+        <Grid x:Name="innerMainGrid" Grid.Row="1" Margin="5,0,5,5">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -120,11 +120,13 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <customControls:GridSplitterPopupExpander Grid.Column="0" Margin="0,0,5,0" Header="{Binding Translations.Warnings, FallbackValue=Warnings}">
-                        
+                    <customControls:GridSplitterPopupExpander Grid.Column="0" Margin="0,0,5,0" Background="#FF2F2F2F"
+                                                              Header="{Binding Translations.Warnings, FallbackValue=Warnings}">
+                        <!-- Add list view for warnings -->
                     </customControls:GridSplitterPopupExpander>
-                    <customControls:GridSplitterPopupExpander Grid.Column="1" Header="{Binding Translations.Errors, FallbackValue=Errors}">
-                        
+                    <customControls:GridSplitterPopupExpander Grid.Column="1" Background="#FF2F2F2F"
+                                                              Header="{Binding Translations.Errors, FallbackValue=Errors}">
+                        <!-- Add list view for errors -->
                     </customControls:GridSplitterPopupExpander>
                 </Grid>
             </Grid>
