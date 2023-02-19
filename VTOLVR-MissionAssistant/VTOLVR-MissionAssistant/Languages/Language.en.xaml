@@ -4,6 +4,8 @@
     <system:String x:Key="About">About</system:String>
     <system:String x:Key="AboutApp">About VTOL VR Mission Assistant</system:String>
     <system:String x:Key="AboutAppMessage">This application is intended to provide assistance in managing the VTS file in ways that are not built into VTOL VR. You can sequentially re-index your units so there are not gaps and you can get an accurate count of how many units you have. It can copy most any object in the VTS file as well. Also, it can map out what is used where by tracking index references.</system:String>
+    <system:String x:Key="Allied">Allied</system:String>
+    <system:String x:Key="Bases">Bases</system:String>
     <system:String x:Key="BeginSession">Begin session</system:String>
     <system:String x:Key="Browse">Browse</system:String>
     <system:String x:Key="BrowseTitle">Browse for File</system:String>
@@ -11,7 +13,10 @@
     <system:String x:Key="Chinese">中文</system:String>
     <system:String x:Key="DataTitle">VTS Data Needed</system:String>
     <system:String x:Key="EndSession">End session</system:String>
+    <system:String x:Key="Enemy">Enemy</system:String>
     <system:String x:Key="English">English</system:String>
+    <system:String x:Key="Errors">Errors</system:String>
+    <system:String x:Key="Events">Events</system:String>
     <system:String x:Key="FileReadErrorTitle">File Read Error</system:String>
     <system:String x:Key="Japanese">日本語</system:String>
     <system:String x:Key="Korean">한국어</system:String>
@@ -23,10 +28,19 @@
     <system:String x:Key="LogWriteErrorMessage">An error occurred attempting to write to the log file. Unable to log.</system:String>
     <system:String x:Key="LogWriteErrorTitle">Log Write Error</system:String>
     <system:String x:Key="MainWindowTitle">VTOL VR Mission Assistant</system:String>
+    <system:String x:Key="Name">Name</system:String>
     <system:String x:Key="No">No</system:String>
+    <system:String x:Key="Objectives">Objectives</system:String>
     <system:String x:Key="OK">OK</system:String>
+    <system:String x:Key="Paths">Paths</system:String>
     <system:String x:Key="Russian">Русский</system:String>
+    <system:String x:Key="Sequence">Sequence</system:String>
     <system:String x:Key="Settings">Settings</system:String>
+    <system:String x:Key="ScenarioId">Scenario ID</system:String>
+    <system:String x:Key="ScenarioInfo">Scenario Info</system:String>
+    <system:String x:Key="StaticObjects">Static Objects</system:String>
+    <system:String x:Key="Timed">Timed</system:String>
+    <system:String x:Key="Triggered">Triggered</system:String>
     <system:String x:Key="UnhandledErrorMessage">An unhandled exception occurred in the application. We have logged it. Please see log for further details.</system:String>
     <system:String x:Key="UnhandledErrorTitle">Unhandled Error</system:String>
     <system:String x:Key="Version">Version</system:String>
@@ -34,5 +48,7 @@
     <system:String x:Key="VTOLRunningTitle">VTOL VR Running</system:String>
     <system:String x:Key="VTSFile">VTS file</system:String>
     <system:String x:Key="VtsFileReadErrorMessage">The file could not be read properly. Please see log for more details.</system:String>
+    <system:String x:Key="Warnings">Warnings</system:String>
+    <system:String x:Key="Waypoints">Waypoints</system:String>
     <system:String x:Key="Yes">Yes</system:String>
 </ResourceDictionary>
