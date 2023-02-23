@@ -122,15 +122,16 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <customControls:GridSplitterPopupExpander Grid.Column="0" Margin="0,0,5,0" Background="#FF2F2F2F" Foreground="#FFFFFFFF"
-                                                              ExpandDirection="Up" PopupMinimumHeight="100"
+                                                              ExpandDirection="Up" PopupVerticalOffset="-2" PopupMinimumHeight="100" PopupPreferredHeight="400"
                                                               PopupMaximumHeight="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow}}, Path=ActualHeight, Converter={StaticResource ArithmeticConverter}, ConverterParameter=-70}"
                                                               PopupHorizontalOffset="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow}}, Path=ActualWidth, Converter={StaticResource ArithmeticConverter}, ConverterParameter=-80}"
-                                                              PopupVerticalOffset="-2"
-                                                              Header="{Binding Translations.Warnings, FallbackValue=Warnings}">
+                                                              PopupMaximumWidth="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow}}, Path=ActualWidth, Converter={StaticResource ArithmeticConverter}, ConverterParameter=-25}"
+                                                              Header="{Binding Translations.Warnings, FallbackValue=Warnings}"
+                                                              GridSplitterBackground="#FF007BFF">
                         <Grid>
                             <ListView ItemsSource="{Binding Warnings}" 
                                       Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow}}, Path=ActualWidth, Converter={StaticResource ArithmeticConverter}, ConverterParameter=-25}">
-                                
+
                             </ListView>
                         </Grid>
                     </customControls:GridSplitterPopupExpander>
