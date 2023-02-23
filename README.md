@@ -23,3 +23,13 @@ It is just me on this project for now but others may join in the future who know
 VTOL VR Mission Assistant helps in managing and modifying the VTS file for VTOL VR missions. However, it is not a replacement for the mission editor in VTOL VR itself. It just provides some extra functionality I wish was natively there. Like the ability to re-index your units so they are sequential again or the ability to copy events or objectives.
 
 Major point of usage. DO NOT use the application while VTOL VR is running. In fact the application won't launch if you are running VTOL VR. Just best to avoid two applications trying to manage the same file. Second major point of usage. The application automatically backs up the VTS file before making any modifications to it.
+
+# Alpha Development
+I've started development and have been working to build out the UI and basic ingestion workflow.
+
+![image](https://user-images.githubusercontent.com/23512394/220999012-76e4cb00-7069-479e-82dc-cdb19e563b83.png)
+
+![image](https://user-images.githubusercontent.com/23512394/220999120-f01e7317-3515-40af-b5e4-fe0ebff0cfbb.png)
+
+![image](https://user-images.githubusercontent.com/23512394/220999214-5bd13174-6d1d-4d8b-9121-c58defc3633a.png)
+
