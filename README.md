@@ -25,7 +25,7 @@ VTOL VR Mission Assistant helps in managing and modifying the VTS file for VTOL 
 Major point of usage. DO NOT use the application while VTOL VR is running. In fact the application won't launch if you are running VTOL VR. Just best to avoid two applications trying to manage the same file. Second major point of usage. The application automatically backs up the VTS file before making any modifications to it.
 
 ## VTS API
-This application uses the [VTS API](https://github.com/AaronAmberman/VTS.Data) I made to assiting in reading and writing VTS file. Please check it out.
+This application uses the [VTS API](https://github.com/AaronAmberman/VTS.Data) I made to assit in reading and writing VTS file. Please check it out.
 
 # Alpha Development
 I've started development and have been working to build out the UI and basic ingestion workflow.
