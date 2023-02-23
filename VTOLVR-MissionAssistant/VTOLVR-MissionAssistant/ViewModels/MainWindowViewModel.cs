@@ -1,7 +1,9 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using VTS.Data.Runtime;
@@ -29,7 +31,7 @@ namespace VTOLVR_MissionAssistant.ViewModels
         private dynamic translations;
         private string version;
         private CustomScenario vtsFile;
-        private ObservableCollection<string> warnings = new ObservableCollection<string>();
+        private ObservableCollection<WarningViewModel> warnings = new ObservableCollection<WarningViewModel>();
 
         #endregion
 
@@ -145,7 +147,7 @@ namespace VTOLVR_MissionAssistant.ViewModels
             }
         }
 
-        public ObservableCollection<string> Warnings
+        public ObservableCollection<WarningViewModel> Warnings
         {
             get => warnings;
             set
@@ -198,7 +200,8 @@ namespace VTOLVR_MissionAssistant.ViewModels
 
             if (scenario.HasError)
             {
-                ShowMessageBox(ServiceLocator.Instance.Translator.CurrentTranslations.VtsFileReadErrorMessage, ServiceLocator.Instance.Translator.CurrentTranslations.FileReadErrorTitle, MessageBoxButton.OK, MessageBoxInternalDialogImage.Warning);
+                ShowMessageBox(ServiceLocator.Instance.Translator.CurrentTranslations.VtsFileReadErrorMessage, 
+                    ServiceLocator.Instance.Translator.CurrentTranslations.FileReadErrorTitle, MessageBoxButton.OK, MessageBoxInternalDialogImage.Warning);
             }
             else
             {
@@ -291,7 +294,31 @@ namespace VTOLVR_MissionAssistant.ViewModels
             {
                 ServiceLocator.Instance.Logger.Warning(message);
 
-                Warnings.Add(message);
+                WarningViewModel warningViewModel = new WarningViewModel();
+
+                if (message.StartsWith("VTS.Data.Runtime.CustomScenario", StringComparison.OrdinalIgnoreCase))
+                {
+                    warningViewModel.Type = "VTS.Data.Runtime.CustomScenario";
+
+                    string temp = message.Replace("VTS.Data.Runtime.CustomScenario", "");
+
+                    int index = temp.IndexOf(':');
+
+                    if (index >= 0)
+                    {
+                        warningViewModel.SubType = temp[..index].Trim();
+                        warningViewModel.Message = temp[(index + 1)..].Trim();
+
+                    }
+                }
+
+                List<WarningViewModel> preSort = Warnings.ToList();
+                preSort.Add(warningViewModel);
+
+                preSort = preSort.OrderBy(x => x.Type).ThenBy(x => x.SubType).ToList();
+
+                Warnings.Clear();
+                Warnings.AddRange(preSort);
             }
         }
 
