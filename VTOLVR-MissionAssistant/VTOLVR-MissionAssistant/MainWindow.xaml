@@ -65,54 +65,85 @@
                     <TabItem Header="{Binding Translations.Units, FallbackValue=Units}">
                         <TabControl TabStripPlacement="Right">
                             <TabItem Header="{Binding Translations.Allied, FallbackValue=Allied}">
-                                
+                                <Grid>
+                                    <ListView ItemsSource="{Binding VtsFile.Units}">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding UnitInstanceId}" />
+                                                <GridViewColumn Header="Name" DisplayMemberBinding="{Binding UnitName}" />
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </Grid>
                             </TabItem>
                             <TabItem Header="{Binding Translations.Enemy, FallbackValue=Enemy}">
+                                <Grid>
 
+                                </Grid>
                             </TabItem>
                         </TabControl>
                     </TabItem>
                     <TabItem Header="{Binding Translations.Paths, FallbackValue=Paths}">
+                        <Grid>
 
+                        </Grid>
                     </TabItem>
                     <TabItem Header="{Binding Translations.Waypoints, FallbackValue=Waypoints}">
+                        <Grid>
 
+                        </Grid>
                     </TabItem>
                     <TabItem Header="{Binding Translations.Events, FallbackValue=Events}">
                         <TabControl TabStripPlacement="Right">
                             <TabItem Header="{Binding Translations.Timed, FallbackValue=Timed}">
+                                <Grid>
 
+                                </Grid>
                             </TabItem>
                             <TabItem Header="{Binding Translations.Triggered, FallbackValue=Triggered}">
+                                <Grid>
 
+                                </Grid>
                             </TabItem>
                             <TabItem Header="{Binding Translations.Sequence, FallbackValue=Sequence}">
+                                <Grid>
 
+                                </Grid>
                             </TabItem>
                         </TabControl>
                     </TabItem>
                     <TabItem Header="{Binding Translations.Objectives, FallbackValue=Objectives}">
                         <TabControl TabStripPlacement="Right">
                             <TabItem Header="{Binding Translations.Allied, FallbackValue=Allied}">
+                                <Grid>
 
+                                </Grid>
                             </TabItem>
                             <TabItem Header="{Binding Translations.Enemy, FallbackValue=Enemy}">
+                                <Grid>
 
+                                </Grid>
                             </TabItem>
                         </TabControl>
                     </TabItem>
                     <TabItem Header="{Binding Translations.Bases, FallbackValue=Bases}">
                         <TabControl TabStripPlacement="Right">
                             <TabItem Header="{Binding Translations.Allied, FallbackValue=Allied}">
+                                <Grid>
 
+                                </Grid>
                             </TabItem>
                             <TabItem Header="{Binding Translations.Enemy, FallbackValue=Enemy}">
+                                <Grid>
 
+                                </Grid>
                             </TabItem>
                         </TabControl>
                     </TabItem>
                     <TabItem Header="{Binding Translations.StaticObjects, FallbackValue=Static Objects}">
+                        <Grid>
 
+                        </Grid>
                     </TabItem>
                 </TabControl>
                 <Grid Grid.Row="2">
@@ -123,7 +154,7 @@
                     </Grid.ColumnDefinitions>
                     <customControls:GridSplitterPopupExpander Grid.Column="0" Margin="0,0,5,0" Background="#FF2F2F2F" Foreground="#FFFFFFFF"
                                                               ExpandDirection="Up" PopupVerticalOffset="-2" PopupMinimumHeight="100" PopupPreferredHeight="400"
-                                                              PopupMaximumHeight="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow}}, Path=ActualHeight, Converter={StaticResource ArithmeticConverter}, ConverterParameter=-70}"
+                                                              PopupMaximumHeight="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow}}, Path=ActualHeight, Converter={StaticResource ArithmeticConverter}, ConverterParameter=-300}"
                                                               PopupHorizontalOffset="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow}}, Path=ActualWidth, Converter={StaticResource ArithmeticConverter}, ConverterParameter=-80}"
                                                               PopupMaximumWidth="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow}}, Path=ActualWidth, Converter={StaticResource ArithmeticConverter}, ConverterParameter=-25}"
                                                               Header="{Binding Translations.Warnings, FallbackValue=Warnings}"
@@ -150,7 +181,7 @@
                     </customControls:GridSplitterPopupExpander>
                     <customControls:GridSplitterPopupExpander Grid.Column="1" Background="#FF2F2F2F" Foreground="#FFFFFFFF" ExpandDirection="Up"
                                                               PopupVerticalOffset="-2" PopupMinimumHeight="100" PopupPreferredHeight="400"
-                                                              PopupMaximumHeight="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow}}, Path=ActualHeight, Converter={StaticResource ArithmeticConverter}, ConverterParameter=-70}"
+                                                              PopupMaximumHeight="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow}}, Path=ActualHeight, Converter={StaticResource ArithmeticConverter}, ConverterParameter=-300}"
                                                               PopupHorizontalOffset="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow}}, Path=ActualWidth, Converter={StaticResource ArithmeticConverter}, ConverterParameter=-122}"
                                                               PopupMaximumWidth="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow}}, Path=ActualWidth, Converter={StaticResource ArithmeticConverter}, ConverterParameter=-25}"
                                                               Header="{Binding Translations.Errors, FallbackValue=Errors}"
