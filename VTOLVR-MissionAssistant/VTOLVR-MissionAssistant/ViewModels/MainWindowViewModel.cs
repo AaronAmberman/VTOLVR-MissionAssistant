@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using VTOLVR_MissionAssistant.ViewModels.Vts;
 using VTS.Data.Runtime;
 using WPF.InternalDialogs;
 
@@ -197,6 +198,8 @@ namespace VTOLVR_MissionAssistant.ViewModels
             string file = ofd.FileName;
 
             CustomScenario scenario = new CustomScenario(file, WriteVtsApiWarnings);
+
+            CustomScenarioViewModel customScenarioViewModel = new CustomScenarioViewModel(scenario);
 
             if (scenario.HasError)
             {
