@@ -62,7 +62,7 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
         {
             return new WaypointViewModel
             {
-                GlobalPoint = GlobalPoint.Clone(),
+                GlobalPoint = GlobalPoint?.Clone(),
                 Id = Id,
                 Name = Name,
                 Parent = Parent

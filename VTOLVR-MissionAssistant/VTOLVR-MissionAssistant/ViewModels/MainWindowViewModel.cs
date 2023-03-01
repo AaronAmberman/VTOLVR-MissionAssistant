@@ -178,39 +178,53 @@ namespace VTOLVR_MissionAssistant.ViewModels
 
         private void Browse()
         {
-            OpenFileDialog ofd = new OpenFileDialog
+            try
             {
-                AddExtension = true,
-                CheckFileExists = true,
-                CheckPathExists = true,
-                Filter = "VTS Files(*.vts)|*.vts",
-                InitialDirectory = @"C:\Program Files (x86)\Steam\steamapps\common\VTOL VR\CustomScenarios",
-                Multiselect = false,
-                Title = ServiceLocator.Instance.Translator.CurrentTranslations.BrowseTitle,
-                ValidateNames = true
-            };
+                OpenFileDialog ofd = new OpenFileDialog
+                {
+                    AddExtension = true,
+                    CheckFileExists = true,
+                    CheckPathExists = true,
+                    Filter = "VTS Files(*.vts)|*.vts",
+                    InitialDirectory = @"C:\Program Files (x86)\Steam\steamapps\common\VTOL VR\CustomScenarios",
+                    Multiselect = false,
+                    Title = ServiceLocator.Instance.Translator.CurrentTranslations.BrowseTitle,
+                    ValidateNames = true
+                };
 
-            bool? result = ofd.ShowDialog();
+                bool? result = ofd.ShowDialog();
 
-            if (!result.HasValue) return;
-            if (!result.Value) return;
+                if (!result.HasValue) return;
+                if (!result.Value) return;
 
-            string file = ofd.FileName;
+                string file = ofd.FileName;
 
-            CustomScenario scenario = new CustomScenario(file, WriteVtsApiWarnings);
+                CustomScenario scenario = new CustomScenario(file, WriteVtsApiWarnings);
 
-            CustomScenarioViewModel customScenarioViewModel = new CustomScenarioViewModel(scenario);
+                if (scenario.HasError)
+                {
+                    ShowMessageBox(ServiceLocator.Instance.Translator.CurrentTranslations.VtsFileReadErrorMessage,
+                        ServiceLocator.Instance.Translator.CurrentTranslations.FileReadErrorTitle, MessageBoxButton.OK, MessageBoxInternalDialogImage.Warning);
+                }
+                else
+                {
+                    CustomScenarioViewModel customScenarioViewModel = new CustomScenarioViewModel(scenario);
 
-            if (scenario.HasError)
-            {
-                ShowMessageBox(ServiceLocator.Instance.Translator.CurrentTranslations.VtsFileReadErrorMessage, 
-                    ServiceLocator.Instance.Translator.CurrentTranslations.FileReadErrorTitle, MessageBoxButton.OK, MessageBoxInternalDialogImage.Warning);
+                    CustomScenarioViewModel clone = customScenarioViewModel.Clone();
+                    clone.File = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "temp.vts");
+                    clone.Save();
+
+                    FileForData = file;
+                    VtsFile = scenario;
+                    DataNeededVisibility = Visibility.Collapsed;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                FileForData = file;
-                VtsFile = scenario;
-                DataNeededVisibility = Visibility.Collapsed;
+                ServiceLocator.Instance.Logger.Error($"An error occurred attempting to read the VTS file.{ Environment.NewLine}{ex}");
+
+                ShowMessageBox(ServiceLocator.Instance.Translator.CurrentTranslations.VtsFileReadErrorMessage,
+                    ServiceLocator.Instance.Translator.CurrentTranslations.FileReadErrorTitle, MessageBoxButton.OK, MessageBoxInternalDialogImage.Warning);
             }
         }
 

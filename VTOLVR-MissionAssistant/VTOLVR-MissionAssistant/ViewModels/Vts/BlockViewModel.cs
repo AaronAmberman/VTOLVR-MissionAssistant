@@ -98,11 +98,11 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
         {
             return new BlockViewModel
             {
-                Actions = Actions.Clone(),
+                Actions = Actions?.Clone(),
                 BlockId = BlockId,
                 BlockName = BlockName,
-                Conditional = Conditional.Clone(),
-                ElseActions = ElseActions.Clone(),
+                Conditional = Conditional?.Clone(),
+                ElseActions = ElseActions?.Clone(),
                 ElseIfBlocks = new ObservableCollection<BlockViewModel>(ElseIfBlocks.Select(x => x.Clone()).ToList()),
                 Parent = Parent
             };

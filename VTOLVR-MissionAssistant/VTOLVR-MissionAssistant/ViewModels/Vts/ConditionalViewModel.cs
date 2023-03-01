@@ -77,7 +77,7 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
             return new ConditionalViewModel
             {
                 Computations = new ObservableCollection<ComputationViewModel>(Computations.Select(x => x.Clone()).ToList()),
-                OutputNodePosition = OutputNodePosition.Clone(),
+                OutputNodePosition = OutputNodePosition?.Clone(),
                 Id = Id,
                 Root = Root,
                 Parent = Parent

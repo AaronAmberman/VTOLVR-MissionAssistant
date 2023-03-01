@@ -375,6 +375,7 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
                 OnPropertyChanged();
             }
         }
+
         public ObservableCollection<SequenceViewModel> EventSequences
         {
             get => eventSequences;
@@ -691,650 +692,659 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
 
         private void ReadData()
         {
-            AllowedEquips = customScenario.AllowedEquips;
-            BaseBudget = customScenario.BaseBudget;
-            CampaignId = customScenario.CampaignId;
-            CampaignOrderIndex = customScenario.CampaignOrderIndex;
-            EquipsConfigurable = customScenario.EquipsConfigurable;
-            EnvironmentName = customScenario.EnvironmentName;
-            ForceEquips = customScenario.ForceEquips;
-            ForcedEquips = customScenario.ForcedEquips;
-            FuelDrainMultiplier = customScenario.FuelDrainMultiplier;
-            GameVersion = customScenario.GameVersion;
-            InfiniteAmmo = customScenario.InfiniteAmmo;
-            InfiniteAmmoReloadDelay = customScenario.InfiniteAmmoReloadDelay;
-            IsTraining = customScenario.IsTraining;
-            MapId = customScenario.MapId;
-            Multiplayer = customScenario.Multiplayer;
-            NormalForcedFuel = customScenario.NormalForcedFuel;
-            QuickSaveLimit = customScenario.QuickSaveLimit;
-            QuickSaveMode = customScenario.QuickSaveMode;
-            ScenarioId = customScenario.ScenarioId;
-            ScenarioName = customScenario.ScenarioName;
-            ScenarioDescription = customScenario.ScenarioDescription;
-            SelectableEnvironment = customScenario.SelectableEnvironment;
-            Vehicle = customScenario.Vehicle;
-
-            foreach (BaseInfo bi in customScenario.Bases)
+            try
             {
-                BaseInfoViewModel baseInfo = new BaseInfoViewModel
+                AllowedEquips = customScenario.AllowedEquips;
+                BaseBudget = customScenario.BaseBudget;
+                CampaignId = customScenario.CampaignId;
+                CampaignOrderIndex = customScenario.CampaignOrderIndex;
+                EquipsConfigurable = customScenario.EquipsConfigurable;
+                EnvironmentName = customScenario.EnvironmentName;
+                ForceEquips = customScenario.ForceEquips;
+                ForcedEquips = customScenario.ForcedEquips;
+                FuelDrainMultiplier = customScenario.FuelDrainMultiplier;
+                GameVersion = customScenario.GameVersion;
+                InfiniteAmmo = customScenario.InfiniteAmmo;
+                InfiniteAmmoReloadDelay = customScenario.InfiniteAmmoReloadDelay;
+                IsTraining = customScenario.IsTraining;
+                MapId = customScenario.MapId;
+                Multiplayer = customScenario.Multiplayer;
+                NormalForcedFuel = customScenario.NormalForcedFuel;
+                QuickSaveLimit = customScenario.QuickSaveLimit;
+                QuickSaveMode = customScenario.QuickSaveMode;
+                ScenarioId = customScenario.ScenarioId;
+                ScenarioName = customScenario.ScenarioName;
+                ScenarioDescription = customScenario.ScenarioDescription;
+                SelectableEnvironment = customScenario.SelectableEnvironment;
+                Vehicle = customScenario.Vehicle;
+
+                foreach (BaseInfo bi in customScenario.Bases)
                 {
-                    BaseTeam = bi.BaseTeam,
-                    Id = bi.Id,
-                    OverrideBaseName = bi.OverrideBaseName,
-                    Parent = this
-                };
-
-                Bases.Add(baseInfo);
-            }
-
-            foreach (BriefingNote bn in customScenario.BriefingNotes)
-            {
-                BriefingNoteViewModel briefingNote = new BriefingNoteViewModel
-                {
-                    AudioClipPath = bn.AudioClipPath,
-                    ImagePath = bn.ImagePath,
-                    Text = bn.Text,
-                    Parent = this
-                };
-
-                BriefingNotes.Add(briefingNote);
-            }
-
-            foreach (GlobalValue gv in customScenario.GlobalValues)
-            {
-                GlobalValueViewModel globalValue = new GlobalValueViewModel
-                {
-                    Description = gv.Description,
-                    Index = gv.Index,
-                    Name = gv.Name,
-                    Value = gv.Value,
-                    Parent = this
-                };
-
-                GlobalValues.Add(globalValue);
-            }
-
-            foreach (VTS.Data.Runtime.Path p in customScenario.Paths)
-            {
-                PathViewModel path = new PathViewModel
-                {
-                    Id = p.Id,
-                    Loop = p.Loop,
-                    Name = p.Name,
-                    PathMode = p.PathMode,
-                    Parent = this
-                };
-
-                foreach (ThreePointValue point in p.Points)
-                {
-                    path.Points.Add(new ThreePointValueViewModel
+                    BaseInfoViewModel baseInfo = new BaseInfoViewModel
                     {
-                        X = point.X,
-                        Y = point.Y,
-                        Z = point.Z
-                    });
+                        BaseTeam = bi.BaseTeam,
+                        Id = bi.Id,
+                        OverrideBaseName = bi.OverrideBaseName,
+                        Parent = this
+                    };
+
+                    Bases.Add(baseInfo);
                 }
 
-                Paths.Add(path);
-            }
-
-            foreach (Resource r in customScenario.ResourceManifest)
-            {
-                ResourceViewModel resource = new ResourceViewModel
+                foreach (BriefingNote bn in customScenario.BriefingNotes)
                 {
-                    Index = r.Index,
-                    Path = r.Path,
-                    Parent = this
-                };
-
-                ResourceManifest.Add(resource);
-            }
-
-            foreach (StaticObject so in customScenario.StaticObjects)
-            {
-                StaticObjectViewModel staticObject = new StaticObjectViewModel
-                {
-                    GlobalPosition = new ThreePointValueViewModel
+                    BriefingNoteViewModel briefingNote = new BriefingNoteViewModel
                     {
-                        X = so.GlobalPosition.X,
-                        Y = so.GlobalPosition.Y,
-                        Z = so.GlobalPosition.Z
-                    },
-                    Id = so.Id,
-                    PrefabId = so.PrefabId,
-                    Rotation = new ThreePointValueViewModel
-                    {
-                        X = so.Rotation.X,
-                        Y = so.Rotation.Y,
-                        Z = so.Rotation.Z
-                    },
-                    Parent = this
-                };
+                        AudioClipPath = bn.AudioClipPath,
+                        ImagePath = bn.ImagePath,
+                        Text = bn.Text,
+                        Parent = this
+                    };
 
-                StaticObjects.Add(staticObject);
-            }
-
-            foreach (Waypoint w in customScenario.Waypoints)
-            {
-                WaypointViewModel waypoint = new WaypointViewModel
-                {
-                    GlobalPoint = new ThreePointValueViewModel
-                    {
-                        X = w.GlobalPoint.X,
-                        Y = w.GlobalPoint.Y,
-                        Z = w.GlobalPoint.Z
-                    },
-                    Id = w.Id,
-                    Name = w.Name,
-                    Parent = this
-                };
-
-                Waypoints.Add(waypoint);
-            }
-
-            for (int i = 0; i < customScenario.Waypoints.GetPropertyCount(); i++)
-            {
-                DictionaryEntry property = customScenario.Waypoints.GetProperty(i);
-
-                Waypoints.Properties.Add(property);
-            }
-
-            foreach (UnitSpawner us in customScenario.Units)
-            {
-                UnitSpawnerViewModel unit = new UnitSpawnerViewModel
-                {
-                    EditorPlacementMode = us.EditorPlacementMode,
-                    GlobalPosition = new ThreePointValueViewModel
-                    {
-                        X = us.GlobalPosition.X,
-                        Y = us.GlobalPosition.Y,
-                        Z = us.GlobalPosition.Z
-                    },
-                    LastValidPlacement = new ThreePointValueViewModel
-                    {
-                        X = us.LastValidPlacement.X,
-                        Y = us.LastValidPlacement.Y,
-                        Z = us.LastValidPlacement.Z
-                    },
-                    Rotation = new ThreePointValueViewModel
-                    {
-                        X = us.Rotation.X,
-                        Y = us.Rotation.Y,
-                        Z = us.Rotation.Z
-                    },
-                    SpawnChance = us.SpawnChance,
-                    SpawnFlags = us.SpawnFlags,
-                    UnitId = us.UnitId,
-                    UnitInstanceId = us.UnitInstanceId,
-                    UnitName = us.UnitName,
-                    Parent = this
-                };
-
-                UnitFieldsViewModel unitFields = new UnitFieldsViewModel
-                {
-                    AllowReload = us.UnitFields.AllowReload,
-                    AutoRefuel = us.UnitFields.AutoRefuel,
-                    AutoReturnToBase = us.UnitFields.AutoReturnToBase,
-                    AwacsVoiceProfile = us.UnitFields.AwacsVoiceProfile,
-                    Behavior = us.UnitFields.Behavior,
-                    CombatTarget = us.UnitFields.CombatTarget,
-                    CommsEnabled = us.UnitFields.CommsEnabled,
-                    DefaultBehavior = us.UnitFields.DefaultBehavior,
-                    DefaultNavSpeed = us.UnitFields.DefaultNavSpeed,
-                    DefaultOrbitPoint = us.UnitFields.DefaultOrbitPoint,
-                    DefaultPath = us.UnitFields.DefaultPath,
-                    DefaultRadarEnabled = us.UnitFields.DefaultRadarEnabled,
-                    DefaultShotsPerSalvo = us.UnitFields.DefaultShotsPerSalvo,
-                    DefaultWaypoint = us.UnitFields.DefaultWaypoint,
-                    DetectionMode = us.UnitFields.DetectionMode,
-                    EngageEnemies = us.UnitFields.EngageEnemies,
-                    Equips = us.UnitFields.Equips,
-                    Fuel = us.UnitFields.Fuel,
-                    HullNumber = us.UnitFields.HullNumber,
-                    InitialSpeed = us.UnitFields.InitialSpeed,
-                    Invincible = us.UnitFields.Invincible,
-                    MoveSpeed = us.UnitFields.MoveSpeed,
-                    OrbitAltitude = us.UnitFields.OrbitAltitude,
-                    ParkedStartMode = us.UnitFields.ParkedStartMode,
-                    PlayerCommandsMode = us.UnitFields.PlayerCommandsMode,
-                    RadarUnits = us.UnitFields.RadarUnits,
-                    ReceiveFriendlyDamage = us.UnitFields.ReceiveFriendlyDamage,
-                    ReloadTime = us.UnitFields.ReloadTime,
-                    Respawnable = us.UnitFields.Respawnable,
-                    RippleRate = us.UnitFields.RippleRate,
-                    SpawnOnStart = us.UnitFields.SpawnOnStart,
-                    StartMode = us.UnitFields.StartMode,
-                    StopToEngage = us.UnitFields.StopToEngage,
-                    UnitGroup = us.UnitFields.UnitGroup,
-                    VoiceProfile = us.UnitFields.VoiceProfile,
-                    Parent = unit
-                };
-
-                if (us.UnitFields.Waypoint != null)
-                {
-                    WaypointViewModel match = Waypoints.FirstOrDefault(w => w.Id == us.UnitFields.Waypoint.Id);
-
-                    // we are not going to revalidate all the potential missing object references (the VTS api did that for us)
-
-                    unitFields.Waypoint = match;
+                    BriefingNotes.Add(briefingNote);
                 }
 
-                unit.UnitFields = unitFields;
-
-                Units.Add(unit);
-            }
-
-            // set the custom scenario return to base waypoint
-            if (customScenario.ReturnToBaseWaypoint != null)
-            {
-                if (customScenario.ReturnToBaseWaypoint is Waypoint waypoint)
+                foreach (GlobalValue gv in customScenario.GlobalValues)
                 {
-                    WaypointViewModel match = Waypoints.FirstOrDefault(w => w.Id == waypoint.Id);
-
-                    ReturnToBaseDestination = match;
-                }
-
-                if (customScenario.ReturnToBaseWaypoint is UnitSpawner unit)
-                {
-                    UnitSpawnerViewModel match = Units.FirstOrDefault(w => w.UnitInstanceId == unit.UnitInstanceId);
-
-                    ReturnToBaseDestination = match;
-                }
-            }
-
-            // set the custom scenario refuel waypoint
-            if (customScenario.RefuelWaypoint != null)
-            {
-                if (customScenario.RefuelWaypoint is Waypoint waypoint)
-                {
-                    WaypointViewModel match = Waypoints.FirstOrDefault(w => w.Id == waypoint.Id);
-
-                    RefuelWaypoint = match;
-                }
-
-                if (customScenario.RefuelWaypoint is UnitSpawner unit)
-                {
-                    UnitSpawnerViewModel match = Units.FirstOrDefault(w => w.UnitInstanceId == unit.UnitInstanceId);
-
-                    RefuelWaypoint = match;
-                }
-            }
-
-            // set carrier spawn references and RTB destinations
-            for (int i = 0; i < Units.Count; i++)
-            {
-                UnitSpawnerViewModel unitSpawnerViewModel = Units[i];
-                UnitSpawner unitSpawner = customScenario.Units[i];
-
-                if (unitSpawner.UnitFields.CarrierSpawns?.Count > 0)
-                {
-                    foreach (Tuple<int, UnitSpawner> carrierSpawn in unitSpawner.UnitFields.CarrierSpawns)
+                    GlobalValueViewModel globalValue = new GlobalValueViewModel
                     {
-                        UnitSpawnerViewModel match = Units.FirstOrDefault(theUnit => theUnit.UnitInstanceId == carrierSpawn.Item2.UnitInstanceId);
+                        Description = gv.Description,
+                        Index = gv.Index,
+                        Name = gv.Name,
+                        Value = gv.Value,
+                        Parent = this
+                    };
 
-                        unitSpawnerViewModel.UnitFields.CarrierSpawns.Add(new Tuple<int, UnitSpawnerViewModel>(carrierSpawn.Item1, match));
+                    GlobalValues.Add(globalValue);
+                }
+
+                foreach (VTS.Data.Runtime.Path p in customScenario.Paths)
+                {
+                    PathViewModel path = new PathViewModel
+                    {
+                        Id = p.Id,
+                        Loop = p.Loop,
+                        Name = p.Name,
+                        PathMode = p.PathMode,
+                        Parent = this
+                    };
+
+                    foreach (ThreePointValue point in p.Points)
+                    {
+                        path.Points.Add(new ThreePointValueViewModel
+                        {
+                            X = point.X,
+                            Y = point.Y,
+                            Z = point.Z
+                        });
                     }
+
+                    Paths.Add(path);
                 }
 
-                if (unitSpawner.UnitFields.ReturnToBaseDestination != null)
+                foreach (Resource r in customScenario.ResourceManifest)
                 {
-                    if (unitSpawner.UnitFields.ReturnToBaseDestination is Waypoint waypoint)
+                    ResourceViewModel resource = new ResourceViewModel
+                    {
+                        Index = r.Index,
+                        Path = r.Path,
+                        Parent = this
+                    };
+
+                    ResourceManifest.Add(resource);
+                }
+
+                foreach (StaticObject so in customScenario.StaticObjects)
+                {
+                    StaticObjectViewModel staticObject = new StaticObjectViewModel
+                    {
+                        GlobalPosition = new ThreePointValueViewModel
+                        {
+                            X = so.GlobalPosition.X,
+                            Y = so.GlobalPosition.Y,
+                            Z = so.GlobalPosition.Z
+                        },
+                        Id = so.Id,
+                        PrefabId = so.PrefabId,
+                        Rotation = new ThreePointValueViewModel
+                        {
+                            X = so.Rotation.X,
+                            Y = so.Rotation.Y,
+                            Z = so.Rotation.Z
+                        },
+                        Parent = this
+                    };
+
+                    StaticObjects.Add(staticObject);
+                }
+
+                foreach (Waypoint w in customScenario.Waypoints)
+                {
+                    WaypointViewModel waypoint = new WaypointViewModel
+                    {
+                        GlobalPoint = new ThreePointValueViewModel
+                        {
+                            X = w.GlobalPoint.X,
+                            Y = w.GlobalPoint.Y,
+                            Z = w.GlobalPoint.Z
+                        },
+                        Id = w.Id,
+                        Name = w.Name,
+                        Parent = this
+                    };
+
+                    Waypoints.Add(waypoint);
+                }
+
+                for (int i = 0; i < customScenario.Waypoints.GetPropertyCount(); i++)
+                {
+                    DictionaryEntry property = customScenario.Waypoints.GetProperty(i);
+
+                    Waypoints.Properties.Add(property);
+                }
+
+                foreach (UnitSpawner us in customScenario.Units)
+                {
+                    UnitSpawnerViewModel unit = new UnitSpawnerViewModel
+                    {
+                        EditorPlacementMode = us.EditorPlacementMode,
+                        GlobalPosition = new ThreePointValueViewModel
+                        {
+                            X = us.GlobalPosition.X,
+                            Y = us.GlobalPosition.Y,
+                            Z = us.GlobalPosition.Z
+                        },
+                        LastValidPlacement = new ThreePointValueViewModel
+                        {
+                            X = us.LastValidPlacement.X,
+                            Y = us.LastValidPlacement.Y,
+                            Z = us.LastValidPlacement.Z
+                        },
+                        Rotation = new ThreePointValueViewModel
+                        {
+                            X = us.Rotation.X,
+                            Y = us.Rotation.Y,
+                            Z = us.Rotation.Z
+                        },
+                        SpawnChance = us.SpawnChance,
+                        SpawnFlags = us.SpawnFlags,
+                        UnitId = us.UnitId,
+                        UnitInstanceId = us.UnitInstanceId,
+                        UnitName = us.UnitName,
+                        Parent = this
+                    };
+
+                    UnitFieldsViewModel unitFields = new UnitFieldsViewModel
+                    {
+                        AllowReload = us.UnitFields.AllowReload,
+                        AutoRefuel = us.UnitFields.AutoRefuel,
+                        AutoReturnToBase = us.UnitFields.AutoReturnToBase,
+                        AwacsVoiceProfile = us.UnitFields.AwacsVoiceProfile,
+                        Behavior = us.UnitFields.Behavior,
+                        CombatTarget = us.UnitFields.CombatTarget,
+                        CommsEnabled = us.UnitFields.CommsEnabled,
+                        DefaultBehavior = us.UnitFields.DefaultBehavior,
+                        DefaultNavSpeed = us.UnitFields.DefaultNavSpeed,
+                        DefaultOrbitPoint = us.UnitFields.DefaultOrbitPoint,
+                        DefaultPath = us.UnitFields.DefaultPath,
+                        DefaultRadarEnabled = us.UnitFields.DefaultRadarEnabled,
+                        DefaultShotsPerSalvo = us.UnitFields.DefaultShotsPerSalvo,
+                        DefaultWaypoint = us.UnitFields.DefaultWaypoint,
+                        DetectionMode = us.UnitFields.DetectionMode,
+                        EngageEnemies = us.UnitFields.EngageEnemies,
+                        Equips = us.UnitFields.Equips,
+                        Fuel = us.UnitFields.Fuel,
+                        HullNumber = us.UnitFields.HullNumber,
+                        InitialSpeed = us.UnitFields.InitialSpeed,
+                        Invincible = us.UnitFields.Invincible,
+                        MoveSpeed = us.UnitFields.MoveSpeed,
+                        OrbitAltitude = us.UnitFields.OrbitAltitude,
+                        ParkedStartMode = us.UnitFields.ParkedStartMode,
+                        PlayerCommandsMode = us.UnitFields.PlayerCommandsMode,
+                        RadarUnits = us.UnitFields.RadarUnits,
+                        ReceiveFriendlyDamage = us.UnitFields.ReceiveFriendlyDamage,
+                        ReloadTime = us.UnitFields.ReloadTime,
+                        Respawnable = us.UnitFields.Respawnable,
+                        RippleRate = us.UnitFields.RippleRate,
+                        SpawnOnStart = us.UnitFields.SpawnOnStart,
+                        StartMode = us.UnitFields.StartMode,
+                        StopToEngage = us.UnitFields.StopToEngage,
+                        UnitGroup = us.UnitFields.UnitGroup,
+                        VoiceProfile = us.UnitFields.VoiceProfile,
+                        Parent = unit
+                    };
+
+                    if (us.UnitFields.Waypoint != null)
+                    {
+                        WaypointViewModel match = Waypoints.FirstOrDefault(w => w.Id == us.UnitFields.Waypoint.Id);
+
+                        // we are not going to revalidate all the potential missing object references (the VTS api did that for us)
+
+                        unitFields.Waypoint = match;
+                    }
+
+                    unit.UnitFields = unitFields;
+
+                    Units.Add(unit);
+                }
+
+                // set the custom scenario return to base waypoint
+                if (customScenario.ReturnToBaseWaypoint != null)
+                {
+                    if (customScenario.ReturnToBaseWaypoint is Waypoint waypoint)
                     {
                         WaypointViewModel match = Waypoints.FirstOrDefault(w => w.Id == waypoint.Id);
 
-                        unitSpawnerViewModel.UnitFields.ReturnToBaseDestination = match;
+                        ReturnToBaseDestination = match;
                     }
 
-                    if (unitSpawner.UnitFields.ReturnToBaseDestination is UnitSpawner unit)
+                    if (customScenario.ReturnToBaseWaypoint is UnitSpawner unit)
                     {
                         UnitSpawnerViewModel match = Units.FirstOrDefault(w => w.UnitInstanceId == unit.UnitInstanceId);
 
-                        unitSpawnerViewModel.UnitFields.ReturnToBaseDestination = match;
+                        ReturnToBaseDestination = match;
                     }
                 }
-            }
 
-            foreach (UnitGroup unitGroup in customScenario.UnitGroups)
-            {
-                UnitGroupViewModel unitGroupViewModel = new UnitGroupViewModel
+                // set the custom scenario refuel waypoint
+                if (customScenario.RefuelWaypoint != null)
                 {
-                    Name = unitGroup.Name,
-                    Parent = this
-                };
-
-                unitGroupViewModel.Alpha = ReadUnitGroup(unitGroup.Alpha);
-                unitGroupViewModel.Bravo = ReadUnitGroup(unitGroup.Bravo);
-                unitGroupViewModel.Charlie = ReadUnitGroup(unitGroup.Charlie);
-                unitGroupViewModel.Delta = ReadUnitGroup(unitGroup.Delta);
-                unitGroupViewModel.Echo = ReadUnitGroup(unitGroup.Echo);
-                unitGroupViewModel.Foxtrot = ReadUnitGroup(unitGroup.Foxtrot);
-                unitGroupViewModel.Golf = ReadUnitGroup(unitGroup.Golf);
-                unitGroupViewModel.Hotel = ReadUnitGroup(unitGroup.Hotel);
-                unitGroupViewModel.India = ReadUnitGroup(unitGroup.India);
-                unitGroupViewModel.Juliet = ReadUnitGroup(unitGroup.Juliet);
-                unitGroupViewModel.Kilo = ReadUnitGroup(unitGroup.Kilo);
-                unitGroupViewModel.Lima = ReadUnitGroup(unitGroup.Lima);
-                unitGroupViewModel.Mike = ReadUnitGroup(unitGroup.Mike);
-                unitGroupViewModel.November = ReadUnitGroup(unitGroup.November);
-                unitGroupViewModel.Oscar = ReadUnitGroup(unitGroup.Oscar);
-                unitGroupViewModel.Papa = ReadUnitGroup(unitGroup.Papa);
-                unitGroupViewModel.Quebec = ReadUnitGroup(unitGroup.Quebec);
-                unitGroupViewModel.Romeo = ReadUnitGroup(unitGroup.Romeo);
-                unitGroupViewModel.Sierra = ReadUnitGroup(unitGroup.Sierra);
-                unitGroupViewModel.Tango = ReadUnitGroup(unitGroup.Tango);
-                unitGroupViewModel.Uniform = ReadUnitGroup(unitGroup.Uniform);
-                unitGroupViewModel.Victor = ReadUnitGroup(unitGroup.Victor);
-                unitGroupViewModel.Whiskey = ReadUnitGroup(unitGroup.Whiskey);
-                unitGroupViewModel.Xray = ReadUnitGroup(unitGroup.Xray);
-                unitGroupViewModel.Yankee = ReadUnitGroup(unitGroup.Yankee);
-                unitGroupViewModel.Zulu = ReadUnitGroup(unitGroup.Zulu);
-
-                UnitGroups.Add(unitGroupViewModel);
-            }
-
-            foreach (Conditional c in customScenario.Conditionals)
-            {
-                Conditionals.Add(ReadConditional(c, this));
-            }
-
-            foreach (ConditionalAction conditionalAction in customScenario.ConditionalActions)
-            {
-                ConditionalActionViewModel conditionalActionViewModel = new ConditionalActionViewModel
-                {
-                    Id = conditionalAction.Id,
-                    Name = conditionalAction.Name,
-                    Parent = this
-                };
-
-                BlockViewModel baseBlockViewModel = new BlockViewModel
-                {
-                    BlockId = conditionalAction.BaseBlock.BlockId,
-                    BlockName = conditionalAction.BaseBlock.BlockName,
-                    Parent = conditionalAction
-                };
-
-                baseBlockViewModel.Actions = ReadEventInfo(conditionalAction.BaseBlock.Actions, baseBlockViewModel);
-                baseBlockViewModel.Conditional = ReadConditional(conditionalAction.BaseBlock.Conditional, baseBlockViewModel);
-                baseBlockViewModel.ElseActions = ReadEventInfo(conditionalAction.BaseBlock.ElseActions, baseBlockViewModel);
-
-                foreach (Block eib in conditionalAction.BaseBlock.ElseIfBlocks)
-                {
-                    BlockViewModel elseIfBlockViewModel = new BlockViewModel
+                    if (customScenario.RefuelWaypoint is Waypoint waypoint)
                     {
-                        BlockId = eib.BlockId,
-                        BlockName = eib.BlockName,
-                        Parent = baseBlockViewModel
+                        WaypointViewModel match = Waypoints.FirstOrDefault(w => w.Id == waypoint.Id);
+
+                        RefuelWaypoint = match;
+                    }
+
+                    if (customScenario.RefuelWaypoint is UnitSpawner unit)
+                    {
+                        UnitSpawnerViewModel match = Units.FirstOrDefault(w => w.UnitInstanceId == unit.UnitInstanceId);
+
+                        RefuelWaypoint = match;
+                    }
+                }
+
+                // set carrier spawn references and RTB destinations
+                for (int i = 0; i < Units.Count; i++)
+                {
+                    UnitSpawnerViewModel unitSpawnerViewModel = Units[i];
+                    UnitSpawner unitSpawner = customScenario.Units[i];
+
+                    if (unitSpawner.UnitFields.CarrierSpawns?.Count > 0)
+                    {
+                        foreach (Tuple<int, UnitSpawner> carrierSpawn in unitSpawner.UnitFields.CarrierSpawns)
+                        {
+                            UnitSpawnerViewModel match = Units.FirstOrDefault(theUnit => theUnit.UnitInstanceId == carrierSpawn.Item2.UnitInstanceId);
+
+                            unitSpawnerViewModel.UnitFields.CarrierSpawns.Add(new Tuple<int, UnitSpawnerViewModel>(carrierSpawn.Item1, match));
+                        }
+                    }
+
+                    if (unitSpawner.UnitFields.ReturnToBaseDestination != null)
+                    {
+                        if (unitSpawner.UnitFields.ReturnToBaseDestination is Waypoint waypoint)
+                        {
+                            WaypointViewModel match = Waypoints.FirstOrDefault(w => w.Id == waypoint.Id);
+
+                            unitSpawnerViewModel.UnitFields.ReturnToBaseDestination = match;
+                        }
+
+                        if (unitSpawner.UnitFields.ReturnToBaseDestination is UnitSpawner unit)
+                        {
+                            UnitSpawnerViewModel match = Units.FirstOrDefault(w => w.UnitInstanceId == unit.UnitInstanceId);
+
+                            unitSpawnerViewModel.UnitFields.ReturnToBaseDestination = match;
+                        }
+                    }
+                }
+
+                foreach (UnitGroup unitGroup in customScenario.UnitGroups)
+                {
+                    UnitGroupViewModel unitGroupViewModel = new UnitGroupViewModel
+                    {
+                        Name = unitGroup.Name,
+                        Parent = this
                     };
 
-                    elseIfBlockViewModel.Actions = ReadEventInfo(eib.Actions, elseIfBlockViewModel);
-                    elseIfBlockViewModel.Conditional = ReadConditional(eib.Conditional, elseIfBlockViewModel);
-                    elseIfBlockViewModel.ElseActions = ReadEventInfo(eib.ElseActions, elseIfBlockViewModel);
+                    unitGroupViewModel.Alpha = ReadUnitGroup(unitGroup.Alpha);
+                    unitGroupViewModel.Bravo = ReadUnitGroup(unitGroup.Bravo);
+                    unitGroupViewModel.Charlie = ReadUnitGroup(unitGroup.Charlie);
+                    unitGroupViewModel.Delta = ReadUnitGroup(unitGroup.Delta);
+                    unitGroupViewModel.Echo = ReadUnitGroup(unitGroup.Echo);
+                    unitGroupViewModel.Foxtrot = ReadUnitGroup(unitGroup.Foxtrot);
+                    unitGroupViewModel.Golf = ReadUnitGroup(unitGroup.Golf);
+                    unitGroupViewModel.Hotel = ReadUnitGroup(unitGroup.Hotel);
+                    unitGroupViewModel.India = ReadUnitGroup(unitGroup.India);
+                    unitGroupViewModel.Juliet = ReadUnitGroup(unitGroup.Juliet);
+                    unitGroupViewModel.Kilo = ReadUnitGroup(unitGroup.Kilo);
+                    unitGroupViewModel.Lima = ReadUnitGroup(unitGroup.Lima);
+                    unitGroupViewModel.Mike = ReadUnitGroup(unitGroup.Mike);
+                    unitGroupViewModel.November = ReadUnitGroup(unitGroup.November);
+                    unitGroupViewModel.Oscar = ReadUnitGroup(unitGroup.Oscar);
+                    unitGroupViewModel.Papa = ReadUnitGroup(unitGroup.Papa);
+                    unitGroupViewModel.Quebec = ReadUnitGroup(unitGroup.Quebec);
+                    unitGroupViewModel.Romeo = ReadUnitGroup(unitGroup.Romeo);
+                    unitGroupViewModel.Sierra = ReadUnitGroup(unitGroup.Sierra);
+                    unitGroupViewModel.Tango = ReadUnitGroup(unitGroup.Tango);
+                    unitGroupViewModel.Uniform = ReadUnitGroup(unitGroup.Uniform);
+                    unitGroupViewModel.Victor = ReadUnitGroup(unitGroup.Victor);
+                    unitGroupViewModel.Whiskey = ReadUnitGroup(unitGroup.Whiskey);
+                    unitGroupViewModel.Xray = ReadUnitGroup(unitGroup.Xray);
+                    unitGroupViewModel.Yankee = ReadUnitGroup(unitGroup.Yankee);
+                    unitGroupViewModel.Zulu = ReadUnitGroup(unitGroup.Zulu);
 
-                    baseBlockViewModel.ElseIfBlocks.Add(elseIfBlockViewModel);
+                    UnitGroups.Add(unitGroupViewModel);
                 }
 
-                conditionalActionViewModel.BaseBlock = baseBlockViewModel;
-
-                ConditionalActions.Add(conditionalActionViewModel);
-            }
-
-            foreach (TriggerEvent te in customScenario.TriggerEvents)
-            {
-                TriggerEventViewModel triggerEvent = new TriggerEventViewModel
+                foreach (Conditional c in customScenario.Conditionals)
                 {
-                    Enabled = te.Enabled,
-                    EventName = te.EventName,
-                    Id = te.Id,
-                    ProxyMode = te.ProxyMode,
-                    Radius = te.Radius,
-                    SphericalRadius = te.SphericalRadius,
-                    TriggerMode = te.TriggerMode,
-                    TriggerType = te.TriggerType,
-                    Parent = this
-                };
-
-                triggerEvent.EventInfo = ReadEventInfo(te.EventInfo, triggerEvent);
-
-                if (te.Conditional != null)
-                {
-                    ConditionalViewModel conditional = Conditionals.FirstOrDefault(x => x.Id == te.Conditional.Id);
-
-                    triggerEvent.Conditional = conditional;
+                    Conditionals.Add(ReadConditional(c, this));
                 }
 
-                if (te.Waypoint != null)
+                foreach (ConditionalAction conditionalAction in customScenario.ConditionalActions)
                 {
-                    WaypointViewModel waypoint = Waypoints.FirstOrDefault(x => x.Id == te.Waypoint.Id);
-
-                    triggerEvent.Waypoint = waypoint;
-                }
-
-                TriggerEvents.Add(triggerEvent);
-            }
-
-            foreach (Sequence s in customScenario.EventSequences)
-            {
-                SequenceViewModel sequence = new SequenceViewModel
-                {
-                    Id = s.Id,
-                    SequenceName = s.SequenceName,
-                    StartImmediately = s.StartImmediately,
-                    WhileLoop = s.WhileLoop,
-                    Parent = this
-                };
-
-                foreach (Event e in s.Events)
-                {
-                    EventViewModel @event = new EventViewModel
+                    ConditionalActionViewModel conditionalActionViewModel = new ConditionalActionViewModel
                     {
-                        Delay = e.Delay,
-                        NodeName = e.NodeName,
-                        Parent = sequence
+                        Id = conditionalAction.Id,
+                        Name = conditionalAction.Name,
+                        Parent = this
                     };
 
-                    @event.EventInfo = ReadEventInfo(e.EventInfo, sequence);
-
-                    if (e.Conditional != null)
+                    BlockViewModel baseBlockViewModel = new BlockViewModel
                     {
-                        ConditionalViewModel conditional = Conditionals.FirstOrDefault(x => x.Id == e.Conditional.Id);
-
-                        @event.Conditional = conditional;
-                    }
-
-                    if (e.ExitConditional != null)
-                    {
-                        ConditionalViewModel conditional = Conditionals.FirstOrDefault(x => x.Id == e.ExitConditional.Id);
-
-                        @event.ExitConditional = conditional;
-                    }
-
-                    sequence.Events.Add(@event);
-                }
-
-                EventSequences.Add(sequence);
-            }
-
-            foreach (Objective o in customScenario.Objectives)
-            {
-                Objectives.Add(ReadObjective(o));
-            }
-
-            foreach (Objective o in customScenario.ObjectivesOpFor)
-            {
-                ObjectivesOpFor.Add(ReadObjective(o));
-            }
-
-            foreach (TimedEventGroup teg in customScenario.TimedEventGroups)
-            {
-                TimedEventGroupViewModel timedEventGroup = new TimedEventGroupViewModel
-                {
-                    BeginImmediately = teg.BeginImmediately,
-                    GroupId = teg.GroupId,
-                    GroupName = teg.GroupName,
-                    InitialDelay = teg.InitialDelay,
-                    Parent = this
-                };
-
-                foreach (TimedEventInfo tei in teg.TimedEventInfos)
-                {
-                    TimedEventInfoViewModel timedEventInfo = new TimedEventInfoViewModel
-                    {
-                        EventName = tei.EventName,
-                        Time = tei.Time,
-                        Parent = timedEventGroup
+                        BlockId = conditionalAction.BaseBlock.BlockId,
+                        BlockName = conditionalAction.BaseBlock.BlockName,
+                        Parent = conditionalAction
                     };
 
-                    foreach (EventTarget et in tei.EventTargets)
+                    baseBlockViewModel.Actions = ReadEventInfo(conditionalAction.BaseBlock.Actions, baseBlockViewModel);
+                    baseBlockViewModel.Conditional = ReadConditional(conditionalAction.BaseBlock.Conditional, baseBlockViewModel);
+                    baseBlockViewModel.ElseActions = ReadEventInfo(conditionalAction.BaseBlock.ElseActions, baseBlockViewModel);
+
+                    foreach (Block eib in conditionalAction.BaseBlock.ElseIfBlocks)
                     {
-                        timedEventInfo.EventTargets.Add(ReadEventTarget(et, timedEventInfo));
+                        BlockViewModel elseIfBlockViewModel = new BlockViewModel
+                        {
+                            BlockId = eib.BlockId,
+                            BlockName = eib.BlockName,
+                            Parent = baseBlockViewModel
+                        };
+
+                        elseIfBlockViewModel.Actions = ReadEventInfo(eib.Actions, elseIfBlockViewModel);
+                        elseIfBlockViewModel.Conditional = ReadConditional(eib.Conditional, elseIfBlockViewModel);
+                        elseIfBlockViewModel.ElseActions = ReadEventInfo(eib.ElseActions, elseIfBlockViewModel);
+
+                        baseBlockViewModel.ElseIfBlocks.Add(elseIfBlockViewModel);
                     }
 
-                    timedEventGroup.TimedEventInfos.Add(timedEventInfo);
+                    conditionalActionViewModel.BaseBlock = baseBlockViewModel;
+
+                    ConditionalActions.Add(conditionalActionViewModel);
                 }
 
-                TimedEventGroups.Add(timedEventGroup);
-            }
-
-            // set references to conditional actions, trigger events, event sequences, objectives, objectives op for, timed event groups
-            for (int i = 0; i < ConditionalActions.Count; i++)
-            {
-                ConditionalActionViewModel conditionalAction = ConditionalActions[i];
-                ConditionalAction ca = customScenario.ConditionalActions[i];
-
-                for (int j = 0; j < conditionalAction.BaseBlock.Actions.EventTargets.Count; j++)
+                foreach (TriggerEvent te in customScenario.TriggerEvents)
                 {
-                    EventTargetViewModel eventTarget = conditionalAction.BaseBlock.Actions.EventTargets[j];
-                    EventTarget et = ca.BaseBlock.Actions.EventTargets[j];
-
-                    ProcessEventTargetObjectReferences(eventTarget, et);
-                }
-
-                for (int j = 0; j < conditionalAction.BaseBlock.ElseActions.EventTargets.Count; j++)
-                {
-                    EventTargetViewModel eventTarget = conditionalAction.BaseBlock.ElseActions.EventTargets[j];
-                    EventTarget et = ca.BaseBlock.ElseActions.EventTargets[j];
-
-                    ProcessEventTargetObjectReferences(eventTarget, et);
-                }
-            }
-
-            for (int i = 0; i < TriggerEvents.Count; i++)
-            {
-                TriggerEventViewModel triggerEvent = TriggerEvents[i];
-                TriggerEvent te = customScenario.TriggerEvents[i];
-
-                for (int j = 0; j < triggerEvent.EventInfo.EventTargets.Count; j++)
-                {
-                    EventTargetViewModel eventTarget = triggerEvent.EventInfo.EventTargets[j];
-                    EventTarget et = te.EventInfo.EventTargets[j];
-
-                    ProcessEventTargetObjectReferences(eventTarget, et);
-                }
-            }
-
-            for (int i = 0; i < EventSequences.Count; i++)
-            {
-                SequenceViewModel sequence = EventSequences[i];
-                Sequence s = customScenario.EventSequences[i];
-
-                for (int j = 0; j < sequence.Events.Count; j++)
-                {
-                    EventViewModel @event = sequence.Events[j];
-                    Event e = s.Events[j];
-
-                    for (int k = 0; k < @event.EventInfo.EventTargets.Count; k++)
+                    TriggerEventViewModel triggerEvent = new TriggerEventViewModel
                     {
-                        EventTargetViewModel eventTarget = @event.EventInfo.EventTargets[k];
-                        EventTarget et = e.EventInfo.EventTargets[k];
+                        Enabled = te.Enabled,
+                        EventName = te.EventName,
+                        Id = te.Id,
+                        ProxyMode = te.ProxyMode,
+                        Radius = te.Radius,
+                        SphericalRadius = te.SphericalRadius,
+                        TriggerMode = te.TriggerMode,
+                        TriggerType = te.TriggerType,
+                        Parent = this
+                    };
+
+                    triggerEvent.EventInfo = ReadEventInfo(te.EventInfo, triggerEvent);
+
+                    if (te.Conditional != null)
+                    {
+                        ConditionalViewModel conditional = Conditionals.FirstOrDefault(x => x.Id == te.Conditional.Id);
+
+                        triggerEvent.Conditional = conditional;
+                    }
+
+                    if (te.Waypoint != null)
+                    {
+                        WaypointViewModel waypoint = Waypoints.FirstOrDefault(x => x.Id == te.Waypoint.Id);
+
+                        triggerEvent.Waypoint = waypoint;
+                    }
+
+                    TriggerEvents.Add(triggerEvent);
+                }
+
+                foreach (Sequence s in customScenario.EventSequences)
+                {
+                    SequenceViewModel sequence = new SequenceViewModel
+                    {
+                        Id = s.Id,
+                        SequenceName = s.SequenceName,
+                        StartImmediately = s.StartImmediately,
+                        WhileLoop = s.WhileLoop,
+                        Parent = this
+                    };
+
+                    foreach (Event e in s.Events)
+                    {
+                        EventViewModel @event = new EventViewModel
+                        {
+                            Delay = e.Delay,
+                            NodeName = e.NodeName,
+                            Parent = sequence
+                        };
+
+                        @event.EventInfo = ReadEventInfo(e.EventInfo, sequence);
+
+                        if (e.Conditional != null)
+                        {
+                            ConditionalViewModel conditional = Conditionals.FirstOrDefault(x => x.Id == e.Conditional.Id);
+
+                            @event.Conditional = conditional;
+                        }
+
+                        if (e.ExitConditional != null)
+                        {
+                            ConditionalViewModel conditional = Conditionals.FirstOrDefault(x => x.Id == e.ExitConditional.Id);
+
+                            @event.ExitConditional = conditional;
+                        }
+
+                        sequence.Events.Add(@event);
+                    }
+
+                    EventSequences.Add(sequence);
+                }
+
+                foreach (Objective o in customScenario.Objectives)
+                {
+                    Objectives.Add(ReadObjective(o));
+                }
+
+                foreach (Objective o in customScenario.ObjectivesOpFor)
+                {
+                    ObjectivesOpFor.Add(ReadObjective(o));
+                }
+
+                foreach (TimedEventGroup teg in customScenario.TimedEventGroups)
+                {
+                    TimedEventGroupViewModel timedEventGroup = new TimedEventGroupViewModel
+                    {
+                        BeginImmediately = teg.BeginImmediately,
+                        GroupId = teg.GroupId,
+                        GroupName = teg.GroupName,
+                        InitialDelay = teg.InitialDelay,
+                        Parent = this
+                    };
+
+                    foreach (TimedEventInfo tei in teg.TimedEventInfos)
+                    {
+                        TimedEventInfoViewModel timedEventInfo = new TimedEventInfoViewModel
+                        {
+                            EventName = tei.EventName,
+                            Time = tei.Time,
+                            Parent = timedEventGroup
+                        };
+
+                        foreach (EventTarget et in tei.EventTargets)
+                        {
+                            timedEventInfo.EventTargets.Add(ReadEventTarget(et, timedEventInfo));
+                        }
+
+                        timedEventGroup.TimedEventInfos.Add(timedEventInfo);
+                    }
+
+                    TimedEventGroups.Add(timedEventGroup);
+                }
+
+                // set references to conditional actions, trigger events, event sequences, objectives, objectives op for, timed event groups
+                for (int i = 0; i < ConditionalActions.Count; i++)
+                {
+                    ConditionalActionViewModel conditionalAction = ConditionalActions[i];
+                    ConditionalAction ca = customScenario.ConditionalActions[i];
+
+                    for (int j = 0; j < conditionalAction.BaseBlock.Actions.EventTargets.Count; j++)
+                    {
+                        EventTargetViewModel eventTarget = conditionalAction.BaseBlock.Actions.EventTargets[j];
+                        EventTarget et = ca.BaseBlock.Actions.EventTargets[j];
+
+                        ProcessEventTargetObjectReferences(eventTarget, et);
+                    }
+
+                    for (int j = 0; j < conditionalAction.BaseBlock.ElseActions.EventTargets.Count; j++)
+                    {
+                        EventTargetViewModel eventTarget = conditionalAction.BaseBlock.ElseActions.EventTargets[j];
+                        EventTarget et = ca.BaseBlock.ElseActions.EventTargets[j];
 
                         ProcessEventTargetObjectReferences(eventTarget, et);
                     }
                 }
-            }
 
-            for (int i = 0; i < Objectives.Count; i++)
-            {
-                ObjectiveViewModel objective = Objectives[i];
-                Objective o = customScenario.Objectives[i];
-
-                for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
+                for (int i = 0; i < TriggerEvents.Count; i++)
                 {
-                    EventTargetViewModel eventTarget = objective.CompleteEvent.EventTargets[j];
-                    EventTarget et = o.CompleteEvent.EventTargets[j];
+                    TriggerEventViewModel triggerEvent = TriggerEvents[i];
+                    TriggerEvent te = customScenario.TriggerEvents[i];
 
-                    ProcessEventTargetObjectReferences(eventTarget, et);
-                }
-
-                for (int j = 0; j < objective.FailEvent.EventTargets.Count; j++)
-                {
-                    EventTargetViewModel eventTarget = objective.FailEvent.EventTargets[j];
-                    EventTarget et = o.FailEvent.EventTargets[j];
-
-                    ProcessEventTargetObjectReferences(eventTarget, et);
-                }
-
-                for (int j = 0; j < objective.StartEvent.EventTargets.Count; j++)
-                {
-                    EventTargetViewModel eventTarget = objective.StartEvent.EventTargets[j];
-                    EventTarget et = o.StartEvent.EventTargets[j];
-
-                    ProcessEventTargetObjectReferences(eventTarget, et);
-                }
-
-                ProcessObjectivePreReqs(i, false);
-            }
-
-            for (int i = 0; i < ObjectivesOpFor.Count; i++)
-            {
-                ObjectiveViewModel objective = ObjectivesOpFor[i];
-                Objective o = customScenario.ObjectivesOpFor[i];
-
-                for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
-                {
-                    EventTargetViewModel eventTarget = objective.CompleteEvent.EventTargets[j];
-                    EventTarget et = o.CompleteEvent.EventTargets[j];
-
-                    ProcessEventTargetObjectReferences(eventTarget, et);
-                }
-
-                for (int j = 0; j < objective.FailEvent.EventTargets.Count; j++)
-                {
-                    EventTargetViewModel eventTarget = objective.FailEvent.EventTargets[j];
-                    EventTarget et = o.FailEvent.EventTargets[j];
-
-                    ProcessEventTargetObjectReferences(eventTarget, et);
-                }
-
-                for (int j = 0; j < objective.StartEvent.EventTargets.Count; j++)
-                {
-                    EventTargetViewModel eventTarget = objective.StartEvent.EventTargets[j];
-                    EventTarget et = o.StartEvent.EventTargets[j];
-
-                    ProcessEventTargetObjectReferences(eventTarget, et);
-                }
-
-                ProcessObjectivePreReqs(i, true);
-            }
-
-            for (int i = 0; i < TimedEventGroups.Count; i++)
-            {
-                TimedEventGroupViewModel timedEventGroup = TimedEventGroups[i];
-                TimedEventGroup teg = customScenario.TimedEventGroups[i];
-
-                for (int j = 0; j < timedEventGroup.TimedEventInfos.Count; j++)
-                {
-                    TimedEventInfoViewModel timedEventInfo = timedEventGroup.TimedEventInfos[j];
-                    TimedEventInfo tei = teg.TimedEventInfos[j];
-
-                    for (int k = 0; k < timedEventInfo.EventTargets.Count; k++)
+                    for (int j = 0; j < triggerEvent.EventInfo.EventTargets.Count; j++)
                     {
-                        EventTargetViewModel eventTarget = timedEventInfo.EventTargets[k];
-                        EventTarget et = tei.EventTargets[k];
+                        EventTargetViewModel eventTarget = triggerEvent.EventInfo.EventTargets[j];
+                        EventTarget et = te.EventInfo.EventTargets[j];
 
                         ProcessEventTargetObjectReferences(eventTarget, et);
                     }
                 }
+
+                for (int i = 0; i < EventSequences.Count; i++)
+                {
+                    SequenceViewModel sequence = EventSequences[i];
+                    Sequence s = customScenario.EventSequences[i];
+
+                    for (int j = 0; j < sequence.Events.Count; j++)
+                    {
+                        EventViewModel @event = sequence.Events[j];
+                        Event e = s.Events[j];
+
+                        for (int k = 0; k < @event.EventInfo.EventTargets.Count; k++)
+                        {
+                            EventTargetViewModel eventTarget = @event.EventInfo.EventTargets[k];
+                            EventTarget et = e.EventInfo.EventTargets[k];
+
+                            ProcessEventTargetObjectReferences(eventTarget, et);
+                        }
+                    }
+                }
+
+                for (int i = 0; i < Objectives.Count; i++)
+                {
+                    ObjectiveViewModel objective = Objectives[i];
+                    Objective o = customScenario.Objectives[i];
+
+                    for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
+                    {
+                        EventTargetViewModel eventTarget = objective.CompleteEvent.EventTargets[j];
+                        EventTarget et = o.CompleteEvent.EventTargets[j];
+
+                        ProcessEventTargetObjectReferences(eventTarget, et);
+                    }
+
+                    for (int j = 0; j < objective.FailEvent.EventTargets.Count; j++)
+                    {
+                        EventTargetViewModel eventTarget = objective.FailEvent.EventTargets[j];
+                        EventTarget et = o.FailEvent.EventTargets[j];
+
+                        ProcessEventTargetObjectReferences(eventTarget, et);
+                    }
+
+                    for (int j = 0; j < objective.StartEvent.EventTargets.Count; j++)
+                    {
+                        EventTargetViewModel eventTarget = objective.StartEvent.EventTargets[j];
+                        EventTarget et = o.StartEvent.EventTargets[j];
+
+                        ProcessEventTargetObjectReferences(eventTarget, et);
+                    }
+
+                    ProcessObjectivePreReqs(i, false);
+                }
+
+                for (int i = 0; i < ObjectivesOpFor.Count; i++)
+                {
+                    ObjectiveViewModel objective = ObjectivesOpFor[i];
+                    Objective o = customScenario.ObjectivesOpFor[i];
+
+                    for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
+                    {
+                        EventTargetViewModel eventTarget = objective.CompleteEvent.EventTargets[j];
+                        EventTarget et = o.CompleteEvent.EventTargets[j];
+
+                        ProcessEventTargetObjectReferences(eventTarget, et);
+                    }
+
+                    for (int j = 0; j < objective.FailEvent.EventTargets.Count; j++)
+                    {
+                        EventTargetViewModel eventTarget = objective.FailEvent.EventTargets[j];
+                        EventTarget et = o.FailEvent.EventTargets[j];
+
+                        ProcessEventTargetObjectReferences(eventTarget, et);
+                    }
+
+                    for (int j = 0; j < objective.StartEvent.EventTargets.Count; j++)
+                    {
+                        EventTargetViewModel eventTarget = objective.StartEvent.EventTargets[j];
+                        EventTarget et = o.StartEvent.EventTargets[j];
+
+                        ProcessEventTargetObjectReferences(eventTarget, et);
+                    }
+
+                    ProcessObjectivePreReqs(i, true);
+                }
+
+                for (int i = 0; i < TimedEventGroups.Count; i++)
+                {
+                    TimedEventGroupViewModel timedEventGroup = TimedEventGroups[i];
+                    TimedEventGroup teg = customScenario.TimedEventGroups[i];
+
+                    for (int j = 0; j < timedEventGroup.TimedEventInfos.Count; j++)
+                    {
+                        TimedEventInfoViewModel timedEventInfo = timedEventGroup.TimedEventInfos[j];
+                        TimedEventInfo tei = teg.TimedEventInfos[j];
+
+                        for (int k = 0; k < timedEventInfo.EventTargets.Count; k++)
+                        {
+                            EventTargetViewModel eventTarget = timedEventInfo.EventTargets[k];
+                            EventTarget et = tei.EventTargets[k];
+
+                            ProcessEventTargetObjectReferences(eventTarget, et);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ServiceLocator.Instance.Logger.Error($"An error occurred attempting to read the VTS file.{Environment.NewLine}{ex}");
+
+                throw new TypeInitializationException("VTOLVR_MissionAssistant.ViewModels.Vts.CustomScenarioViewModel", ex);
             }
         }
 
@@ -1722,6 +1732,802 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
             }
 
             return unitGroupGroupingViewModel;
+        }
+
+        public bool Save()
+        {
+            try
+            {
+                // we will create a new custom scenario object and not overwrite the original we have at the class level
+                CustomScenario cs = new CustomScenario
+                {
+                    AllowedEquips = AllowedEquips,
+                    BaseBudget = BaseBudget,
+                    CampaignId = CampaignId,
+                    CampaignOrderIndex = CampaignOrderIndex,
+                    EnvironmentName = EnvironmentName,
+                    EquipsConfigurable = EquipsConfigurable,
+                    ForcedEquips = ForcedEquips,
+                    ForceEquips = ForceEquips,
+                    FuelDrainMultiplier = FuelDrainMultiplier,
+                    GameVersion = GameVersion,
+                    InfiniteAmmo = InfiniteAmmo,
+                    InfiniteAmmoReloadDelay = InfiniteAmmoReloadDelay,
+                    IsTraining = IsTraining,
+                    MapId = MapId,
+                    Multiplayer = Multiplayer,
+                    NormalForcedFuel = NormalForcedFuel,
+                    QuickSaveLimit = QuickSaveLimit,
+                    QuickSaveMode = QuickSaveMode,
+                    ScenarioDescription = ScenarioDescription,
+                    ScenarioId = ScenarioId,
+                    ScenarioName = ScenarioName,
+                    SelectableEnvironment = SelectableEnvironment,
+                    Vehicle = Vehicle,
+                    File = File,
+                    HasError = HasError
+                };
+
+                foreach (BaseInfoViewModel baseInfo in Bases)
+                {
+                    BaseInfo bi = new BaseInfo
+                    {
+                        Id = baseInfo.Id,
+                        BaseTeam = baseInfo.BaseTeam,
+                        OverrideBaseName = baseInfo.OverrideBaseName
+                    };
+
+                    cs.Bases.Add(bi);
+                }
+
+                foreach (BriefingNoteViewModel briefingNote in BriefingNotes)
+                {
+                    BriefingNote bn = new BriefingNote
+                    {
+                        AudioClipPath = briefingNote.AudioClipPath,
+                        ImagePath = briefingNote.ImagePath,
+                        Text = briefingNote.Text
+                    };
+
+                    cs.BriefingNotes.Add(bn);
+                }
+
+                foreach (GlobalValueViewModel globalValue in GlobalValues)
+                {
+                    GlobalValue gv = new GlobalValue
+                    {
+                        Description = globalValue.Description,
+                        Index = globalValue.Index,
+                        Name = globalValue.Name,
+                        Value = globalValue.Value
+                    };
+
+                    cs.GlobalValues.Add(gv);
+                }
+
+                foreach (PathViewModel path in Paths)
+                {
+                    VTS.Data.Runtime.Path p = new VTS.Data.Runtime.Path
+                    {
+                        Id = path.Id,
+                        Loop = path.Loop,
+                        Name = path.Name,
+                        PathMode = path.PathMode,
+                        Points = path.Points.Select(x => new ThreePointValue
+                        {
+                            X = x.X,
+                            Y = x.Y,
+                            Z = x.Z
+                        }).ToList()
+                    };
+
+                    cs.Paths.Add(p);
+                }
+
+                foreach (ResourceViewModel resource in ResourceManifest)
+                {
+                    Resource r = new Resource
+                    {
+                        Index = resource.Index,
+                        Path = resource.Path
+                    };
+
+                    cs.ResourceManifest.Add(r);
+                }
+
+                foreach (StaticObjectViewModel staticObject in StaticObjects)
+                {
+                    StaticObject so = new StaticObject
+                    {
+                        GlobalPosition = new ThreePointValue
+                        {
+                            X = staticObject.GlobalPosition.X,
+                            Y = staticObject.GlobalPosition.Y,
+                            Z = staticObject.GlobalPosition.Z,
+                        },
+                        Id = staticObject.Id,
+                        PrefabId = staticObject.PrefabId,
+                        Rotation = new ThreePointValue
+                        {
+                            X = staticObject.Rotation.X,
+                            Y = staticObject.Rotation.Y,
+                            Z = staticObject.Rotation.Z,
+                        }
+                    };
+
+                    cs.StaticObjects.Add(so);
+                }
+
+                foreach (WaypointViewModel waypoint in Waypoints)
+                {
+                    Waypoint wp = new Waypoint
+                    {
+                        GlobalPoint = new ThreePointValue
+                        {
+                            X = waypoint.GlobalPoint.X,
+                            Y = waypoint.GlobalPoint.Y,
+                            Z = waypoint.GlobalPoint.Z,
+                        },
+                        Id = waypoint.Id,
+                        Name = waypoint.Name
+                    };
+
+                    cs.Waypoints.Add(wp);
+                }
+
+                for (int i = 0; i < Waypoints.Properties.Count; i++)
+                {
+                    DictionaryEntry property = Waypoints.Properties[i];
+
+                    cs.Waypoints.AddProperty(property.Key, property.Value);
+                }
+
+                foreach (UnitSpawnerViewModel unit in Units)
+                {
+                    UnitSpawner us = new UnitSpawner
+                    {
+                        EditorPlacementMode = unit.EditorPlacementMode,
+                        GlobalPosition = new ThreePointValue
+                        {
+                            X = unit.GlobalPosition.X,
+                            Y = unit.GlobalPosition.Y,
+                            Z = unit.GlobalPosition.Z
+                        },
+                        LastValidPlacement = new ThreePointValue
+                        {
+                            X = unit.LastValidPlacement.X,
+                            Y = unit.LastValidPlacement.Y,
+                            Z = unit.LastValidPlacement.Z
+                        },
+                        Rotation = new ThreePointValue
+                        {
+                            X = unit.Rotation.X,
+                            Y = unit.Rotation.Y,
+                            Z = unit.Rotation.Z
+                        },
+                        SpawnChance = unit.SpawnChance,
+                        SpawnFlags = unit.SpawnFlags,
+                        UnitId = unit.UnitId,
+                        UnitInstanceId = unit.UnitInstanceId,
+                        UnitName = unit.UnitName
+                    };
+
+                    UnitFields uf = new UnitFields
+                    {
+                        AllowReload = unit.UnitFields.AllowReload,
+                        AutoRefuel = unit.UnitFields.AutoRefuel,
+                        AutoReturnToBase = unit.UnitFields.AutoReturnToBase,
+                        AwacsVoiceProfile = unit.UnitFields.AwacsVoiceProfile,
+                        Behavior = unit.UnitFields.Behavior,
+                        CombatTarget = unit.UnitFields.CombatTarget,
+                        CommsEnabled = unit.UnitFields.CommsEnabled,
+                        DefaultBehavior = unit.UnitFields.DefaultBehavior,
+                        DefaultNavSpeed = unit.UnitFields.DefaultNavSpeed,
+                        DefaultOrbitPoint = unit.UnitFields.DefaultOrbitPoint,
+                        DefaultPath = unit.UnitFields.DefaultPath,
+                        DefaultRadarEnabled = unit.UnitFields.DefaultRadarEnabled,
+                        DefaultShotsPerSalvo = unit.UnitFields.DefaultShotsPerSalvo,
+                        DefaultWaypoint = unit.UnitFields.DefaultWaypoint,
+                        DetectionMode = unit.UnitFields.DetectionMode,
+                        EngageEnemies = unit.UnitFields.EngageEnemies,
+                        Equips = unit.UnitFields.Equips,
+                        Fuel = unit.UnitFields.Fuel,
+                        HullNumber = unit.UnitFields.HullNumber,
+                        InitialSpeed = unit.UnitFields.InitialSpeed,
+                        Invincible = unit.UnitFields.Invincible,
+                        MoveSpeed = unit.UnitFields.MoveSpeed,
+                        OrbitAltitude = unit.UnitFields.OrbitAltitude,
+                        ParkedStartMode = unit.UnitFields.ParkedStartMode,
+                        PlayerCommandsMode = unit.UnitFields.PlayerCommandsMode,
+                        RadarUnits = unit.UnitFields.RadarUnits,
+                        ReceiveFriendlyDamage = unit.UnitFields.ReceiveFriendlyDamage,
+                        ReloadTime = unit.UnitFields.ReloadTime,
+                        Respawnable = unit.UnitFields.Respawnable,
+                        RippleRate = unit.UnitFields.RippleRate,
+                        SpawnOnStart = unit.UnitFields.SpawnOnStart,
+                        StartMode = unit.UnitFields.StartMode,
+                        StopToEngage = unit.UnitFields.StopToEngage,
+                        UnitGroup = unit.UnitFields.UnitGroup,
+                        VoiceProfile = unit.UnitFields.VoiceProfile,
+                    };
+
+                    if (unit.UnitFields.Waypoint != null)
+                    {
+                        uf.Waypoint = cs.Waypoints.FirstOrDefault(x => x.Id == unit.UnitFields.Waypoint.Id);
+                    }
+
+                    if (unit.UnitFields.CarrierSpawns.Count > 0)
+                    {
+                        List<Tuple<int, UnitSpawner>> matches = new List<Tuple<int, UnitSpawner>>();
+
+                        foreach (Tuple<int, UnitSpawnerViewModel> u in unit.UnitFields.CarrierSpawns)
+                        {
+                            UnitSpawner match = cs.Units.FirstOrDefault(x => x.UnitInstanceId == u.Item2.UnitInstanceId);
+
+                            if (match != null)
+                            {
+                                matches.Add(new Tuple<int, UnitSpawner>(u.Item1, match));
+                            }
+                        }
+
+                        uf.CarrierSpawns = matches;
+                    }
+
+                    if (unit.UnitFields.ReturnToBaseDestination != null)
+                    {
+                        if (unit.UnitFields.ReturnToBaseDestination is UnitSpawnerViewModel u)
+                        {
+                            uf.ReturnToBaseDestination = cs.Units.FirstOrDefault(x => x.UnitInstanceId == u.UnitInstanceId);
+                        }
+                        else if (unit.UnitFields.ReturnToBaseDestination is BaseInfo bi)
+                        {
+                            // base references seem to be index based not id based
+                            uf.ReturnToBaseDestination = cs.Bases.FirstOrDefault(x => x.Id == bi.Id);
+                        }
+                    }
+
+                    us.UnitFields = uf;
+
+                    cs.Units.Add(us);
+                }
+
+                foreach (UnitGroupViewModel unitGroup in UnitGroups)
+                {
+                    UnitGroup ug = new UnitGroup
+                    {
+                        Name = unitGroup.Name
+                    };
+
+                    ug.Alpha = WriteUnitGroup(unitGroup.Alpha, cs);
+                    ug.Bravo = WriteUnitGroup(unitGroup.Bravo, cs);
+                    ug.Charlie = WriteUnitGroup(unitGroup.Charlie, cs);
+                    ug.Delta = WriteUnitGroup(unitGroup.Delta, cs);
+                    ug.Echo = WriteUnitGroup(unitGroup.Echo, cs);
+                    ug.Foxtrot = WriteUnitGroup(unitGroup.Foxtrot, cs);
+                    ug.Golf = WriteUnitGroup(unitGroup.Golf, cs);
+                    ug.Hotel = WriteUnitGroup(unitGroup.Hotel, cs);
+                    ug.India = WriteUnitGroup(unitGroup.India, cs);
+                    ug.Juliet = WriteUnitGroup(unitGroup.Juliet, cs);
+                    ug.Kilo = WriteUnitGroup(unitGroup.Kilo, cs);
+                    ug.Lima = WriteUnitGroup(unitGroup.Lima, cs);
+                    ug.Mike = WriteUnitGroup(unitGroup.Mike, cs);
+                    ug.November = WriteUnitGroup(unitGroup.November, cs);
+                    ug.Oscar = WriteUnitGroup(unitGroup.Oscar, cs);
+                    ug.Papa = WriteUnitGroup(unitGroup.Papa, cs);
+                    ug.Quebec = WriteUnitGroup(unitGroup.Quebec, cs);
+                    ug.Romeo = WriteUnitGroup(unitGroup.Romeo, cs);
+                    ug.Sierra = WriteUnitGroup(unitGroup.Sierra, cs);
+                    ug.Tango = WriteUnitGroup(unitGroup.Tango, cs);
+                    ug.Uniform = WriteUnitGroup(unitGroup.Uniform, cs);
+                    ug.Victor = WriteUnitGroup(unitGroup.Victor, cs);
+                    ug.Whiskey = WriteUnitGroup(unitGroup.Whiskey, cs);
+                    ug.Xray = WriteUnitGroup(unitGroup.Xray, cs);
+                    ug.Yankee = WriteUnitGroup(unitGroup.Yankee, cs);
+                    ug.Zulu = WriteUnitGroup(unitGroup.Zulu, cs);
+
+                    cs.UnitGroups.Add(ug);
+                }
+
+                foreach (ConditionalViewModel conditional in Conditionals)
+                {
+                    cs.Conditionals.Add(WriteConditional(conditional, cs));
+                }
+
+                foreach (TriggerEventViewModel trigger in TriggerEvents)
+                {
+                    TriggerEvent te = new TriggerEvent
+                    {
+                        Enabled = trigger.Enabled,
+                        EventInfo = WriteEventInfo(trigger.EventInfo, cs),
+                        EventName = trigger.EventName,
+                        Id = trigger.Id,
+                        ProxyMode = trigger.ProxyMode,
+                        Radius = trigger.Radius,
+                        SphericalRadius = trigger.SphericalRadius,
+                        TriggerMode = trigger.TriggerMode,
+                        TriggerType = trigger.TriggerType,
+                    };
+
+                    if (trigger.Conditional != null)
+                    {
+                        te.Conditional = cs.Conditionals.FirstOrDefault(x => x.Id == trigger.Conditional.Id);
+                    }
+
+                    if (trigger.Waypoint != null)
+                    {
+                        te.Waypoint = cs.Waypoints.FirstOrDefault(x => x.Id == trigger.Waypoint.Id);
+                    }
+
+                    cs.TriggerEvents.Add(te);
+                }
+
+                foreach (SequenceViewModel sequence in EventSequences)
+                {
+                    Sequence s = new Sequence
+                    {
+                        Id = sequence.Id,
+                        SequenceName = sequence.SequenceName,
+                        StartImmediately = sequence.StartImmediately,
+                        WhileLoop = sequence.WhileLoop
+                    };
+
+                    foreach (EventViewModel @event in sequence.Events)
+                    {
+                        Event e = new Event
+                        {
+                            Delay = @event.Delay,
+                            NodeName = @event.NodeName,
+                            EventInfo = WriteEventInfo(@event.EventInfo, cs)
+                        };
+
+                        if (@event.Conditional != null)
+                        {
+                            e.Conditional = cs.Conditionals.FirstOrDefault(x => x.Id == @event.Conditional.Id);
+                        }
+
+                        if (@event.ExitConditional != null)
+                        {
+                            e.ExitConditional = cs.Conditionals.FirstOrDefault(x => x.Id == @event.ExitConditional.Id);
+                        }
+
+                        s.Events.Add(e);
+                    }
+
+                    cs.EventSequences.Add(s);
+                }
+
+                foreach (ConditionalActionViewModel conditionalAction in ConditionalActions)
+                {
+                    ConditionalAction ca = new ConditionalAction
+                    {
+                        Id = conditionalAction.Id,
+                        Name = conditionalAction.Name,
+                    };
+
+                    Block baseBlock = new Block
+                    {
+                        BlockId = conditionalAction.BaseBlock.BlockId,
+                        BlockName = conditionalAction.BaseBlock.BlockName
+                    };
+
+                    baseBlock.Actions = WriteEventInfo(conditionalAction.BaseBlock.Actions, cs);
+                    baseBlock.Conditional = WriteConditional(conditionalAction.BaseBlock.Conditional, cs);
+                    baseBlock.ElseActions = WriteEventInfo(conditionalAction.BaseBlock.ElseActions, cs);
+
+                    foreach (BlockViewModel elseIfBlock in conditionalAction.BaseBlock.ElseIfBlocks)
+                    {
+                        Block eib = new Block
+                        {
+                            BlockId = elseIfBlock.BlockId,
+                            BlockName = elseIfBlock.BlockName
+                        };
+
+                        eib.Actions = WriteEventInfo(elseIfBlock.Actions, cs);
+                        eib.Conditional = WriteConditional(elseIfBlock.Conditional, cs);
+                        eib.ElseActions = WriteEventInfo(elseIfBlock.ElseActions, cs);
+
+                        baseBlock.ElseIfBlocks.Add(eib);
+                    }
+
+                    ca.BaseBlock = baseBlock;
+
+                    cs.ConditionalActions.Add(ca);
+                }
+
+                foreach (ObjectiveViewModel objective in Objectives)
+                {
+                    cs.Objectives.Add(WriteObjective(objective, cs));
+                }
+
+                foreach (ObjectiveViewModel objective in ObjectivesOpFor)
+                {
+                    cs.ObjectivesOpFor.Add(WriteObjective(objective, cs));
+                }
+
+                foreach (TimedEventGroupViewModel timedEventGroup in TimedEventGroups)
+                {
+                    TimedEventGroup teg = new TimedEventGroup
+                    {
+                        BeginImmediately = timedEventGroup.BeginImmediately,
+                        GroupId = timedEventGroup.GroupId,
+                        GroupName = timedEventGroup.GroupName,
+                        InitialDelay = timedEventGroup.InitialDelay
+                    };
+
+                    foreach (TimedEventInfoViewModel timedEventInfo in timedEventGroup.TimedEventInfos)
+                    {
+                        TimedEventInfo tei = new TimedEventInfo
+                        {
+                            EventName = timedEventInfo.EventName,
+                            Time = timedEventInfo.Time
+                        };
+
+                        foreach (EventTargetViewModel eventTarget in timedEventInfo.EventTargets)
+                        {
+                            tei.EventTargets.Add(WriteEventTarget(eventTarget, cs));
+                        }
+
+                        teg.TimedEventInfos.Add(tei);
+                    }
+
+                    cs.TimedEventGroups.Add(teg);
+                }
+
+                cs.Save();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                ServiceLocator.Instance.Logger.Error($"An error occurred attempting to save the VTS file.{Environment.NewLine}{ex}");
+
+                return false;
+            }
+        }
+
+        private UnitGroupGrouping WriteUnitGroup(UnitGroupGroupingViewModel unitGroupGrouping, CustomScenario customScenario)
+        {
+            if (unitGroupGrouping == null) return null;
+
+            UnitGroupGrouping groupGrouping = new UnitGroupGrouping
+            {
+                Name = unitGroupGrouping.Name,
+                Parent = customScenario                
+            };
+
+            foreach (UnitSpawnerViewModel unit in unitGroupGrouping.Units)
+            {
+                UnitSpawner match = customScenario.Units.FirstOrDefault(x => x.UnitInstanceId == unit.UnitInstanceId);
+
+                if (match != null) groupGrouping.Units.Add(match);
+            }
+
+            groupGrouping.Settings = new UnitGroupSettings
+            {
+                Name = unitGroupGrouping.Settings.Name,
+                Parent = groupGrouping,
+                SyncAltSpawns = unitGroupGrouping.Settings.SyncAltSpawns
+            };
+
+            return groupGrouping;
+        }
+
+        private Conditional WriteConditional(ConditionalViewModel conditional, CustomScenario customScenario)
+        {
+            Conditional con = new Conditional
+            {
+                Id = conditional.Id,
+                OutputNodePosition = new ThreePointValue
+                {
+                    X = conditional.OutputNodePosition.X,
+                    Y = conditional.OutputNodePosition.Y,
+                    Z = conditional.OutputNodePosition.Z,
+                },
+                Root = conditional.Root
+            };
+
+            foreach (ComputationViewModel computation in conditional.Computations)
+            {
+                Computation c = new Computation
+                {
+                    Chance = computation.Chance,
+                    Comparison = computation.Comparison,
+                    ControlCondition = computation.ControlCondition,
+                    ControlValue = computation.ControlValue,
+                    CValue = computation.CValue,
+                    Id = computation.Id,
+                    IsNot = computation.IsNot,
+                    MethodName = computation.MethodName,
+                    MethodParameters = computation.MethodParameters,
+                    Type = computation.Type,
+                    UiPosition = new ThreePointValue
+                    {
+                        X = conditional.OutputNodePosition.X,
+                        Y = conditional.OutputNodePosition.Y,
+                        Z = conditional.OutputNodePosition.Z,
+                    },
+                    Unit = customScenario.Units.FirstOrDefault(x => x.UnitInstanceId == computation.Unit.UnitInstanceId),
+                    UnitGroup = computation.UnitGroup,
+                    VehicleControl = computation.VehicleControl
+                };
+
+                if (computation.GlobalValue != null)
+                {
+                    c.GlobalValue = new GlobalValue
+                    {
+                        Description = computation.GlobalValue.Description,
+                        Index = computation.GlobalValue.Index,
+                        Name = computation.GlobalValue.Name,
+                        Value = computation.GlobalValue.Value
+                    };
+                }
+
+                if (computation.ObjectReference != null)
+                {
+                    StaticObject match = computation.ObjectReference is StaticObjectViewModel staticObjectViewModel 
+                        ? customScenario.StaticObjects.FirstOrDefault(x => x.Id == staticObjectViewModel.Id) 
+                        : null;
+
+                    c.ObjectReference = match;
+                }
+
+                if (computation.UnitList.Count > 0)
+                {
+                    c.UnitList.AddRange(computation.UnitList.SelectMany(x => customScenario.Units.Where(y => x.UnitInstanceId == y.UnitInstanceId)));
+                }
+
+                con.Computations.Add(c);
+            }
+
+            // set factors after adding all computations
+            for (int i = 0; i < conditional.Computations.Count; i++)
+            {
+                ComputationViewModel computation = conditional.Computations[i];
+                Computation comp = con.Computations[i];
+
+                if (computation.Factors.Count > 0)
+                {
+                    foreach (ComputationViewModel factor in computation.Factors)
+                    {
+                        Computation match = con.Computations.FirstOrDefault(x => x.Id == factor.Id);
+
+                        comp.Factors.Add(match);
+                    }
+                }
+            }
+
+            return con;
+        }
+
+        private EventInfo WriteEventInfo(EventInfoViewModel eventInfo, CustomScenario customScenario)
+        {
+            EventInfo ei = new EventInfo
+            {
+                EventName = eventInfo.EventName
+            };
+
+            foreach (EventTargetViewModel eventTarget in eventInfo.EventTargets)
+            {
+                ei.EventTargets.Add(WriteEventTarget(eventTarget, customScenario));
+            }
+
+            return ei;
+        }
+
+        private EventTarget WriteEventTarget(EventTargetViewModel eventTarget, CustomScenario customScenario)
+        {
+            EventTarget et = new EventTarget
+            {
+                EventName= eventTarget.EventName,
+                MethodName= eventTarget.MethodName,
+                TargetType = eventTarget.TargetType,
+            };
+
+            if (eventTarget.Target is UnitSpawnerViewModel unit)
+            {
+                et.Target = customScenario.Units.FirstOrDefault(x => x.UnitInstanceId == unit.UnitInstanceId);
+            }
+            else if (eventTarget.Target is Sequence sequence)
+            {
+                et.Target = customScenario.EventSequences.FirstOrDefault(x => x.Id == sequence.Id);
+            }
+            else if (eventTarget.Target is TriggerEvent triggerEvent)
+            {
+                et.Target = customScenario.TriggerEvents.FirstOrDefault(x => x.Id == triggerEvent.Id);
+            }
+            else if (eventTarget.Target is StaticObject staticObject)
+            {
+                et.Target = customScenario.StaticObjects.FirstOrDefault(x => x.Id == staticObject.Id);
+            }
+            else if (eventTarget.Target is Objective objective)
+            {
+                et.Target = customScenario.Objectives.FirstOrDefault(x => x.ObjectiveID == objective.ObjectiveID);
+
+                if (et.Target == null)
+                    et.Target = customScenario.ObjectivesOpFor.FirstOrDefault(x => x.ObjectiveID == objective.ObjectiveID);
+            }
+            else if (eventTarget.Target is TimedEventGroup timedEventGroup)
+            {
+                et.Target = customScenario.TimedEventGroups.FirstOrDefault(x => x.GroupId == timedEventGroup.GroupId);
+            }
+            else et.Target = eventTarget.Target;
+
+
+            foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+            {
+                ParamInfo pi = new ParamInfo
+                {
+                    Name = paramInfo.Name,
+                    Type = paramInfo.Type
+                };
+
+                if (paramInfo.Value is UnitSpawnerViewModel paramInfoUnit)
+                {
+                    pi.Value = customScenario.Units.FirstOrDefault(x => x.UnitInstanceId == paramInfoUnit.UnitInstanceId);
+                }
+                else if (paramInfo.Value is ObservableCollection<UnitSpawnerViewModel> paramInfoUnits)
+                {
+                    List<UnitSpawner> matches = new List<UnitSpawner>();
+
+                    foreach (UnitSpawnerViewModel u in paramInfoUnits)
+                    {
+                        UnitSpawner match = customScenario.Units.FirstOrDefault(x => x.UnitInstanceId == u.UnitInstanceId);
+
+                        if (match != null) matches.Add(match);
+                    }
+
+                    pi.Value = matches;
+                }
+                else if (paramInfo.Value is ConditionalActionViewModel conditionalActionViewModel)
+                {
+                    pi.Value = customScenario.ConditionalActions.FirstOrDefault(x => x.Id == conditionalActionViewModel.Id);
+                }
+                else if (paramInfo.Value is BaseInfoViewModel baseInfoViewModel)
+                {
+                    pi.Value = customScenario.Bases.FirstOrDefault(x => x.Id == baseInfoViewModel.Id);
+                }
+                else if (paramInfo.Value is FileInfo file)
+                {
+                    pi.Value = new FileInfo(file.FullName);
+                }
+                else if (paramInfo.Value is GlobalValueViewModel globalValueViewModel)
+                {
+                    pi.Value = customScenario.GlobalValues.FirstOrDefault(x => x.Index == globalValueViewModel.Index);
+                }
+                else if (paramInfo.Value is PathViewModel pathViewModel)
+                {
+                    pi.Value = customScenario.Paths.FirstOrDefault(x => x.Id == pathViewModel.Id);
+                }
+                else if (paramInfo.Value is WaypointViewModel waypointViewModel)
+                {
+                    pi.Value = customScenario.Waypoints.FirstOrDefault(x => x.Id == waypointViewModel.Id);
+                }
+                else if (paramInfo.Value is ThreePointValueViewModel threePointValueViewModel)
+                {
+                    pi.Value = new ThreePointValue
+                    {
+                        X = threePointValueViewModel.X,
+                        Y = threePointValueViewModel.Y,
+                        Z = threePointValueViewModel.Z
+                    };
+                }
+                else pi.Value = paramInfo.Value;
+
+                foreach (ParamAttrInfoViewModel paramAttrInfo in paramInfo.ParamAttrInfos)
+                {
+                    ParamAttrInfo pai = new ParamAttrInfo
+                    {
+                        Data = paramAttrInfo.Data,
+                        Type = paramAttrInfo.Type
+                    };
+
+                    pi.ParamAttrInfos.Add(pai);
+                }
+
+                et.ParamInfos.Add(pi);
+            }
+
+            return et;
+        }
+
+        private Objective WriteObjective(ObjectiveViewModel objective, CustomScenario customScenario)
+        {
+            Objective obj = new Objective
+            {
+                AutoSetWaypoint = objective.AutoSetWaypoint,
+                CompletionReward = objective.CompletionReward,
+                ObjectiveID = objective.ObjectiveID,
+                ObjectiveInfo = objective.ObjectiveInfo,
+                ObjectiveName = objective.ObjectiveName,
+                ObjectiveType = objective.ObjectiveType,
+                OrderID = objective.OrderID,
+                Required = objective.Required,
+                StartMode = objective.StartMode
+            };
+
+            obj.CompleteEvent = WriteEventInfo(objective.CompleteEvent, customScenario);
+            obj.FailEvent = WriteEventInfo(objective.FailEvent, customScenario);
+            obj.StartEvent = WriteEventInfo(objective.StartEvent, customScenario);
+
+            if (objective.Waypoint != null)
+            {
+                if (objective.Waypoint is UnitSpawnerViewModel unit)
+                {
+                    obj.Waypoint = customScenario.Units.FirstOrDefault(x => x.UnitInstanceId == unit.UnitInstanceId);
+                }
+                else if (objective.Waypoint is WaypointViewModel waypoint)
+                {
+                    obj.Waypoint = customScenario.Waypoints.FirstOrDefault(x => x.Id == waypoint.Id);
+                }
+            }
+
+            ObjectiveFields objectiveFields = new ObjectiveFields
+            {
+                CompletionMode = objective.Fields.CompletionMode,
+                FuelLevel = objective.Fields.FuelLevel,
+                FullCompletionBonus = objective.Fields.FullCompletionBonus,
+                MinRequired = objective.Fields.MinRequired,
+                PerUnitReward = objective.Fields.PerUnitReward,
+                Radius = objective.Fields.Radius,
+                SphericalRadius = objective.Fields.SphericalRadius,
+                TriggerRadius = objective.Fields.TriggerRadius,
+                UnloadRadius = objective.Fields.UnloadRadius
+            };
+
+            if (objective.Fields.FailConditional != null)
+            {
+                objectiveFields.FailConditional = customScenario.Conditionals.FirstOrDefault(x => x.Id == objective.Fields.FailConditional.Id);
+            }
+
+            if (objective.Fields.SuccessConditional != null)
+            {
+                objectiveFields.SuccessConditional = customScenario.Conditionals.FirstOrDefault(x => x.Id == objective.Fields.SuccessConditional.Id);
+            }
+
+            if (objective.Fields.DropoffRallyPoint != null)
+            {
+                objectiveFields.DropoffRallyPoint = customScenario.Waypoints.FirstOrDefault(x => x.Id == objective.Fields.DropoffRallyPoint.Id);
+            }
+
+            if (objective.Fields.Target != null)
+            {
+                objectiveFields.Target = customScenario.Units.FirstOrDefault(x => x.UnitInstanceId == objective.Fields.Target.UnitInstanceId);
+            }
+
+            if (objective.Fields.TargetUnit != null)
+            {
+                objectiveFields.TargetUnit = customScenario.Units.FirstOrDefault(x => x.UnitInstanceId == objective.Fields.TargetUnit.UnitInstanceId);
+            }
+
+            if (objective.Fields.Targets.Count > 0)
+            {
+                List<UnitSpawner> matches = new List<UnitSpawner>();
+                
+                foreach (UnitSpawnerViewModel target in objective.Fields.Targets)
+                {
+                    UnitSpawner match = customScenario.Units.FirstOrDefault(x => x.UnitInstanceId == target.UnitInstanceId);
+
+                    if (match != null) matches.Add(match);
+                }
+
+                objectiveFields.Targets = matches;
+            }
+
+            obj.Fields = objectiveFields;
+
+            return obj;
+        }
+
+        private void WriteObjectivePreReqs(ObjectiveViewModel objectiveViewModel, Objective objective, CustomScenario customScenario, bool isOpfor)
+        {
+            foreach (ObjectiveViewModel preReqViewModel in objectiveViewModel.PreReqObjectives)
+            {
+                Objective match = isOpfor
+                    ? customScenario.ObjectivesOpFor.FirstOrDefault(x => x.ObjectiveID == preReqViewModel.ObjectiveID)
+                    : customScenario.Objectives.FirstOrDefault(x => x.ObjectiveID == preReqViewModel.ObjectiveID);
+
+                objective.PreReqObjectives.Add(match);
+            }
         }
 
         #endregion

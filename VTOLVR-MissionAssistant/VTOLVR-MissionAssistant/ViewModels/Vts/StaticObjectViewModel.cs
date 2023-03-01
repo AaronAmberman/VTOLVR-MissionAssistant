@@ -71,8 +71,8 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
             {
                 PrefabId = PrefabId,
                 Id = Id,
-                GlobalPosition = GlobalPosition.Clone(),
-                Rotation = Rotation.Clone(),
+                GlobalPosition = GlobalPosition?.Clone(),
+                Rotation = Rotation?.Clone(),
                 Parent = Parent
             };
         }

@@ -196,7 +196,7 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
             return new ObjectiveFieldsViewModel
             {
                 FailConditional = FailConditional?.Clone(),
-                SuccessConditional = SuccessConditional.Clone(),
+                SuccessConditional = SuccessConditional?.Clone(),
                 Radius = Radius,
                 Targets = new ObservableCollection<UnitSpawnerViewModel>(Targets.Select(x => x.Clone()).ToList()),
                 MinRequired = MinRequired,

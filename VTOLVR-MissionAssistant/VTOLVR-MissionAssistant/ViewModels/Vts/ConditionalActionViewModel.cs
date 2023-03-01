@@ -62,7 +62,7 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
         {
             return new ConditionalActionViewModel
             {
-                BaseBlock = BaseBlock.Clone(),
+                BaseBlock = BaseBlock?.Clone(),
                 Id = Id,
                 Name = Name,
                 Parent = Parent

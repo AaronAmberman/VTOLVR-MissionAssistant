@@ -140,12 +140,12 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
             return new UnitSpawnerViewModel
             {
                 EditorPlacementMode = EditorPlacementMode,
-                GlobalPosition = GlobalPosition.Clone(),
-                LastValidPlacement = LastValidPlacement.Clone(),
-                Rotation = Rotation.Clone(),
+                GlobalPosition = GlobalPosition?.Clone(),
+                LastValidPlacement = LastValidPlacement?.Clone(),
+                Rotation = Rotation?.Clone(),
                 SpawnChance = SpawnChance,
                 SpawnFlags = SpawnFlags,
-                UnitFields = UnitFields.Clone(),
+                UnitFields = UnitFields?.Clone(),
                 UnitId = UnitId,
                 UnitInstanceId = UnitInstanceId,
                 UnitName = UnitName,

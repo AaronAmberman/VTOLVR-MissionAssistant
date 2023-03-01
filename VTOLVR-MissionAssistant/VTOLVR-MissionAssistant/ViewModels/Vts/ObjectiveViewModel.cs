@@ -197,7 +197,7 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
             {
                 AutoSetWaypoint = AutoSetWaypoint,
                 CompletionReward = CompletionReward,
-                Fields = Fields.Clone(),
+                Fields = Fields?.Clone(),
                 ObjectiveInfo = ObjectiveInfo,
                 ObjectiveID = ObjectiveID,
                 ObjectiveName = ObjectiveName,
@@ -207,9 +207,9 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
                 PreReqObjectives = PreReqObjectives,
                 StartMode = StartMode,
                 Waypoint = Waypoint is ICloneable cloneable ? cloneable.Clone() : Waypoint, // prefer clone, else just reference
-                CompleteEvent = CompleteEvent.Clone(),
-                FailEvent = FailEvent.Clone(),
-                StartEvent = StartEvent.Clone(),
+                CompleteEvent = CompleteEvent?.Clone(),
+                FailEvent = FailEvent?.Clone(),
+                StartEvent = StartEvent?.Clone(),
                 Parent = Parent
             };
         }

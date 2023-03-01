@@ -152,7 +152,7 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
             {
                 Conditional = Conditional?.Clone(),
                 Enabled = Enabled,
-                EventInfo = EventInfo.Clone(),
+                EventInfo = EventInfo?.Clone(),
                 EventName = EventName,
                 Id = Id,
                 ProxyMode = ProxyMode,
@@ -160,7 +160,7 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
                 SphericalRadius = SphericalRadius,
                 TriggerMode = TriggerMode,
                 TriggerType = TriggerType,
-                Waypoint = Waypoint.Clone(),
+                Waypoint = Waypoint?.Clone(),
                 Parent = Parent
             };
         }
