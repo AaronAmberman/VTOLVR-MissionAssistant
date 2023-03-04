@@ -32,9 +32,9 @@ I've started development and have been working to build out the UI and basic ing
 
 ![image](https://user-images.githubusercontent.com/23512394/220999012-76e4cb00-7069-479e-82dc-cdb19e563b83.png)
 
-![image](https://user-images.githubusercontent.com/23512394/220999120-f01e7317-3515-40af-b5e4-fe0ebff0cfbb.png)
+![image](https://user-images.githubusercontent.com/23512394/222927673-b973c62c-9932-4808-babd-ad740b9cd6d1.png)
 
-![image](https://user-images.githubusercontent.com/23512394/220999214-5bd13174-6d1d-4d8b-9121-c58defc3633a.png)
+![image](https://user-images.githubusercontent.com/23512394/222927681-0b107152-55d1-45e5-96cc-6a4cc3abe3c2.png)
 
 ![image](https://user-images.githubusercontent.com/23512394/220999419-2b8f336a-a097-425c-9429-e4fa79b32510.png)
 
