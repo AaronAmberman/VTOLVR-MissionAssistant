@@ -211,7 +211,7 @@ namespace VTOLVR_MissionAssistant.ViewModels
                     CustomScenarioViewModel customScenarioViewModel = new CustomScenarioViewModel(scenario);
 
                     CustomScenarioViewModel clone = customScenarioViewModel.Clone();
-                    clone.File = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "temp.vts");
+                    clone.File = System.IO.Path.Combine(@"C:\Users\Aaron\Desktop\VTS Files", "temp.vts");
                     clone.Save();
 
                     FileForData = file;

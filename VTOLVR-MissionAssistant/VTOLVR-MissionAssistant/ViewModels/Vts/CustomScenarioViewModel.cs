@@ -667,6 +667,59 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
             }
         }
 
+        private void ProcessEventTargetObjectReferences(EventTargetViewModel eventTarget, EventTarget et, CustomScenario cs)
+        {
+            if (eventTarget.Target is TriggerEventViewModel triggerEvent)
+            {
+                TriggerEvent trigEve = cs.TriggerEvents.FirstOrDefault(te => te.Id == triggerEvent.Id);
+
+                et.Target = trigEve;
+            }
+            else if (eventTarget.Target is SequenceViewModel sequenceViewModel)
+            {
+                Sequence sequence = cs.EventSequences.FirstOrDefault(es => es.Id == sequenceViewModel.Id);
+
+                et.Target = sequence;
+            }
+            else if (eventTarget.Target is ObjectiveViewModel objectiveViewModel)
+            {
+                Objective objective = cs.Objectives.FirstOrDefault(so => so.ObjectiveID == objectiveViewModel.ObjectiveID);
+
+                if (objective == null)
+                {
+                    objective = cs.ObjectivesOpFor.FirstOrDefault(so => so.ObjectiveID == objectiveViewModel.ObjectiveID);
+
+                    et.Target = objective;
+                }
+                else
+                {
+                    et.Target = objective;
+                }
+            }
+            else if (eventTarget.Target is TimedEventGroupViewModel timedEventGroupViewModel)
+            {
+                TimedEventGroup timedEventGroup = cs.TimedEventGroups.FirstOrDefault(teg => teg.GroupId == timedEventGroupViewModel.GroupId);
+
+                et.Target = timedEventGroup;
+            }
+
+            for (int k = 0; k < eventTarget.ParamInfos.Count; k++)
+            {
+                ParamInfoViewModel paramInfoViewModel = eventTarget.ParamInfos[k];
+                ParamInfo pi = et.ParamInfos[k];
+
+                if (paramInfoViewModel.Value is ConditionalActionViewModel conditionalActionViewModel)
+                {
+                    ConditionalAction reference = cs.ConditionalActions.FirstOrDefault(x => x.Id == conditionalActionViewModel.Id);
+
+                    if (reference != null)
+                    {
+                        pi.Value = reference;
+                    }
+                }
+            }
+        }
+
         private void ProcessObjectivePreReqs(int index, bool opFor)
         {
             ObjectiveViewModel objective = opFor ? ObjectivesOpFor[index] : Objectives[index];
@@ -687,6 +740,31 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
                         ObjectiveViewModel match = Objectives.FirstOrDefault(x => x.ObjectiveID == obj.ObjectiveID);
 
                         objective.PreReqObjectives.Add(match);
+                    }
+                }
+            }
+        }
+
+        private void ProcessObjectivePreReqs(int index, bool opFor, CustomScenario cs)
+        {
+            ObjectiveViewModel objective = opFor ? ObjectivesOpFor[index] : Objectives[index];
+            Objective o = opFor ? cs.ObjectivesOpFor[index] : cs.Objectives[index];
+
+            if (objective.PreReqObjectives.Count > 0)
+            {
+                foreach (ObjectiveViewModel obj in objective.PreReqObjectives)
+                {
+                    if (opFor)
+                    {
+                        Objective match = cs.ObjectivesOpFor.FirstOrDefault(x => x.ObjectiveID == obj.ObjectiveID);
+
+                        o.PreReqObjectives.Add(match);
+                    }
+                    else
+                    {
+                        Objective match = cs.Objectives.FirstOrDefault(x => x.ObjectiveID == obj.ObjectiveID);
+
+                        o.PreReqObjectives.Add(match);
                     }
                 }
             }
@@ -1390,43 +1468,17 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
                     Parent = conditional
                 };
 
-                if (!string.IsNullOrWhiteSpace(comp.Type))
+                if (comp.ObjectReference != null)
                 {
-                    //if (comp.Type == KeywordStrings.SccUnit)
-                    //{
-                    //}
-                    //else if (comp.Type == KeywordStrings.SccUnitGroup)
-                    //{
-                    //}
-                    //else if (comp.Type == KeywordStrings.SccUnitList)
-                    //{
-                    //}
-                    //else if (comp.Type == KeywordStrings.SccChance)
-                    //{
+                    StaticObject so = comp.ObjectReference as StaticObject;
 
-                    //}
-                    //else if (comp.Type == KeywordStrings.SccVehicleControl)
-                    //{
-                    //}
-                    //else if (comp.Type == KeywordStrings.SccGlobalValue)
-                    //{
-                    //}
-                    // only static objects seem to use the object reference property
-                    if (comp.Type == KeywordStrings.SccStaticObject)
+                    if (so != null)
                     {
-                        if (comp.ObjectReference != null)
+                        StaticObjectViewModel match = StaticObjects.FirstOrDefault(x => x.Id == so.Id);
+
+                        if (match != null)
                         {
-                            StaticObject so = comp.ObjectReference as StaticObject;
-
-                            if (so != null)
-                            {
-                                StaticObjectViewModel match = StaticObjects.FirstOrDefault(x => x.Id == so.Id);
-
-                                if (match != null)
-                                {
-                                    computation.ObjectReference = match;
-                                }
-                            }
+                            computation.ObjectReference = match;
                         }
                     }
                     else
@@ -1453,7 +1505,7 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
                 {
                     foreach (UnitSpawner unit in comp.UnitList)
                     {
-                        UnitSpawnerViewModel match = Units.FirstOrDefault(x => x.UnitInstanceId == comp.Unit.UnitInstanceId);
+                        UnitSpawnerViewModel match = Units.FirstOrDefault(x => x.UnitInstanceId == unit.UnitInstanceId);
 
                         computation.UnitList.Add(match);
                     }
@@ -1470,9 +1522,13 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
 
                 if (comp.Factors.Count > 0)
                 {
-                    ComputationViewModel match = conditional.Computations.FirstOrDefault(x => x.Id == comp.Id);
+                    foreach (Computation factor in comp.Factors)
+                    {
+                        ComputationViewModel match = conditional.Computations.FirstOrDefault(x => x.Id == factor.Id);
 
-                    if (match != null) computation.Factors.Add(match);
+                        if (match != null) computation.Factors.Add(match);
+                    }
+                    
                 }
             }
 
@@ -1631,13 +1687,13 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
             {
                 WaypointViewModel waypointViewModel = Waypoints.FirstOrDefault(x => x.Id == waypoint.Id);
 
-                objective.Waypoint = waypointViewModel;
+                objectiveViewModel.Waypoint = waypointViewModel;
             }
             else if (objective.Waypoint is UnitSpawner unit)
             {
                 UnitSpawnerViewModel unitSpawnerViewModel = Units.FirstOrDefault(x => x.UnitInstanceId == unit.UnitInstanceId);
 
-                objective.Waypoint = unitSpawnerViewModel;
+                objectiveViewModel.Waypoint = unitSpawnerViewModel;
             }
 
             ObjectiveFieldsViewModel objectiveFieldsViewModel = new ObjectiveFieldsViewModel
@@ -2216,6 +2272,147 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
                     cs.TimedEventGroups.Add(teg);
                 }
 
+                // set references to conditional actions, trigger events, event sequences, objectives, objectives op for, timed event groups
+                for (int i = 0; i < ConditionalActions.Count; i++)
+                {
+                    ConditionalActionViewModel conditionalAction = ConditionalActions[i];
+                    ConditionalAction ca = cs.ConditionalActions[i];
+
+                    for (int j = 0; j < conditionalAction.BaseBlock.Actions.EventTargets.Count; j++)
+                    {
+                        EventTargetViewModel eventTarget = conditionalAction.BaseBlock.Actions.EventTargets[j];
+                        EventTarget et = ca.BaseBlock.Actions.EventTargets[j];
+
+                        ProcessEventTargetObjectReferences(eventTarget, et, cs);
+                    }
+
+                    for (int j = 0; j < conditionalAction.BaseBlock.ElseActions.EventTargets.Count; j++)
+                    {
+                        EventTargetViewModel eventTarget = conditionalAction.BaseBlock.ElseActions.EventTargets[j];
+                        EventTarget et = ca.BaseBlock.ElseActions.EventTargets[j];
+
+                        ProcessEventTargetObjectReferences(eventTarget, et, cs);
+                    }
+                }
+
+                for (int i = 0; i < TriggerEvents.Count; i++)
+                {
+                    TriggerEventViewModel triggerEvent = TriggerEvents[i];
+                    TriggerEvent te = cs.TriggerEvents[i];
+
+                    for (int j = 0; j < triggerEvent.EventInfo.EventTargets.Count; j++)
+                    {
+                        EventTargetViewModel eventTarget = triggerEvent.EventInfo.EventTargets[j];
+                        EventTarget et = te.EventInfo.EventTargets[j];
+
+                        ProcessEventTargetObjectReferences(eventTarget, et, cs);
+                    }
+                }
+
+                for (int i = 0; i < EventSequences.Count; i++)
+                {
+                    SequenceViewModel sequence = EventSequences[i];
+                    Sequence s = cs.EventSequences[i];
+
+                    for (int j = 0; j < sequence.Events.Count; j++)
+                    {
+                        EventViewModel @event = sequence.Events[j];
+                        Event e = s.Events[j];
+
+                        for (int k = 0; k < @event.EventInfo.EventTargets.Count; k++)
+                        {
+                            EventTargetViewModel eventTarget = @event.EventInfo.EventTargets[k];
+                            EventTarget et = e.EventInfo.EventTargets[k];
+
+                            ProcessEventTargetObjectReferences(eventTarget, et, cs);
+                        }
+                    }
+                }
+
+                for (int i = 0; i < Objectives.Count; i++)
+                {
+                    ObjectiveViewModel objective = Objectives[i];
+                    Objective o = cs.Objectives[i];
+
+                    for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
+                    {
+                        EventTargetViewModel eventTarget = objective.CompleteEvent.EventTargets[j];
+                        EventTarget et = o.CompleteEvent.EventTargets[j];
+
+                        ProcessEventTargetObjectReferences(eventTarget, et, cs);
+                    }
+
+                    for (int j = 0; j < objective.FailEvent.EventTargets.Count; j++)
+                    {
+                        EventTargetViewModel eventTarget = objective.FailEvent.EventTargets[j];
+                        EventTarget et = o.FailEvent.EventTargets[j];
+
+                        ProcessEventTargetObjectReferences(eventTarget, et, cs);
+                    }
+
+                    for (int j = 0; j < objective.StartEvent.EventTargets.Count; j++)
+                    {
+                        EventTargetViewModel eventTarget = objective.StartEvent.EventTargets[j];
+                        EventTarget et = o.StartEvent.EventTargets[j];
+
+                        ProcessEventTargetObjectReferences(eventTarget, et, cs);
+                    }
+
+                    ProcessObjectivePreReqs(i, false, cs);
+                }
+
+                for (int i = 0; i < ObjectivesOpFor.Count; i++)
+                {
+                    ObjectiveViewModel objective = ObjectivesOpFor[i];
+                    Objective o = cs.ObjectivesOpFor[i];
+
+                    for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
+                    {
+                        EventTargetViewModel eventTarget = objective.CompleteEvent.EventTargets[j];
+                        EventTarget et = o.CompleteEvent.EventTargets[j];
+
+                        ProcessEventTargetObjectReferences(eventTarget, et, cs);
+                    }
+
+                    for (int j = 0; j < objective.FailEvent.EventTargets.Count; j++)
+                    {
+                        EventTargetViewModel eventTarget = objective.FailEvent.EventTargets[j];
+                        EventTarget et = o.FailEvent.EventTargets[j];
+
+                        ProcessEventTargetObjectReferences(eventTarget, et, cs);
+                    }
+
+                    for (int j = 0; j < objective.StartEvent.EventTargets.Count; j++)
+                    {
+                        EventTargetViewModel eventTarget = objective.StartEvent.EventTargets[j];
+                        EventTarget et = o.StartEvent.EventTargets[j];
+
+                        ProcessEventTargetObjectReferences(eventTarget, et, cs);
+                    }
+
+                    ProcessObjectivePreReqs(i, true, cs);
+                }
+
+                for (int i = 0; i < TimedEventGroups.Count; i++)
+                {
+                    TimedEventGroupViewModel timedEventGroup = TimedEventGroups[i];
+                    TimedEventGroup teg = cs.TimedEventGroups[i];
+
+                    for (int j = 0; j < timedEventGroup.TimedEventInfos.Count; j++)
+                    {
+                        TimedEventInfoViewModel timedEventInfo = timedEventGroup.TimedEventInfos[j];
+                        TimedEventInfo tei = teg.TimedEventInfos[j];
+
+                        for (int k = 0; k < timedEventInfo.EventTargets.Count; k++)
+                        {
+                            EventTargetViewModel eventTarget = timedEventInfo.EventTargets[k];
+                            EventTarget et = tei.EventTargets[k];
+
+                            ProcessEventTargetObjectReferences(eventTarget, et, cs);
+                        }
+                    }
+                }
+
                 cs.Save();
 
                 return true;
@@ -2245,12 +2442,15 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
                 if (match != null) groupGrouping.Units.Add(match);
             }
 
-            groupGrouping.Settings = new UnitGroupSettings
+            if (unitGroupGrouping.Settings != null)
             {
-                Name = unitGroupGrouping.Settings.Name,
-                Parent = groupGrouping,
-                SyncAltSpawns = unitGroupGrouping.Settings.SyncAltSpawns
-            };
+                groupGrouping.Settings = new UnitGroupSettings
+                {
+                    Name = unitGroupGrouping.Settings.Name,
+                    Parent = groupGrouping,
+                    SyncAltSpawns = unitGroupGrouping.Settings.SyncAltSpawns
+                };
+            }
 
             return groupGrouping;
         }
@@ -2285,11 +2485,11 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
                     Type = computation.Type,
                     UiPosition = new ThreePointValue
                     {
-                        X = conditional.OutputNodePosition.X,
-                        Y = conditional.OutputNodePosition.Y,
-                        Z = conditional.OutputNodePosition.Z,
+                        X = computation.UiPosition.X,
+                        Y = computation.UiPosition.Y,
+                        Z = computation.UiPosition.Z,
                     },
-                    Unit = customScenario.Units.FirstOrDefault(x => x.UnitInstanceId == computation.Unit.UnitInstanceId),
+                    Unit = customScenario.Units.FirstOrDefault(x => x.UnitInstanceId == computation.Unit?.UnitInstanceId),
                     UnitGroup = computation.UnitGroup,
                     VehicleControl = computation.VehicleControl
                 };
@@ -2312,6 +2512,8 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
                         : null;
 
                     c.ObjectReference = match;
+
+                    if (c.ObjectReference == null) c.ObjectReference = -1;
                 }
 
                 if (computation.UnitList.Count > 0)
@@ -2370,26 +2572,26 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
             {
                 et.Target = customScenario.Units.FirstOrDefault(x => x.UnitInstanceId == unit.UnitInstanceId);
             }
-            else if (eventTarget.Target is Sequence sequence)
+            else if (eventTarget.Target is SequenceViewModel sequence)
             {
                 et.Target = customScenario.EventSequences.FirstOrDefault(x => x.Id == sequence.Id);
             }
-            else if (eventTarget.Target is TriggerEvent triggerEvent)
+            else if (eventTarget.Target is TriggerEventViewModel triggerEvent)
             {
                 et.Target = customScenario.TriggerEvents.FirstOrDefault(x => x.Id == triggerEvent.Id);
             }
-            else if (eventTarget.Target is StaticObject staticObject)
+            else if (eventTarget.Target is StaticObjectViewModel staticObject)
             {
                 et.Target = customScenario.StaticObjects.FirstOrDefault(x => x.Id == staticObject.Id);
             }
-            else if (eventTarget.Target is Objective objective)
+            else if (eventTarget.Target is ObjectiveViewModel objective)
             {
                 et.Target = customScenario.Objectives.FirstOrDefault(x => x.ObjectiveID == objective.ObjectiveID);
 
                 if (et.Target == null)
                     et.Target = customScenario.ObjectivesOpFor.FirstOrDefault(x => x.ObjectiveID == objective.ObjectiveID);
             }
-            else if (eventTarget.Target is TimedEventGroup timedEventGroup)
+            else if (eventTarget.Target is TimedEventGroupViewModel timedEventGroup)
             {
                 et.Target = customScenario.TimedEventGroups.FirstOrDefault(x => x.GroupId == timedEventGroup.GroupId);
             }
