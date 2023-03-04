@@ -5,8 +5,10 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using VTOLVR_MissionAssistant.ViewModels.Vts;
+using VTS;
 using VTS.Data.Runtime;
 using WPF.InternalDialogs;
 
@@ -23,7 +25,15 @@ namespace VTOLVR_MissionAssistant.ViewModels
         private ICommand browseLogCommand;
         private Visibility dataNeededVisibility = Visibility.Collapsed;
         private ObservableCollection<string> errors = new ObservableCollection<string>();
+        private CollectionView enemyBases;
+        private CollectionViewSource enemyBasesSource;
+        private CollectionView enemyUnits;
+        private CollectionViewSource enemyUnitsSource;
         private string fileForData;
+        private CollectionView friendlyBases;
+        private CollectionViewSource friendlyBasesSource;
+        private CollectionView friendlyUnits;
+        private CollectionViewSource friendlyUnitsSource;
         private MessageBoxViewModel messageBoxViewModel;
         private SettingsViewModel settingsViewModel;
         private ICommand scenarioInfoCommand;
@@ -64,8 +74,28 @@ namespace VTOLVR_MissionAssistant.ViewModels
             }
         }
 
-        public ObservableCollection<string> Errors 
+        public CollectionView EnemyBases
         { 
+            get => enemyBases;
+            set
+            {
+                enemyBases = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public CollectionView EnemyUnits
+        {
+            get => enemyUnits;
+            set
+            {
+                enemyUnits = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<string> Errors
+        {
             get => errors;
             set
             {
@@ -80,6 +110,26 @@ namespace VTOLVR_MissionAssistant.ViewModels
             set
             {
                 fileForData = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public CollectionView FriendlyBases
+        {
+            get => friendlyBases;
+            set
+            {
+                friendlyBases = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public CollectionView FriendlyUnits
+        {
+            get => friendlyUnits;
+            set
+            {
+                friendlyUnits = value;
                 OnPropertyChanged();
             }
         }
@@ -213,6 +263,43 @@ namespace VTOLVR_MissionAssistant.ViewModels
                     FileForData = file;
                     VtsFile = customScenarioViewModel;
                     DataNeededVisibility = Visibility.Collapsed;
+
+                    // get various view sources so we can see different views of the same data
+                    enemyUnitsSource = new CollectionViewSource
+                    {
+                        Source = customScenarioViewModel.Units
+                    };
+                    CollectionView enemyView = (CollectionView)enemyUnitsSource.View;
+                    enemyView.Filter = EnemyFilter;
+
+                    EnemyUnits = enemyView;
+
+                    friendlyUnitsSource = new CollectionViewSource
+                    {
+                        Source = customScenarioViewModel.Units
+                    };
+                    CollectionView friendlyView = (CollectionView)friendlyUnitsSource.View;
+                    friendlyView.Filter = FriendlyFilter;
+
+                    FriendlyUnits = friendlyView;
+
+                    enemyBasesSource = new CollectionViewSource
+                    {
+                        Source = customScenarioViewModel.Bases
+                    };
+                    CollectionView enemyBaseView = (CollectionView)enemyBasesSource.View;
+                    enemyBaseView.Filter = EnemyBaseFilter;
+
+                    EnemyBases = enemyBaseView;
+
+                    friendlyBasesSource = new CollectionViewSource
+                    {
+                        Source = customScenarioViewModel.Bases
+                    };
+                    CollectionView friendlyBaseView = (CollectionView)friendlyBasesSource.View;
+                    friendlyBaseView.Filter = FriendlyBaseFilter;
+
+                    FriendlyBases = friendlyBaseView;
                 }
             }
             catch (Exception ex)
@@ -246,6 +333,46 @@ namespace VTOLVR_MissionAssistant.ViewModels
             string file = ofd.FileName;
 
             SettingsViewModel.LogFile = file;
+        }
+
+        private bool EnemyBaseFilter(object obj)
+        {
+            BaseInfoViewModel @base = obj as BaseInfoViewModel;
+
+            if (@base == null) return false;
+            if (@base.BaseTeam == KeywordStrings.EnemyUnitGroup) return true;
+
+            return false;
+        }
+
+        private bool EnemyFilter(object obj)
+        {
+            UnitSpawnerViewModel unit = obj as UnitSpawnerViewModel;
+
+            if (unit == null) return false;
+            if (KeywordStrings.EnemyUnitTypes.Contains(unit.UnitId)) return true;
+
+            return false;
+        }
+
+        private bool FriendlyBaseFilter(object obj)
+        {
+            BaseInfoViewModel @base = obj as BaseInfoViewModel;
+
+            if (@base == null) return false;
+            if (@base.BaseTeam == KeywordStrings.AlliedUnitGroup) return true;
+
+            return false;
+        }
+
+        private bool FriendlyFilter(object obj)
+        {
+            UnitSpawnerViewModel unit = obj as UnitSpawnerViewModel;
+
+            if (unit == null) return false;
+            if (!KeywordStrings.EnemyUnitTypes.Contains(unit.UnitId)) return true;
+
+            return false;
         }
 
         private void Logger_LogWriteError(object sender, EventArgs e)

@@ -66,11 +66,13 @@
                         <TabControl TabStripPlacement="Right">
                             <TabItem Header="{Binding Translations.Allied, FallbackValue=Allied}">
                                 <Grid>
-                                    <ListView ItemsSource="{Binding VtsFile.Units}">
+                                    <ListView ItemsSource="{Binding FriendlyUnits}">
                                         <ListView.View>
                                             <GridView>
-                                                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding UnitInstanceId}" />
-                                                <GridViewColumn Header="Name" DisplayMemberBinding="{Binding UnitName}" />
+                                                <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding UnitInstanceId}"
+                                                                HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
+                                                <GridViewColumn Header="{Binding Translations.Name, FallbackValue=Name}" DisplayMemberBinding="{Binding UnitName}" 
+                                                                HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
                                             </GridView>
                                         </ListView.View>
                                     </ListView>
@@ -78,36 +80,90 @@
                             </TabItem>
                             <TabItem Header="{Binding Translations.Enemy, FallbackValue=Enemy}">
                                 <Grid>
-
+                                    <ListView ItemsSource="{Binding EnemyUnits}">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding UnitInstanceId}"
+                                                                HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
+                                                <GridViewColumn Header="{Binding Translations.Name, FallbackValue=Name}" DisplayMemberBinding="{Binding UnitName}"
+                                                                HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
                                 </Grid>
                             </TabItem>
                         </TabControl>
                     </TabItem>
                     <TabItem Header="{Binding Translations.Paths, FallbackValue=Paths}">
                         <Grid>
-
+                            <ListView ItemsSource="{Binding VtsFile.Paths}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding Id}"
+                                                        HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
+                                        <GridViewColumn Header="{Binding Translations.Name, FallbackValue=Name}" DisplayMemberBinding="{Binding Name}"
+                                                        HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
                         </Grid>
                     </TabItem>
                     <TabItem Header="{Binding Translations.Waypoints, FallbackValue=Waypoints}">
                         <Grid>
-
+                            <ListView ItemsSource="{Binding VtsFile.Waypoints}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding Id}" 
+                                                        HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
+                                        <GridViewColumn Header="{Binding Translations.Name, FallbackValue=Name}" DisplayMemberBinding="{Binding Name}" 
+                                                        HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
                         </Grid>
                     </TabItem>
                     <TabItem Header="{Binding Translations.Events, FallbackValue=Events}">
                         <TabControl TabStripPlacement="Right">
                             <TabItem Header="{Binding Translations.Timed, FallbackValue=Timed}">
                                 <Grid>
-
+                                    <ListView ItemsSource="{Binding VtsFile.TimedEventGroups}">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding GroupId}" 
+                                                                HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
+                                                <GridViewColumn Header="{Binding Translations.Name, FallbackValue=Name}" DisplayMemberBinding="{Binding GroupName}" 
+                                                                HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
                                 </Grid>
                             </TabItem>
                             <TabItem Header="{Binding Translations.Triggered, FallbackValue=Triggered}">
                                 <Grid>
-
+                                    <ListView ItemsSource="{Binding VtsFile.TriggerEvents}">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding Id}" 
+                                                                HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
+                                                <GridViewColumn Header="{Binding Translations.Name, FallbackValue=Name}" DisplayMemberBinding="{Binding EventName}" 
+                                                                HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
                                 </Grid>
                             </TabItem>
                             <TabItem Header="{Binding Translations.Sequence, FallbackValue=Sequence}">
                                 <Grid>
-
+                                    <ListView ItemsSource="{Binding VtsFile.EventSequences}">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding Id}" 
+                                                                HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
+                                                <GridViewColumn Header="{Binding Translations.Name, FallbackValue=Name}" DisplayMemberBinding="{Binding SequenceName}" 
+                                                                HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
                                 </Grid>
                             </TabItem>
                         </TabControl>
@@ -116,12 +172,30 @@
                         <TabControl TabStripPlacement="Right">
                             <TabItem Header="{Binding Translations.Allied, FallbackValue=Allied}">
                                 <Grid>
-
+                                    <ListView ItemsSource="{Binding VtsFile.Objectives}">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding ObjectiveID}" 
+                                                                HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
+                                                <GridViewColumn Header="{Binding Translations.Name, FallbackValue=Name}" DisplayMemberBinding="{Binding ObjectiveName}" 
+                                                                HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
                                 </Grid>
                             </TabItem>
                             <TabItem Header="{Binding Translations.Enemy, FallbackValue=Enemy}">
                                 <Grid>
-
+                                    <ListView ItemsSource="{Binding VtsFile.ObjectivesOpFor}">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding ObjectiveID}" 
+                                                                HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
+                                                <GridViewColumn Header="{Binding Translations.Name, FallbackValue=Name}" DisplayMemberBinding="{Binding ObjectiveName}" 
+                                                                HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
                                 </Grid>
                             </TabItem>
                         </TabControl>
@@ -130,19 +204,46 @@
                         <TabControl TabStripPlacement="Right">
                             <TabItem Header="{Binding Translations.Allied, FallbackValue=Allied}">
                                 <Grid>
-
+                                    <ListView ItemsSource="{Binding FriendlyBases}">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding Id}" 
+                                                                HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
+                                                <GridViewColumn Header="{Binding Translations.Name, FallbackValue=Name}" DisplayMemberBinding="{Binding OverrideBaseName}" 
+                                                                HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
                                 </Grid>
                             </TabItem>
                             <TabItem Header="{Binding Translations.Enemy, FallbackValue=Enemy}">
                                 <Grid>
-
+                                    <ListView ItemsSource="{Binding EnemyBases}">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding Id}" 
+                                                                HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
+                                                <GridViewColumn Header="{Binding Translations.Name, FallbackValue=Name}" DisplayMemberBinding="{Binding OverrideBaseName}"
+                                                                HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
                                 </Grid>
                             </TabItem>
                         </TabControl>
                     </TabItem>
                     <TabItem Header="{Binding Translations.StaticObjects, FallbackValue=Static Objects}">
                         <Grid>
-
+                            <ListView ItemsSource="{Binding VtsFile.StaticObjects}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding Id}"
+                                                        HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
+                                        <GridViewColumn Header="{Binding Translations.Name, FallbackValue=Name}" DisplayMemberBinding="{Binding PrefabId}"
+                                                        HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
                         </Grid>
                     </TabItem>
                 </TabControl>
@@ -170,9 +271,11 @@
                                       Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow}}, Path=ActualWidth, Converter={StaticResource ArithmeticConverter}, ConverterParameter=-25}">
                                 <ListView.View>
                                     <GridView>
-                                        <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Type}" />
-                                        <GridViewColumn Header="Sub Type" DisplayMemberBinding="{Binding SubType}" />
-                                        <GridViewColumn Header="Message" DisplayMemberBinding="{Binding Message}" 
+                                        <GridViewColumn Header="{Binding Translations.Type, FallbackValue=Type}" DisplayMemberBinding="{Binding Type}"
+                                                        HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
+                                        <GridViewColumn Header="{Binding Translations.SubType, FallbackValue=Sub Type}" DisplayMemberBinding="{Binding SubType}"
+                                                        HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
+                                        <GridViewColumn Header="{Binding Translations.Message, FallbackValue=Message}" DisplayMemberBinding="{Binding Message}" 
                                                         Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow}}, Path=ActualWidth, Converter={StaticResource ArithmeticConverter}, ConverterParameter=/1.7|-5}" />
                                     </GridView>
                                 </ListView.View>

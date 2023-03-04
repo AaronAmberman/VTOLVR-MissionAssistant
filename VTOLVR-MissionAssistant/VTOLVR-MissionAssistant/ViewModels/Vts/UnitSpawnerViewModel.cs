@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using VTS;
 
 namespace VTOLVR_MissionAssistant.ViewModels.Vts
 {
@@ -123,6 +125,19 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
         }
 
         public CustomScenarioViewModel Parent { get; set; }
+
+        public bool IsEnemyUnit
+        {
+            get
+            {
+                bool isEnemy = false;
+
+                if (KeywordStrings.EnemyUnitTypes.Contains(UnitId))
+                    isEnemy = true;
+
+                return isEnemy;
+            }
+        }
 
         #endregion
 

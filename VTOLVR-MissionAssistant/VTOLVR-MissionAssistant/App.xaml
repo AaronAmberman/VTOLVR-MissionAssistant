@@ -38,6 +38,9 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
+            <Style x:Key="MinWidthGridviewColumn" TargetType="GridViewColumnHeader" BasedOn="{StaticResource {x:Type GridViewColumnHeader}}">
+                <Setter Property="MinWidth" Value="100" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
