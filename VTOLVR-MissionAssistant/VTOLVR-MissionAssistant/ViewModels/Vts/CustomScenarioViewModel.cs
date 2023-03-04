@@ -609,6 +609,8 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
             foreach (UnitSpawnerViewModel unitSpawner in Units) unitSpawner.Parent = cs;
             foreach (WaypointViewModel waypoint in Waypoints) waypoint.Parent = cs;
 
+            cs.customScenario = customScenario.Clone();
+
             return cs;
         }
 
@@ -982,9 +984,9 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
 
                     if (unitSpawner.UnitFields.ReturnToBaseDestination != null)
                     {
-                        if (unitSpawner.UnitFields.ReturnToBaseDestination is Waypoint waypoint)
+                        if (unitSpawner.UnitFields.ReturnToBaseDestination is BaseInfo baseInfo)
                         {
-                            WaypointViewModel match = Waypoints.FirstOrDefault(w => w.Id == waypoint.Id);
+                            BaseInfoViewModel match = Bases.FirstOrDefault(w => w.Id == baseInfo.Id);
 
                             unitSpawnerViewModel.UnitFields.ReturnToBaseDestination = match;
                         }
@@ -1956,11 +1958,22 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
                         uf.Waypoint = cs.Waypoints.FirstOrDefault(x => x.Id == unit.UnitFields.Waypoint.Id);
                     }
 
-                    if (unit.UnitFields.CarrierSpawns.Count > 0)
+                    us.UnitFields = uf;
+
+                    cs.Units.Add(us);
+                }
+
+                // set carrier spawn references and RTB destinations
+                for (int i = 0; i < Units.Count; i++)
+                {
+                    UnitSpawnerViewModel unitSpawnerViewModel = Units[i];
+                    UnitSpawner unitSpawner = cs.Units[i];
+
+                    if (unitSpawnerViewModel.UnitFields.CarrierSpawns.Count > 0)
                     {
                         List<Tuple<int, UnitSpawner>> matches = new List<Tuple<int, UnitSpawner>>();
 
-                        foreach (Tuple<int, UnitSpawnerViewModel> u in unit.UnitFields.CarrierSpawns)
+                        foreach (Tuple<int, UnitSpawnerViewModel> u in unitSpawnerViewModel.UnitFields.CarrierSpawns)
                         {
                             UnitSpawner match = cs.Units.FirstOrDefault(x => x.UnitInstanceId == u.Item2.UnitInstanceId);
 
@@ -1970,25 +1983,55 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
                             }
                         }
 
-                        uf.CarrierSpawns = matches;
+                        unitSpawner.UnitFields.CarrierSpawns = matches;
                     }
 
-                    if (unit.UnitFields.ReturnToBaseDestination != null)
+                    if (unitSpawnerViewModel.UnitFields.ReturnToBaseDestination != null)
                     {
-                        if (unit.UnitFields.ReturnToBaseDestination is UnitSpawnerViewModel u)
+                        if (unitSpawnerViewModel.UnitFields.ReturnToBaseDestination is UnitSpawnerViewModel u)
                         {
-                            uf.ReturnToBaseDestination = cs.Units.FirstOrDefault(x => x.UnitInstanceId == u.UnitInstanceId);
+                            unitSpawner.UnitFields.ReturnToBaseDestination = cs.Units.FirstOrDefault(x => x.UnitInstanceId == u.UnitInstanceId);
                         }
-                        else if (unit.UnitFields.ReturnToBaseDestination is BaseInfo bi)
+                        else if (unitSpawnerViewModel.UnitFields.ReturnToBaseDestination is BaseInfoViewModel bi)
                         {
                             // base references seem to be index based not id based
-                            uf.ReturnToBaseDestination = cs.Bases.FirstOrDefault(x => x.Id == bi.Id);
+                            unitSpawner.UnitFields.ReturnToBaseDestination = cs.Bases.FirstOrDefault(x => x.Id == bi.Id);
                         }
                     }
+                }
 
-                    us.UnitFields = uf;
+                if (ReturnToBaseDestination != null)
+                {
+                    if (ReturnToBaseDestination is WaypointViewModel waypoint)
+                    {
+                        Waypoint match = cs.Waypoints.FirstOrDefault(w => w.Id == waypoint.Id);
 
-                    cs.Units.Add(us);
+                        cs.ReturnToBaseWaypoint = match;
+                    }
+
+                    if (ReturnToBaseDestination is UnitSpawnerViewModel unit)
+                    {
+                        UnitSpawner match = cs.Units.FirstOrDefault(w => w.UnitInstanceId == unit.UnitInstanceId);
+
+                        cs.ReturnToBaseWaypoint = match;
+                    }
+                }
+
+                if (RefuelWaypoint != null)
+                {
+                    if (RefuelWaypoint is WaypointViewModel waypoint)
+                    {
+                        Waypoint match = cs.Waypoints.FirstOrDefault(w => w.Id == waypoint.Id);
+
+                        cs.RefuelWaypoint = match;
+                    }
+
+                    if (RefuelWaypoint is UnitSpawnerViewModel unit)
+                    {
+                        UnitSpawner match = cs.Units.FirstOrDefault(w => w.UnitInstanceId == unit.UnitInstanceId);
+
+                        cs.RefuelWaypoint = match;
+                    }
                 }
 
                 foreach (UnitGroupViewModel unitGroup in UnitGroups)
