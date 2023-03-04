@@ -31,7 +31,7 @@ namespace VTOLVR_MissionAssistant.ViewModels
         private ICommand showSettingsCommand;
         private dynamic translations;
         private string version;
-        private CustomScenario vtsFile;
+        private CustomScenarioViewModel vtsFile;
         private ObservableCollection<WarningViewModel> warnings = new ObservableCollection<WarningViewModel>();
 
         #endregion
@@ -138,7 +138,7 @@ namespace VTOLVR_MissionAssistant.ViewModels
             }
         }
 
-        public CustomScenario VtsFile
+        public CustomScenarioViewModel VtsFile
         {
             get => vtsFile;
             set
@@ -210,12 +210,8 @@ namespace VTOLVR_MissionAssistant.ViewModels
                 {
                     CustomScenarioViewModel customScenarioViewModel = new CustomScenarioViewModel(scenario);
 
-                    CustomScenarioViewModel clone = customScenarioViewModel.Clone();
-                    clone.File = System.IO.Path.Combine(@"C:\Users\Aaron\Desktop\VTS Files", "temp.vts");
-                    clone.Save();
-
                     FileForData = file;
-                    VtsFile = scenario;
+                    VtsFile = customScenarioViewModel;
                     DataNeededVisibility = Visibility.Collapsed;
                 }
             }
