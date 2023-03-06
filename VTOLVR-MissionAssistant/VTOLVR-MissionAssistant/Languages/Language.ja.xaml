@@ -3,7 +3,7 @@
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:String x:Key="About">About</system:String>
     <system:String x:Key="AboutApp">About VTOL VR Mission Assistant</system:String>
-    <system:String x:Key="AboutAppMessage">This application is intended to provide assistance in managing the VTS file in ways that are not built into VTOL VR. You can sequentially re-index your units so there are not gaps and you can get an accurate count of how many units you have. It can copy most any object in the VTS file as well. Also, it can map out what is used where by tracking index references.</system:String>
+    <system:String x:Key="AboutAppMessage">This application is intended to provide assistance in managing the VTS file in ways that are not built into VTOL VR. You can sequentially re-index your units so there are not gaps and you can get an accurate count of how many units you have. It can copy most any object in the VTS file as well.</system:String>
     <system:String x:Key="Allied">Allied</system:String>
     <system:String x:Key="Bases">Bases</system:String>
     <system:String x:Key="BeginSession">Begin session</system:String>
@@ -11,6 +11,7 @@
     <system:String x:Key="BrowseTitle">Browse for File</system:String>
     <system:String x:Key="Cancel">Cancel</system:String>
     <system:String x:Key="Chinese">中文</system:String>
+    <system:String x:Key="Copy">Copy</system:String>
     <system:String x:Key="DataTitle">VTS Data Needed</system:String>
     <system:String x:Key="EndSession">End session</system:String>
     <system:String x:Key="Enemy">Enemy</system:String>
