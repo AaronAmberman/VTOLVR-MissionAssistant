@@ -36,6 +36,7 @@
     <system:String x:Key="Objectives">Objectives</system:String>
     <system:String x:Key="OK">OK</system:String>
     <system:String x:Key="Paths">Paths</system:String>
+    <system:String x:Key="Reindex">Re-index</system:String>
     <system:String x:Key="Russian">Русский</system:String>
     <system:String x:Key="Sequence">Sequence</system:String>
     <system:String x:Key="Settings">Settings</system:String>
