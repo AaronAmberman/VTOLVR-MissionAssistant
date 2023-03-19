@@ -401,14 +401,11 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <customControls:GridSplitterPopupExpander Grid.Column="0" Margin="0,0,5,0" Background="#FF2F2F2F" Foreground="#FFFFFFFF" GridSplitterBackground="#FF007BFF" 
-                                                              ExpandDirection="Up" PopupVerticalOffset="-2" PopupMinimumHeight="100" PopupPreferredHeight="400"
-                                                              PopupHorizontalOffset="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow}}, Path=ActualWidth, Converter={StaticResource ArithmeticConverter}, ConverterParameter=-80}"
-                                                              PopupMaximumWidth="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow}}, Path=ActualWidth, Converter={StaticResource ArithmeticConverter}, ConverterParameter=-25}"
-                                                              PopupMaximumHeight="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow}}, Path=ActualHeight, Converter={StaticResource ArithmeticConverter}, ConverterParameter=-70}"
+                    <customControls:GridSplitterPopupExpander Grid.Column="0" ExpandDirection="Up" PopupContentMinimumHeight="100"
+                                                              PopupBoundsElement="{Binding ElementName=innerMainGrid}"
+                                                              Margin="0,0,5,0" Background="#FF2F2F2F" Foreground="#FFFFFFFF" GridSplitterBackground="#FF007BFF" 
                                                               Header="{Binding Translations.Warnings, FallbackValue=Warnings}">
-                        <Grid Style="{StaticResource DarkThemeGridStyle}"
-                              Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow}}, Path=ActualWidth, Converter={StaticResource ArithmeticConverter}, ConverterParameter=-25}">
+                        <Grid Style="{StaticResource DarkThemeGridStyle}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
@@ -435,7 +432,7 @@
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
                                         <GridViewColumn Header="{Binding Translations.Message, FallbackValue=Message}"
-                                                        Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type Grid}}, Path=ActualWidth, 
+                                                        Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListView}}, Path=ActualWidth, 
                                                                         Converter={StaticResource ArithmeticConverter}, ConverterParameter=-450}">
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
@@ -448,14 +445,12 @@
                             </ListView>
                         </Grid>
                     </customControls:GridSplitterPopupExpander>
-                    <customControls:GridSplitterPopupExpander Grid.Column="1" Background="#FF2F2F2F" Foreground="#FFFFFFFF" GridSplitterBackground="#FF007BFF" GridSplitterShowsPreview="True"
-                                                              ExpandDirection="Up" PopupVerticalOffset="-2" PopupMinimumHeight="100" PopupPreferredHeight="400"
-                                                              PopupHorizontalOffset="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow}}, Path=ActualWidth, Converter={StaticResource ArithmeticConverter}, ConverterParameter=-122}"
-                                                              PopupMaximumWidth="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow}}, Path=ActualWidth, Converter={StaticResource ArithmeticConverter}, ConverterParameter=-25}"
-                                                              PopupMaximumHeight="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow}}, Path=ActualHeight, Converter={StaticResource ArithmeticConverter}, ConverterParameter=-70}"
+                    <customControls:GridSplitterPopupExpander Grid.Column="1" ExpandDirection="Up" PopupContentMinimumHeight="100"
+                                                              PopupBoundsElement="{Binding ElementName=innerMainGrid}"
+                                                              Background="#FF2F2F2F" Foreground="#FFFFFFFF" 
+                                                              GridSplitterBackground="#FF007BFF"
                                                               Header="{Binding Translations.Errors, FallbackValue=Errors}">
-                        <Grid Style="{StaticResource DarkThemeGridStyle}"
-                              Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow}}, Path=ActualWidth, Converter={StaticResource ArithmeticConverter}, ConverterParameter=-25}">
+                        <Grid Style="{StaticResource DarkThemeGridStyle}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
