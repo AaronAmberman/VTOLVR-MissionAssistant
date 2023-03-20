@@ -601,7 +601,7 @@
                 </Grid>
             </id:MovableResizableInternalDialog.AnswerAreaContent>
         </id:MovableResizableInternalDialog>
-        <id:MovableResizableInternalDialog x:Name="aboutDialog" Grid.Row="0" Grid.RowSpan="2" Foreground="White" 
+        <id:MovableResizableInternalDialog x:Name="aboutDialog" Grid.Row="0" Grid.RowSpan="2" Foreground="White"
                                            TitleAreaBackground="#FF101010" AnswerAreaBackground="#FF2F2F2F" ContentBackground="#FF3F3F3F"
                                            TitleContent="{Binding Translations.AboutApp, FallbackValue=About VTOL VR Mission Assistant}"
                                            Visibility="{Binding AboutBoxVisibility}"
