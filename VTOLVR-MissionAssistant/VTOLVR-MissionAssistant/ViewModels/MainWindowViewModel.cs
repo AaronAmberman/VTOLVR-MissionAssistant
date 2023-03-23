@@ -228,9 +228,29 @@ namespace VTOLVR_MissionAssistant.ViewModels
             }
         }
 
-        public Func<IList> GetSelectedFriendlyUnits { get; set; }
+        public Func<IList> GetSelectedPaths { get; set; }
+
+        public Func<IList> GetSelectedEnemyBases { get; set; }
 
         public Func<IList> GetSelectedEnemyUnits { get; set; }
+
+        public Func<IList> GetSelectedEventSequences { get; set; }
+
+        public Func<IList> GetSelectedFriendlyBases { get; set; }
+
+        public Func<IList> GetSelectedFriendlyUnits { get; set; }
+
+        public Func<IList> GetSelectedObjectives { get; set; }
+
+        public Func<IList> GetSelectedObjectivesOpFor { get; set; }
+
+        public Func<IList> GetSelectedStaticObjects { get; set; }
+
+        public Func<IList> GetSelectedTimedEvents { get; set; }
+
+        public Func<IList> GetSelectedTriggeredEvents { get; set; }
+
+        public Func<IList> GetSelectedWaypoints { get; set; }
 
         public CollectionView GlobalValues
         {

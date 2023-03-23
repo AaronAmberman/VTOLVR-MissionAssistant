@@ -38,8 +38,18 @@ namespace VTOLVR_MissionAssistant
             MainWindowViewModel viewModel = new MainWindowViewModel
             {
                 DataNeededVisibility = Visibility.Visible, // show data needed control right away
-                GetSelectedFriendlyUnits = () => { return friendlyUnits.SelectedItems; },
+                GetSelectedEnemyBases = () => { return enemyBases.SelectedItems; },
                 GetSelectedEnemyUnits = () => { return enemyUnits.SelectedItems; },
+                GetSelectedEventSequences = () => { return eventSequences.SelectedItems; },
+                GetSelectedFriendlyBases = () => { return friendlyBases.SelectedItems; },
+                GetSelectedFriendlyUnits = () => { return friendlyUnits.SelectedItems; },
+                GetSelectedObjectives = () => { return objectives.SelectedItems; },
+                GetSelectedObjectivesOpFor = () => { return objectivesOpFor.SelectedItems; },
+                GetSelectedPaths = () => { return paths.SelectedItems; },
+                GetSelectedStaticObjects = () => { return staticObjects.SelectedItems; },
+                GetSelectedTimedEvents = () => { return timedEvents.SelectedItems; },
+                GetSelectedTriggeredEvents = () => { return triggerEvents.SelectedItems; },
+                GetSelectedWaypoints = () => { return waypoints.SelectedItems; },
                 MessageBoxViewModel = new MessageBoxViewModel(),
                 ScenarioInfoViewModel = new ScenarioInfoViewModel(),
                 SettingsViewModel = new SettingsViewModel

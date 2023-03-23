@@ -168,7 +168,7 @@
                                 <customControls:WatermarkTextBox Grid.Column="1" Margin="5,0,0,0" Watermark="{Binding Translations.Filter, FallbackValue=Filter}"
                                                                  Text="{Binding SearchFilterPaths, UpdateSourceTrigger=PropertyChanged}" />
                             </Grid>
-                            <ListView Grid.Row="1" ItemsSource="{Binding Paths}">
+                            <ListView x:Name="paths" Grid.Row="1" ItemsSource="{Binding Paths}">
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding Id}"
@@ -205,7 +205,7 @@
                                 <customControls:WatermarkTextBox Grid.Column="1" Margin="5,0,0,0" Watermark="{Binding Translations.Filter, FallbackValue=Filter}"
                                                                  Text="{Binding SearchFilterWaypoints, UpdateSourceTrigger=PropertyChanged}" />
                             </Grid>
-                            <ListView Grid.Row="1" ItemsSource="{Binding Waypoints}">
+                            <ListView x:Name="waypoints" Grid.Row="1" ItemsSource="{Binding Waypoints}">
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding Id}" 
@@ -244,7 +244,7 @@
                                         <customControls:WatermarkTextBox Grid.Column="1" Margin="5,0,0,0" Watermark="{Binding Translations.Filter, FallbackValue=Filter}"
                                                                  Text="{Binding SearchFilterTimedEventGroups, UpdateSourceTrigger=PropertyChanged}" />
                                     </Grid>
-                                    <ListView Grid.Row="1" ItemsSource="{Binding TimedEvents}">
+                                    <ListView x:Name="timedEvents" Grid.Row="1" ItemsSource="{Binding TimedEvents}">
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding GroupId}" 
@@ -281,7 +281,7 @@
                                         <customControls:WatermarkTextBox Grid.Column="1" Margin="5,0,0,0" Watermark="{Binding Translations.Filter, FallbackValue=Filter}"
                                                                  Text="{Binding SearchFilterTriggerEvents, UpdateSourceTrigger=PropertyChanged}" />
                                     </Grid>
-                                    <ListView Grid.Row="1" ItemsSource="{Binding TriggerEvents}">
+                                    <ListView x:Name="triggerEvents" Grid.Row="1" ItemsSource="{Binding TriggerEvents}">
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding Id}" 
@@ -318,7 +318,7 @@
                                         <customControls:WatermarkTextBox Grid.Column="1" Margin="5,0,0,0" Watermark="{Binding Translations.Filter, FallbackValue=Filter}"
                                                                  Text="{Binding SearchFilterEventSequences, UpdateSourceTrigger=PropertyChanged}" />
                                     </Grid>
-                                    <ListView Grid.Row="1" ItemsSource="{Binding EventSequences}">
+                                    <ListView x:Name="eventSequences" Grid.Row="1" ItemsSource="{Binding EventSequences}">
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding Id}" 
@@ -359,7 +359,7 @@
                                         <customControls:WatermarkTextBox Grid.Column="1" Margin="5,0,0,0" Watermark="{Binding Translations.Filter, FallbackValue=Filter}"
                                                                  Text="{Binding SearchFilterObjectives, UpdateSourceTrigger=PropertyChanged}" />
                                     </Grid>
-                                    <ListView Grid.Row="1" ItemsSource="{Binding Objectives}">
+                                    <ListView x:Name="objectives" Grid.Row="1" ItemsSource="{Binding Objectives}">
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding ObjectiveID}" 
@@ -396,7 +396,7 @@
                                         <customControls:WatermarkTextBox Grid.Column="1" Margin="5,0,0,0" Watermark="{Binding Translations.Filter, FallbackValue=Filter}"
                                                                  Text="{Binding SearchFilterObjectivesOpFor, UpdateSourceTrigger=PropertyChanged}" />
                                     </Grid>
-                                    <ListView Grid.Row="1" ItemsSource="{Binding ObjectivesOpFor}">
+                                    <ListView x:Name="objectivesOpFor" Grid.Row="1" ItemsSource="{Binding ObjectivesOpFor}">
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding ObjectiveID}" 
@@ -437,7 +437,7 @@
                                         <customControls:WatermarkTextBox Grid.Column="1" Margin="5,0,0,0" Watermark="{Binding Translations.Filter, FallbackValue=Filter}"
                                                                  Text="{Binding SearchFilterFriendlyBases, UpdateSourceTrigger=PropertyChanged}" />
                                     </Grid>
-                                    <ListView Grid.Row="1" ItemsSource="{Binding FriendlyBases}">
+                                    <ListView x:Name="friendlyBases" Grid.Row="1" ItemsSource="{Binding FriendlyBases}">
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding Id}" 
@@ -470,7 +470,7 @@
                                         <customControls:WatermarkTextBox Grid.Column="1" Margin="5,0,0,0" Watermark="{Binding Translations.Filter, FallbackValue=Filter}"
                                                                  Text="{Binding SearchFilterEnemyBases, UpdateSourceTrigger=PropertyChanged}" />
                                     </Grid>
-                                    <ListView Grid.Row="1" ItemsSource="{Binding EnemyBases}">
+                                    <ListView x:Name="enemyBases" Grid.Row="1" ItemsSource="{Binding EnemyBases}">
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding Id}" 
@@ -505,7 +505,7 @@
                                 <customControls:WatermarkTextBox Grid.Column="1" Margin="5,0,0,0" Watermark="{Binding Translations.Filter, FallbackValue=Filter}"
                                                                  Text="{Binding SearchFilterStaticObjects, UpdateSourceTrigger=PropertyChanged}" />
                             </Grid>
-                            <ListView Grid.Row="1" ItemsSource="{Binding StaticObjects}">
+                            <ListView x:Name="staticObjects" Grid.Row="1" ItemsSource="{Binding StaticObjects}">
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding Id}"
@@ -596,7 +596,7 @@
             </Grid>
             <Border Background="#DD000000" BorderBrush="Transparent" BorderThickness="0" 
                     KeyboardNavigation.TabNavigation="Cycle"
-                    Visibility="{Binding DataNeededVisibility}">
+                    Visibility="{Binding DataNeededVisibility, FallbackValue=Collapsed}">
                 <Border BorderBrush="White" BorderThickness="3" CornerRadius="10" Padding="10"
                         VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Grid>
