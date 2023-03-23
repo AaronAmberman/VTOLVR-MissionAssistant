@@ -38,6 +38,8 @@ namespace VTOLVR_MissionAssistant
             MainWindowViewModel viewModel = new MainWindowViewModel
             {
                 DataNeededVisibility = Visibility.Visible, // show data needed control right away
+                GetSelectedFriendlyUnits = () => { return friendlyUnits.SelectedItems; },
+                GetSelectedEnemyUnits = () => { return enemyUnits.SelectedItems; },
                 MessageBoxViewModel = new MessageBoxViewModel(),
                 ScenarioInfoViewModel = new ScenarioInfoViewModel(),
                 SettingsViewModel = new SettingsViewModel

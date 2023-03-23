@@ -26,9 +26,13 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="2" Margin="0,0,5,0" TabIndex="1" Style="{StaticResource ToolBarButton}" Content="{StaticResource Settings}" 
+            <Button Grid.Column="0" Margin="0,0,5,0" Style="{StaticResource ToolBarButton}" Content="{StaticResource Folder}" 
+                    Command="{Binding OpenCommand}" ToolTip="{Binding Path=Translations.Open}" />
+            <Button Grid.Column="1" Margin="0,0,5,0" Style="{StaticResource ToolBarButton}" Content="{StaticResource Save}"
+                    Command="{Binding SaveCommand}" ToolTip="{Binding Translations.Save}" />
+            <Button Grid.Column="2" Margin="0,0,5,0" Style="{StaticResource ToolBarButton}" Content="{StaticResource Settings}" 
                     Command="{Binding ShowSettingsCommand}" ToolTip="{Binding Path=Translations.Settings}" />
-            <Button Grid.Column="3" TabIndex="2" Style="{StaticResource ToolBarButton}" Content="{StaticResource QuestionMark}"
+            <Button Grid.Column="3" Style="{StaticResource ToolBarButton}" Content="{StaticResource QuestionMark}"
                     Command="{Binding AboutCommand}" ToolTip="{Binding Translations.About}" />
         </Grid>
         <Grid x:Name="innerMainGrid" Grid.Row="1" Margin="5,10,5,5">
@@ -67,10 +71,20 @@
                             <TabItem Header="{Binding Translations.Allied, FallbackValue=Allied}">
                                 <Grid>
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <ListView Grid.Row="0" ItemsSource="{Binding FriendlyUnits}">
+                                    <Grid Grid.Row="0" Margin="0,0,0,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding Translations.Filter, FallbackValue=Filter}" />
+                                        <customControls:WatermarkTextBox Grid.Column="1" Margin="5,0,0,0" Watermark="{Binding Translations.Filter, FallbackValue=Filter}"
+                                                                         Text="{Binding SearchFilterFriendlyUnits, UpdateSourceTrigger=PropertyChanged}" />
+                                    </Grid>
+                                    <ListView x:Name="friendlyUnits" Grid.Row="1" ItemsSource="{Binding FriendlyUnits}">
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding UnitInstanceId}"
@@ -80,24 +94,38 @@
                                             </GridView>
                                         </ListView.View>
                                     </ListView>
-                                    <Grid Grid.Row="1" Margin="0,5,0,0">
+                                    <Grid Grid.Row="2" Margin="0,5,0,0">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <Button Grid.Column="1" Content="{StaticResource Copy}" ToolTip="{Binding Translations.Copy, FallbackValue=Copy}" />
-                                        <Button Grid.Column="2" Margin="5,0,0,0" Content="{StaticResource Reindex}" ToolTip="{Binding Translations.Reindex, FallbackValue=Re-index}" />
+                                        <Button Grid.Column="1" Content="{StaticResource Copy}" 
+                                                ToolTip="{Binding Translations.Copy, FallbackValue=Copy}"
+                                                Command="{Binding CopyUnitCommand}" />
+                                        <Button Grid.Column="2" Margin="5,0,0,0" Content="{StaticResource Reindex}" 
+                                                ToolTip="{Binding Translations.Reindex, FallbackValue=Re-index}"
+                                                Command="{Binding ReIndexUnitsCommand}" />
                                     </Grid>
                                 </Grid>
                             </TabItem>
                             <TabItem Header="{Binding Translations.Enemy, FallbackValue=Enemy}">
                                 <Grid>
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <ListView Grid.Row="0" ItemsSource="{Binding EnemyUnits}">
+                                    <Grid Grid.Row="0" Margin="0,0,0,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding Translations.Filter, FallbackValue=Filter}" />
+                                        <customControls:WatermarkTextBox Grid.Column="1" Margin="5,0,0,0" Watermark="{Binding Translations.Filter, FallbackValue=Filter}"
+                                                                         Text="{Binding SearchFilterEnemyUnits, UpdateSourceTrigger=PropertyChanged}" />
+                                    </Grid>
+                                    <ListView x:Name="enemyUnits" Grid.Row="1" ItemsSource="{Binding EnemyUnits}">
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding UnitInstanceId}"
@@ -107,14 +135,18 @@
                                             </GridView>
                                         </ListView.View>
                                     </ListView>
-                                    <Grid Grid.Row="1" Margin="0,5,0,0">
+                                    <Grid Grid.Row="2" Margin="0,5,0,0">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <Button Grid.Column="1" Content="{StaticResource Copy}" ToolTip="{Binding Translations.Copy, FallbackValue=Copy}" />
-                                        <Button Grid.Column="2" Margin="5,0,0,0" Content="{StaticResource Reindex}" ToolTip="{Binding Translations.Reindex, FallbackValue=Re-index}" />
+                                        <Button Grid.Column="1" Content="{StaticResource Copy}" 
+                                                ToolTip="{Binding Translations.Copy, FallbackValue=Copy}"
+                                                Command="{Binding CopyEnemyUnitCommand}" />
+                                        <Button Grid.Column="2" Margin="5,0,0,0" Content="{StaticResource Reindex}" 
+                                                ToolTip="{Binding Translations.Reindex, FallbackValue=Re-index}"
+                                                Command="{Binding ReIndexEnemyUnitsCommand}" />
                                     </Grid>
                                 </Grid>
                             </TabItem>
@@ -123,10 +155,20 @@
                     <TabItem Header="{Binding Translations.Paths, FallbackValue=Paths}">
                         <Grid>
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <ListView Grid.Row="0" ItemsSource="{Binding VtsFile.Paths}">
+                            <Grid Grid.Row="0" Margin="0,0,0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{Binding Translations.Filter, FallbackValue=Filter}" />
+                                <customControls:WatermarkTextBox Grid.Column="1" Margin="5,0,0,0" Watermark="{Binding Translations.Filter, FallbackValue=Filter}"
+                                                                 Text="{Binding SearchFilterPaths, UpdateSourceTrigger=PropertyChanged}" />
+                            </Grid>
+                            <ListView Grid.Row="1" ItemsSource="{Binding Paths}">
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding Id}"
@@ -136,7 +178,7 @@
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            <Grid Grid.Row="1" Margin="0,5,0,0">
+                            <Grid Grid.Row="2" Margin="0,5,0,0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
@@ -150,10 +192,20 @@
                     <TabItem Header="{Binding Translations.Waypoints, FallbackValue=Waypoints}">
                         <Grid>
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <ListView Grid.Row="0" ItemsSource="{Binding VtsFile.Waypoints}">
+                            <Grid Grid.Row="0" Margin="0,0,0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{Binding Translations.Filter, FallbackValue=Filter}" />
+                                <customControls:WatermarkTextBox Grid.Column="1" Margin="5,0,0,0" Watermark="{Binding Translations.Filter, FallbackValue=Filter}"
+                                                                 Text="{Binding SearchFilterWaypoints, UpdateSourceTrigger=PropertyChanged}" />
+                            </Grid>
+                            <ListView Grid.Row="1" ItemsSource="{Binding Waypoints}">
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding Id}" 
@@ -163,7 +215,7 @@
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            <Grid Grid.Row="1" Margin="0,5,0,0">
+                            <Grid Grid.Row="2" Margin="0,5,0,0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
@@ -179,10 +231,20 @@
                             <TabItem Header="{Binding Translations.Timed, FallbackValue=Timed}">
                                 <Grid>
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <ListView Grid.Row="0" ItemsSource="{Binding VtsFile.TimedEventGroups}">
+                                    <Grid Grid.Row="0" Margin="0,0,0,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding Translations.Filter, FallbackValue=Filter}" />
+                                        <customControls:WatermarkTextBox Grid.Column="1" Margin="5,0,0,0" Watermark="{Binding Translations.Filter, FallbackValue=Filter}"
+                                                                 Text="{Binding SearchFilterTimedEventGroups, UpdateSourceTrigger=PropertyChanged}" />
+                                    </Grid>
+                                    <ListView Grid.Row="1" ItemsSource="{Binding TimedEvents}">
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding GroupId}" 
@@ -192,7 +254,7 @@
                                             </GridView>
                                         </ListView.View>
                                     </ListView>
-                                    <Grid Grid.Row="1" Margin="0,5,0,0">
+                                    <Grid Grid.Row="2" Margin="0,5,0,0">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="Auto" />
@@ -206,10 +268,20 @@
                             <TabItem Header="{Binding Translations.Triggered, FallbackValue=Triggered}">
                                 <Grid>
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <ListView Grid.Row="0" ItemsSource="{Binding VtsFile.TriggerEvents}">
+                                    <Grid Grid.Row="0" Margin="0,0,0,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding Translations.Filter, FallbackValue=Filter}" />
+                                        <customControls:WatermarkTextBox Grid.Column="1" Margin="5,0,0,0" Watermark="{Binding Translations.Filter, FallbackValue=Filter}"
+                                                                 Text="{Binding SearchFilterTriggerEvents, UpdateSourceTrigger=PropertyChanged}" />
+                                    </Grid>
+                                    <ListView Grid.Row="1" ItemsSource="{Binding TriggerEvents}">
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding Id}" 
@@ -219,7 +291,7 @@
                                             </GridView>
                                         </ListView.View>
                                     </ListView>
-                                    <Grid Grid.Row="1" Margin="0,5,0,0">
+                                    <Grid Grid.Row="2" Margin="0,5,0,0">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="Auto" />
@@ -233,10 +305,20 @@
                             <TabItem Header="{Binding Translations.Sequence, FallbackValue=Sequence}">
                                 <Grid>
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <ListView Grid.Row="0" ItemsSource="{Binding VtsFile.EventSequences}">
+                                    <Grid Grid.Row="0" Margin="0,0,0,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding Translations.Filter, FallbackValue=Filter}" />
+                                        <customControls:WatermarkTextBox Grid.Column="1" Margin="5,0,0,0" Watermark="{Binding Translations.Filter, FallbackValue=Filter}"
+                                                                 Text="{Binding SearchFilterEventSequences, UpdateSourceTrigger=PropertyChanged}" />
+                                    </Grid>
+                                    <ListView Grid.Row="1" ItemsSource="{Binding EventSequences}">
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding Id}" 
@@ -246,7 +328,7 @@
                                             </GridView>
                                         </ListView.View>
                                     </ListView>
-                                    <Grid Grid.Row="1" Margin="0,5,0,0">
+                                    <Grid Grid.Row="2" Margin="0,5,0,0">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="Auto" />
@@ -264,10 +346,20 @@
                             <TabItem Header="{Binding Translations.Allied, FallbackValue=Allied}">
                                 <Grid>
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <ListView Grid.Row="0" ItemsSource="{Binding VtsFile.Objectives}">
+                                    <Grid Grid.Row="0" Margin="0,0,0,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding Translations.Filter, FallbackValue=Filter}" />
+                                        <customControls:WatermarkTextBox Grid.Column="1" Margin="5,0,0,0" Watermark="{Binding Translations.Filter, FallbackValue=Filter}"
+                                                                 Text="{Binding SearchFilterObjectives, UpdateSourceTrigger=PropertyChanged}" />
+                                    </Grid>
+                                    <ListView Grid.Row="1" ItemsSource="{Binding Objectives}">
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding ObjectiveID}" 
@@ -277,7 +369,7 @@
                                             </GridView>
                                         </ListView.View>
                                     </ListView>
-                                    <Grid Grid.Row="1" Margin="0,5,0,0">
+                                    <Grid Grid.Row="2" Margin="0,5,0,0">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="Auto" />
@@ -291,10 +383,20 @@
                             <TabItem Header="{Binding Translations.Enemy, FallbackValue=Enemy}">
                                 <Grid>
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <ListView Grid.Row="0" ItemsSource="{Binding VtsFile.ObjectivesOpFor}">
+                                    <Grid Grid.Row="0" Margin="0,0,0,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding Translations.Filter, FallbackValue=Filter}" />
+                                        <customControls:WatermarkTextBox Grid.Column="1" Margin="5,0,0,0" Watermark="{Binding Translations.Filter, FallbackValue=Filter}"
+                                                                 Text="{Binding SearchFilterObjectivesOpFor, UpdateSourceTrigger=PropertyChanged}" />
+                                    </Grid>
+                                    <ListView Grid.Row="1" ItemsSource="{Binding ObjectivesOpFor}">
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding ObjectiveID}" 
@@ -304,7 +406,7 @@
                                             </GridView>
                                         </ListView.View>
                                     </ListView>
-                                    <Grid Grid.Row="1" Margin="0,5,0,0">
+                                    <Grid Grid.Row="2" Margin="0,5,0,0">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="Auto" />
@@ -322,10 +424,20 @@
                             <TabItem Header="{Binding Translations.Allied, FallbackValue=Allied}">
                                 <Grid>
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <ListView Grid.Row="0" ItemsSource="{Binding FriendlyBases}">
+                                    <Grid Grid.Row="0" Margin="0,0,0,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding Translations.Filter, FallbackValue=Filter}" />
+                                        <customControls:WatermarkTextBox Grid.Column="1" Margin="5,0,0,0" Watermark="{Binding Translations.Filter, FallbackValue=Filter}"
+                                                                 Text="{Binding SearchFilterFriendlyBases, UpdateSourceTrigger=PropertyChanged}" />
+                                    </Grid>
+                                    <ListView Grid.Row="1" ItemsSource="{Binding FriendlyBases}">
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding Id}" 
@@ -335,7 +447,7 @@
                                             </GridView>
                                         </ListView.View>
                                     </ListView>
-                                    <Grid Grid.Row="1" Margin="0,5,0,0">
+                                    <Grid Grid.Row="2" Margin="0,5,0,0">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
@@ -345,10 +457,20 @@
                             <TabItem Header="{Binding Translations.Enemy, FallbackValue=Enemy}">
                                 <Grid>
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <ListView Grid.Row="0" ItemsSource="{Binding EnemyBases}">
+                                    <Grid Grid.Row="0" Margin="0,0,0,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding Translations.Filter, FallbackValue=Filter}" />
+                                        <customControls:WatermarkTextBox Grid.Column="1" Margin="5,0,0,0" Watermark="{Binding Translations.Filter, FallbackValue=Filter}"
+                                                                 Text="{Binding SearchFilterEnemyBases, UpdateSourceTrigger=PropertyChanged}" />
+                                    </Grid>
+                                    <ListView Grid.Row="1" ItemsSource="{Binding EnemyBases}">
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding Id}" 
@@ -370,10 +492,20 @@
                     <TabItem Header="{Binding Translations.StaticObjects, FallbackValue=Static Objects}">
                         <Grid>
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <ListView Grid.Row="0" ItemsSource="{Binding VtsFile.StaticObjects}">
+                            <Grid Grid.Row="0" Margin="0,0,0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{Binding Translations.Filter, FallbackValue=Filter}" />
+                                <customControls:WatermarkTextBox Grid.Column="1" Margin="5,0,0,0" Watermark="{Binding Translations.Filter, FallbackValue=Filter}"
+                                                                 Text="{Binding SearchFilterStaticObjects, UpdateSourceTrigger=PropertyChanged}" />
+                            </Grid>
+                            <ListView Grid.Row="1" ItemsSource="{Binding StaticObjects}">
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding Id}"
@@ -383,7 +515,7 @@
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            <Grid Grid.Row="1" Margin="0,5,0,0">
+                            <Grid Grid.Row="2" Margin="0,5,0,0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
@@ -403,7 +535,7 @@
                     </Grid.ColumnDefinitions>
                     <customControls:GridSplitterPopupExpander Grid.Column="0" ExpandDirection="Up" PopupContentMinimumHeight="100"
                                                               PopupBoundsElement="{Binding ElementName=innerMainGrid}"
-                                                              Margin="0,0,5,0" Background="#FF2F2F2F" Foreground="#FFFFFFFF" GridSplitterBackground="#FF007BFF" 
+                                                              Margin="0,0,5,0" Background="#FF1F1F1F" Foreground="#FFFFFFFF" GridSplitterBackground="#FF007BFF" 
                                                               Header="{Binding Translations.Warnings, FallbackValue=Warnings}">
                         <Grid Style="{StaticResource DarkThemeGridStyle}">
                             <Grid.RowDefinitions>
@@ -447,7 +579,7 @@
                     </customControls:GridSplitterPopupExpander>
                     <customControls:GridSplitterPopupExpander Grid.Column="1" ExpandDirection="Up" PopupContentMinimumHeight="100"
                                                               PopupBoundsElement="{Binding ElementName=innerMainGrid}"
-                                                              Background="#FF2F2F2F" Foreground="#FFFFFFFF" 
+                                                              Background="#FF1F1F1F" Foreground="#FFFFFFFF" 
                                                               GridSplitterBackground="#FF007BFF"
                                                               Header="{Binding Translations.Errors, FallbackValue=Errors}">
                         <Grid Style="{StaticResource DarkThemeGridStyle}">
@@ -489,9 +621,9 @@
                                        Style="{StaticResource DarkThemeTextBlockStyle}"/>
                             <TextBlock Grid.Column="0" Grid.Row="1" Margin="0,25,0,0"
                                        Text="{Binding Translations.VTSFile, FallbackValue=VTS file}" Style="{StaticResource DarkThemeTextBlockStyle}" />
-                            <TextBox x:Name="vtsFileTextBox" Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Margin="5,25,5,0" Width="600" IsReadOnly="True" TabIndex="3"
+                            <TextBox x:Name="vtsFileTextBox" Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Margin="5,25,5,0" Width="600" IsReadOnly="True"
                                      Text="{Binding FileForData, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <Button x:Name="browseForFile" Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" Margin="0,24,0,0" TabIndex="4"
+                            <Button x:Name="browseForFile" Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" Margin="0,24,0,0"
                                     Content="{Binding Translations.Browse, FallbackValue=Browse}" 
                                     Command="{Binding BrowseCommand}" />
                         </Grid>

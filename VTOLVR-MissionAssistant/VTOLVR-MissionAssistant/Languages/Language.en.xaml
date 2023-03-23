@@ -11,6 +11,7 @@
     <system:String x:Key="BrowseTitle">Browse for File</system:String>
     <system:String x:Key="Cancel">Cancel</system:String>
     <system:String x:Key="Chinese">中文</system:String>
+    <system:String x:Key="ConfirmReindex">Confirm Re-index</system:String>
     <system:String x:Key="Copy">Copy</system:String>
     <system:String x:Key="DataTitle">VTS Data Needed</system:String>
     <system:String x:Key="EndSession">End session</system:String>
@@ -19,6 +20,7 @@
     <system:String x:Key="Errors">Errors</system:String>
     <system:String x:Key="Events">Events</system:String>
     <system:String x:Key="FileReadErrorTitle">File Read Error</system:String>
+    <system:String x:Key="Filter">Filter</system:String>
     <system:String x:Key="Id">Id</system:String>
     <system:String x:Key="Japanese">日本語</system:String>
     <system:String x:Key="Korean">한국어</system:String>
@@ -31,13 +33,18 @@
     <system:String x:Key="LogWriteErrorTitle">Log Write Error</system:String>
     <system:String x:Key="MainWindowTitle">VTOL VR Mission Assistant</system:String>
     <system:String x:Key="Message">Message</system:String>
+    <system:String x:Key="MissingSelection">Missing Selection</system:String>
+    <system:String x:Key="MissingSelectionMessage">There must be at least one selected item to copy (you can copy more than one).</system:String>
     <system:String x:Key="Name">Name</system:String>
     <system:String x:Key="No">No</system:String>
     <system:String x:Key="Objectives">Objectives</system:String>
     <system:String x:Key="OK">OK</system:String>
+    <system:String x:Key="Open">Open</system:String>
     <system:String x:Key="Paths">Paths</system:String>
     <system:String x:Key="Reindex">Re-index</system:String>
+    <system:String x:Key="ReindexUnitsWarning">This will re-index both friendly and enemy units. Proceed?</system:String>
     <system:String x:Key="Russian">Русский</system:String>
+    <system:String x:Key="Save">Save</system:String>
     <system:String x:Key="Sequence">Sequence</system:String>
     <system:String x:Key="Settings">Settings</system:String>
     <system:String x:Key="ScenarioId">Scenario ID</system:String>
