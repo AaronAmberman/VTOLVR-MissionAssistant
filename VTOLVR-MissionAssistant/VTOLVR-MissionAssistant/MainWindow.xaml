@@ -428,7 +428,7 @@
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Grid Grid.Row="0" Margin="0,0,0,5">
+                                    <!--<Grid Grid.Row="0" Margin="0,0,0,5">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
@@ -436,7 +436,7 @@
                                         <TextBlock Grid.Column="0" Text="{Binding Translations.Filter, FallbackValue=Filter}" />
                                         <customControls:WatermarkTextBox Grid.Column="1" Margin="5,0,0,0" Watermark="{Binding Translations.Filter, FallbackValue=Filter}"
                                                                  Text="{Binding SearchFilterFriendlyBases, UpdateSourceTrigger=PropertyChanged}" />
-                                    </Grid>
+                                    </Grid>-->
                                     <ListView x:Name="friendlyBases" Grid.Row="1" ItemsSource="{Binding FriendlyBases}">
                                         <ListView.View>
                                             <GridView>
@@ -461,7 +461,7 @@
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Grid Grid.Row="0" Margin="0,0,0,5">
+                                    <!--<Grid Grid.Row="0" Margin="0,0,0,5">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
@@ -469,7 +469,7 @@
                                         <TextBlock Grid.Column="0" Text="{Binding Translations.Filter, FallbackValue=Filter}" />
                                         <customControls:WatermarkTextBox Grid.Column="1" Margin="5,0,0,0" Watermark="{Binding Translations.Filter, FallbackValue=Filter}"
                                                                  Text="{Binding SearchFilterEnemyBases, UpdateSourceTrigger=PropertyChanged}" />
-                                    </Grid>
+                                    </Grid>-->
                                     <ListView x:Name="enemyBases" Grid.Row="1" ItemsSource="{Binding EnemyBases}">
                                         <ListView.View>
                                             <GridView>

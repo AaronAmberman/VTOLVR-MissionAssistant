@@ -939,7 +939,13 @@ namespace VTOLVR_MissionAssistant.ViewModels
 
         private bool EventSequencesFilter(object obj)
         {
-            return true;
+            SequenceViewModel eventSequence = obj as SequenceViewModel;
+
+            if (eventSequence == null) return false;
+            if (string.IsNullOrWhiteSpace(searchFilterEventSequences)) return true;
+            if (eventSequence.SequenceName.Contains(searchFilterEventSequences, StringComparison.OrdinalIgnoreCase)) return true;
+
+            return false;
         }
 
         private bool FriendlyBaseFilter(object obj)
@@ -980,17 +986,35 @@ namespace VTOLVR_MissionAssistant.ViewModels
 
         private bool ObjectivesFilter(object obj)
         {
-            return true;
+            ObjectiveViewModel objective = obj as ObjectiveViewModel;
+
+            if (objective == null) return false;
+            if (string.IsNullOrWhiteSpace(searchFilterObjectives)) return true;
+            if (objective.ObjectiveName.Contains(searchFilterObjectives, StringComparison.OrdinalIgnoreCase)) return true;
+
+            return false;
         }
 
         private bool ObjectivesOpForFilter(object obj)
         {
-            return true;
+            ObjectiveViewModel objective = obj as ObjectiveViewModel;
+
+            if (objective == null) return false;
+            if (string.IsNullOrWhiteSpace(SearchFilterObjectivesOpFor)) return true;
+            if (objective.ObjectiveName.Contains(SearchFilterObjectivesOpFor, StringComparison.OrdinalIgnoreCase)) return true;
+
+            return false;
         }
 
         private bool PathsFilter(object obj)
         {
-            return true;
+            PathViewModel path = obj as PathViewModel;
+
+            if (path == null) return false;
+            if (string.IsNullOrWhiteSpace(SearchFilterPaths)) return true;
+            if (path.Name.Contains(SearchFilterPaths, StringComparison.OrdinalIgnoreCase)) return true;
+
+            return false;
         }
 
         private void ReIndexUnits()
@@ -1071,22 +1095,46 @@ namespace VTOLVR_MissionAssistant.ViewModels
 
         private bool StaticObjectsFilter(object obj)
         {
-            return true;
+            StaticObjectViewModel staticObjectViewModel = obj as StaticObjectViewModel;
+
+            if (staticObjectViewModel == null) return false;
+            if (string.IsNullOrWhiteSpace(SearchFilterStaticObjects)) return true;
+            if (staticObjectViewModel.PrefabId.Contains(SearchFilterStaticObjects, StringComparison.OrdinalIgnoreCase)) return true;
+
+            return false;
         }
 
         private bool TimedEventsFilter(object obj)
         {
-            return true;
+            TimedEventGroupViewModel timedEvent = obj as TimedEventGroupViewModel;
+
+            if (timedEvent == null) return false;
+            if (string.IsNullOrWhiteSpace(SearchFilterTimedEventGroups)) return true;
+            if (timedEvent.GroupName.Contains(SearchFilterTimedEventGroups, StringComparison.OrdinalIgnoreCase)) return true;
+
+            return false;
         }
 
         private bool TriggerEventsFilter(object obj)
         {
-            return true;
+            TriggerEventViewModel triggerEvent = obj as TriggerEventViewModel;
+
+            if (triggerEvent == null) return false;
+            if (string.IsNullOrWhiteSpace(SearchFilterTriggerEvents)) return true;
+            if (triggerEvent.EventName.Contains(SearchFilterTriggerEvents, StringComparison.OrdinalIgnoreCase)) return true;
+
+            return false;
         }
 
         private bool WaypointsFilter(object obj)
         {
-            return true;
+            WaypointViewModel waypointViewModel = obj as WaypointViewModel;
+
+            if (waypointViewModel == null) return false;
+            if (string.IsNullOrWhiteSpace(SearchFilterWaypoints)) return true;
+            if (waypointViewModel.Name.Contains(SearchFilterWaypoints, StringComparison.OrdinalIgnoreCase)) return true;
+
+            return false;
         }
 
         private void WriteVtsApiWarnings(string message)
