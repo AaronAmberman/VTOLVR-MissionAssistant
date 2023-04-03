@@ -11,13 +11,7 @@ namespace VTOLVR_MissionAssistant.Services
     {
         #region Methods
 
-        /// <summary>Gets a next id for a new unit.</summary>
-        /// <param name="customScenarioViewModel">The custom scenario data source to check.</param>
-        /// <returns>The ID for the next unit.</returns>
-        public int GetNewObjectIdForUnit(CustomScenarioViewModel customScenarioViewModel)
-        {
-            return 0;
-        }
+        
 
         #endregion
     }
