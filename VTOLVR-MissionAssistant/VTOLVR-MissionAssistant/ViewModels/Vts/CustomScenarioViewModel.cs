@@ -611,6 +611,8 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
 
             cs.customScenario = customScenario.Clone();
 
+            // todo : update all object references to ensure they point to the clones and not the original objects, some will already be set...some won't be
+
             return cs;
         }
 
@@ -630,11 +632,11 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
             }
             else if (et.Target is Objective objective)
             {
-                ObjectiveViewModel objectiveViewModel = Objectives.FirstOrDefault(so => so.ObjectiveID == objective.ObjectiveID);
+                ObjectiveViewModel objectiveViewModel = Objectives.FirstOrDefault(so => so.ObjectiveId == objective.ObjectiveID);
 
                 if (objective == null)
                 {
-                    objectiveViewModel = ObjectivesOpFor.FirstOrDefault(so => so.ObjectiveID == objective.ObjectiveID);
+                    objectiveViewModel = ObjectivesOpFor.FirstOrDefault(so => so.ObjectiveId == objective.ObjectiveID);
 
                     eventTarget.Target = objective;
                 }
@@ -683,11 +685,11 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
             }
             else if (eventTarget.Target is ObjectiveViewModel objectiveViewModel)
             {
-                Objective objective = cs.Objectives.FirstOrDefault(so => so.ObjectiveID == objectiveViewModel.ObjectiveID);
+                Objective objective = cs.Objectives.FirstOrDefault(so => so.ObjectiveID == objectiveViewModel.ObjectiveId);
 
                 if (objective == null)
                 {
-                    objective = cs.ObjectivesOpFor.FirstOrDefault(so => so.ObjectiveID == objectiveViewModel.ObjectiveID);
+                    objective = cs.ObjectivesOpFor.FirstOrDefault(so => so.ObjectiveID == objectiveViewModel.ObjectiveId);
 
                     et.Target = objective;
                 }
@@ -731,13 +733,13 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
                 {
                     if (opFor)
                     {
-                        ObjectiveViewModel match = ObjectivesOpFor.FirstOrDefault(x => x.ObjectiveID == obj.ObjectiveID);
+                        ObjectiveViewModel match = ObjectivesOpFor.FirstOrDefault(x => x.ObjectiveId == obj.ObjectiveID);
 
                         objective.PreReqObjectives.Add(match);
                     }
                     else
                     {
-                        ObjectiveViewModel match = Objectives.FirstOrDefault(x => x.ObjectiveID == obj.ObjectiveID);
+                        ObjectiveViewModel match = Objectives.FirstOrDefault(x => x.ObjectiveId == obj.ObjectiveID);
 
                         objective.PreReqObjectives.Add(match);
                     }
@@ -756,13 +758,13 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
                 {
                     if (opFor)
                     {
-                        Objective match = cs.ObjectivesOpFor.FirstOrDefault(x => x.ObjectiveID == obj.ObjectiveID);
+                        Objective match = cs.ObjectivesOpFor.FirstOrDefault(x => x.ObjectiveID == obj.ObjectiveId);
 
                         o.PreReqObjectives.Add(match);
                     }
                     else
                     {
-                        Objective match = cs.Objectives.FirstOrDefault(x => x.ObjectiveID == obj.ObjectiveID);
+                        Objective match = cs.Objectives.FirstOrDefault(x => x.ObjectiveID == obj.ObjectiveId);
 
                         o.PreReqObjectives.Add(match);
                     }
@@ -1669,7 +1671,7 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
             {
                 AutoSetWaypoint = objective.AutoSetWaypoint,
                 CompletionReward = objective.CompletionReward,
-                ObjectiveID = objective.ObjectiveID,
+                ObjectiveId = objective.ObjectiveID,
                 ObjectiveInfo = objective.ObjectiveInfo,
                 ObjectiveName = objective.ObjectiveName,
                 ObjectiveType = objective.ObjectiveType,
@@ -2586,10 +2588,10 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
             }
             else if (eventTarget.Target is ObjectiveViewModel objective)
             {
-                et.Target = customScenario.Objectives.FirstOrDefault(x => x.ObjectiveID == objective.ObjectiveID);
+                et.Target = customScenario.Objectives.FirstOrDefault(x => x.ObjectiveID == objective.ObjectiveId);
 
                 if (et.Target == null)
-                    et.Target = customScenario.ObjectivesOpFor.FirstOrDefault(x => x.ObjectiveID == objective.ObjectiveID);
+                    et.Target = customScenario.ObjectivesOpFor.FirstOrDefault(x => x.ObjectiveID == objective.ObjectiveId);
             }
             else if (eventTarget.Target is TimedEventGroupViewModel timedEventGroup)
             {
@@ -2681,7 +2683,7 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
             {
                 AutoSetWaypoint = objective.AutoSetWaypoint,
                 CompletionReward = objective.CompletionReward,
-                ObjectiveID = objective.ObjectiveID,
+                ObjectiveID = objective.ObjectiveId,
                 ObjectiveInfo = objective.ObjectiveInfo,
                 ObjectiveName = objective.ObjectiveName,
                 ObjectiveType = objective.ObjectiveType,
@@ -2768,8 +2770,8 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
             foreach (ObjectiveViewModel preReqViewModel in objectiveViewModel.PreReqObjectives)
             {
                 Objective match = isOpfor
-                    ? customScenario.ObjectivesOpFor.FirstOrDefault(x => x.ObjectiveID == preReqViewModel.ObjectiveID)
-                    : customScenario.Objectives.FirstOrDefault(x => x.ObjectiveID == preReqViewModel.ObjectiveID);
+                    ? customScenario.ObjectivesOpFor.FirstOrDefault(x => x.ObjectiveID == preReqViewModel.ObjectiveId)
+                    : customScenario.Objectives.FirstOrDefault(x => x.ObjectiveID == preReqViewModel.ObjectiveId);
 
                 objective.PreReqObjectives.Add(match);
             }

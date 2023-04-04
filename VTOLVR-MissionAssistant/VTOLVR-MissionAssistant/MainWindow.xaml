@@ -102,10 +102,10 @@
                                         </Grid.ColumnDefinitions>
                                         <Button Grid.Column="1" Content="{StaticResource Copy}" 
                                                 ToolTip="{Binding Translations.Copy, FallbackValue=Copy}"
-                                                Command="{Binding CopyUnitCommand}" />
+                                                Command="{Binding CopyFriendlyUnitCommand}" />
                                         <Button Grid.Column="2" Margin="5,0,0,0" Content="{StaticResource Reindex}" 
                                                 ToolTip="{Binding Translations.Reindex, FallbackValue=Re-index}"
-                                                Command="{Binding ReIndexUnitsCommand}" />
+                                                Command="{Binding ReIndexFriendlyUnitsCommand}" />
                                     </Grid>
                                 </Grid>
                             </TabItem>
@@ -184,8 +184,12 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <Button Grid.Column="1" Content="{StaticResource Copy}" ToolTip="{Binding Translations.Copy, FallbackValue=Copy}" />
-                                <Button Grid.Column="2" Margin="5,0,0,0" Content="{StaticResource Reindex}" ToolTip="{Binding Translations.Reindex, FallbackValue=Re-index}" />
+                                <Button Grid.Column="1" Content="{StaticResource Copy}" 
+                                        ToolTip="{Binding Translations.Copy, FallbackValue=Copy}"
+                                        Command="{Binding CopyPathsCommand}" />
+                                <Button Grid.Column="2" Margin="5,0,0,0" Content="{StaticResource Reindex}" 
+                                        ToolTip="{Binding Translations.Reindex, FallbackValue=Re-index}"
+                                        Command="{Binding ReIndexPathsCommand}" />
                             </Grid>
                         </Grid>
                     </TabItem>
@@ -221,8 +225,12 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <Button Grid.Column="1" Content="{StaticResource Copy}" ToolTip="{Binding Translations.Copy, FallbackValue=Copy}" />
-                                <Button Grid.Column="2" Margin="5,0,0,0" Content="{StaticResource Reindex}" ToolTip="{Binding Translations.Reindex, FallbackValue=Re-index}" />
+                                <Button Grid.Column="1" Content="{StaticResource Copy}" 
+                                        ToolTip="{Binding Translations.Copy, FallbackValue=Copy}"
+                                        Command="{Binding CopyWaypointsCommand}" />
+                                <Button Grid.Column="2" Margin="5,0,0,0" Content="{StaticResource Reindex}" 
+                                        ToolTip="{Binding Translations.Reindex, FallbackValue=Re-index}"
+                                        Command="{Binding ReIndexWaypointsCommand}" />
                             </Grid>
                         </Grid>
                     </TabItem>
@@ -260,8 +268,12 @@
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <Button Grid.Column="1" Content="{StaticResource Copy}" ToolTip="{Binding Translations.Copy, FallbackValue=Copy}" />
-                                        <Button Grid.Column="2" Margin="5,0,0,0" Content="{StaticResource Reindex}" ToolTip="{Binding Translations.Reindex, FallbackValue=Re-index}" />
+                                        <Button Grid.Column="1" Content="{StaticResource Copy}" 
+                                                ToolTip="{Binding Translations.Copy, FallbackValue=Copy}"
+                                                Command="{Binding CopyTimedEventsCommand}" />
+                                        <Button Grid.Column="2" Margin="5,0,0,0" Content="{StaticResource Reindex}" 
+                                                ToolTip="{Binding Translations.Reindex, FallbackValue=Re-index}"
+                                                Command="{Binding ReIndexTimedEventsCommand}" />
                                     </Grid>
                                 </Grid>
                             </TabItem>
@@ -297,8 +309,12 @@
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <Button Grid.Column="1" Content="{StaticResource Copy}" ToolTip="{Binding Translations.Copy, FallbackValue=Copy}" />
-                                        <Button Grid.Column="2" Margin="5,0,0,0" Content="{StaticResource Reindex}" ToolTip="{Binding Translations.Reindex, FallbackValue=Re-index}" />
+                                        <Button Grid.Column="1" Content="{StaticResource Copy}" 
+                                                ToolTip="{Binding Translations.Copy, FallbackValue=Copy}"
+                                                Command="{Binding CopyTriggeredEventsCommand}" />
+                                        <Button Grid.Column="2" Margin="5,0,0,0" Content="{StaticResource Reindex}" 
+                                                ToolTip="{Binding Translations.Reindex, FallbackValue=Re-index}"
+                                                Command="{Binding ReIndexTriggeredCommand}" />
                                     </Grid>
                                 </Grid>
                             </TabItem>
@@ -334,8 +350,12 @@
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <Button Grid.Column="1" Content="{StaticResource Copy}" ToolTip="{Binding Translations.Copy, FallbackValue=Copy}" />
-                                        <Button Grid.Column="2" Margin="5,0,0,0" Content="{StaticResource Reindex}" ToolTip="{Binding Translations.Reindex, FallbackValue=Re-index}" />
+                                        <Button Grid.Column="1" Content="{StaticResource Copy}" 
+                                                ToolTip="{Binding Translations.Copy, FallbackValue=Copy}"
+                                                Command="{Binding CopyEventSequenceCommand}" />
+                                        <Button Grid.Column="2" Margin="5,0,0,0" Content="{StaticResource Reindex}" 
+                                                ToolTip="{Binding Translations.Reindex, FallbackValue=Re-index}"
+                                                Command="{Binding ReIndexEventSequencesCommand}" />
                                     </Grid>
                                 </Grid>
                             </TabItem>
@@ -362,7 +382,7 @@
                                     <ListView x:Name="objectives" Grid.Row="1" ItemsSource="{Binding Objectives}">
                                         <ListView.View>
                                             <GridView>
-                                                <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding ObjectiveID}" 
+                                                <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding ObjectiveId}" 
                                                                 HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
                                                 <GridViewColumn Header="{Binding Translations.Name, FallbackValue=Name}" DisplayMemberBinding="{Binding ObjectiveName}" 
                                                                 HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
@@ -375,8 +395,12 @@
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <Button Grid.Column="1" Content="{StaticResource Copy}" ToolTip="{Binding Translations.Copy, FallbackValue=Copy}" />
-                                        <Button Grid.Column="2" Margin="5,0,0,0" Content="{StaticResource Reindex}" ToolTip="{Binding Translations.Reindex, FallbackValue=Re-index}" />
+                                        <Button Grid.Column="1" Content="{StaticResource Copy}" 
+                                                ToolTip="{Binding Translations.Copy, FallbackValue=Copy}"
+                                                Command="{Binding CopyObjectivesCommand}" />
+                                        <Button Grid.Column="2" Margin="5,0,0,0" Content="{StaticResource Reindex}" 
+                                                ToolTip="{Binding Translations.Reindex, FallbackValue=Re-index}"
+                                                Command="{Binding ReIndexObjectivesCommand}" />
                                     </Grid>
                                 </Grid>
                             </TabItem>
@@ -399,7 +423,7 @@
                                     <ListView x:Name="objectivesOpFor" Grid.Row="1" ItemsSource="{Binding ObjectivesOpFor}">
                                         <ListView.View>
                                             <GridView>
-                                                <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding ObjectiveID}" 
+                                                <GridViewColumn Header="{Binding Translations.Id, FallbackValue=Id}" DisplayMemberBinding="{Binding ObjectiveId}" 
                                                                 HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
                                                 <GridViewColumn Header="{Binding Translations.Name, FallbackValue=Name}" DisplayMemberBinding="{Binding ObjectiveName}" 
                                                                 HeaderContainerStyle="{StaticResource MinWidthGridviewColumn}" />
@@ -412,8 +436,12 @@
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <Button Grid.Column="1" Content="{StaticResource Copy}" ToolTip="{Binding Translations.Copy, FallbackValue=Copy}" />
-                                        <Button Grid.Column="2" Margin="5,0,0,0" Content="{StaticResource Reindex}" ToolTip="{Binding Translations.Reindex, FallbackValue=Re-index}" />
+                                        <Button Grid.Column="1" Content="{StaticResource Copy}" 
+                                                ToolTip="{Binding Translations.Copy, FallbackValue=Copy}"
+                                                Command="{Binding CopyObjectivesOpForCommand}" />
+                                        <Button Grid.Column="2" Margin="5,0,0,0" Content="{StaticResource Reindex}" 
+                                                ToolTip="{Binding Translations.Reindex, FallbackValue=Re-index}"
+                                                Command="{Binding ReIndexObjectivesOpForCommand}" />
                                     </Grid>
                                 </Grid>
                             </TabItem>
@@ -521,8 +549,12 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <Button Grid.Column="1" Content="{StaticResource Copy}" ToolTip="{Binding Translations.Copy, FallbackValue=Copy}" />
-                                <Button Grid.Column="2" Margin="5,0,0,0" Content="{StaticResource Reindex}" ToolTip="{Binding Translations.Reindex, FallbackValue=Re-index}" />
+                                <Button Grid.Column="1" Content="{StaticResource Copy}" 
+                                        ToolTip="{Binding Translations.Copy, FallbackValue=Copy}"
+                                        Command="{Binding CopyStaticObjectsCommand}" />
+                                <Button Grid.Column="2" Margin="5,0,0,0" Content="{StaticResource Reindex}" 
+                                        ToolTip="{Binding Translations.Reindex, FallbackValue=Re-index}"
+                                        Command="{Binding ReIndexStaticObjectsCommand}" />
                             </Grid>
                         </Grid>
                     </TabItem>
@@ -636,7 +668,7 @@
                                            Foreground="White" CloseOnEscape="False"
                                            TitleAreaBackground="#FF101010" AnswerAreaBackground="#FF2F2F2F" ContentBackground="#FF3F3F3F"
                                            TitleContent="{Binding Translations.ScenarioInfo, FallbackValue=Scenario Info}" 
-                                           Visibility="{Binding ScenarioInfoViewModel.Visibility}"
+                                           Visibility="{Binding ScenarioInfoViewModel.Visibility, FallbackValue=Collapsed}"
                                            Result="{Binding ScenarioInfoViewModel.Result, Mode=OneWayToSource}"
                                            FocusParent="{Binding ElementName=mainGrid}">
             <id:MovableResizableInternalDialog.CloseButtonStyle>
@@ -668,7 +700,7 @@
                                            Foreground="White" CloseOnEscape="False"
                                            TitleAreaBackground="#FF101010" AnswerAreaBackground="#FF2F2F2F" ContentBackground="#FF3F3F3F"
                                            TitleContent="{Binding Translations.Settings, FallbackValue=Settings}" 
-                                           Visibility="{Binding SettingsViewModel.Visibility}"
+                                           Visibility="{Binding SettingsViewModel.Visibility, FallbackValue=Collapsed}"
                                            Result="{Binding SettingsViewModel.Result, Mode=OneWayToSource}"
                                            FocusParent="{Binding ElementName=mainGrid}">
             <id:MovableResizableInternalDialog.CloseButtonStyle>
@@ -736,7 +768,7 @@
         <id:MovableResizableInternalDialog x:Name="aboutDialog" Grid.Row="0" Grid.RowSpan="2" Foreground="White"
                                            TitleAreaBackground="#FF101010" AnswerAreaBackground="#FF2F2F2F" ContentBackground="#FF3F3F3F"
                                            TitleContent="{Binding Translations.AboutApp, FallbackValue=About VTOL VR Mission Assistant}"
-                                           Visibility="{Binding AboutBoxVisibility}"
+                                           Visibility="{Binding AboutBoxVisibility, FallbackValue=Collapsed}"
                                            FocusParent="{Binding ElementName=mainGrid}">
             <id:MovableResizableInternalDialog.CloseButtonStyle>
                 <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
@@ -762,7 +794,7 @@
         </id:MovableResizableInternalDialog>
         <id:MessageBoxInternalDialog x:Name="mbDialog" Foreground="White" Grid.Row="0" Grid.RowSpan="2"
                                      MessageBoxBackground="#FF2F2F2F" TitleAreaBackground="#FF101010" ButtonAreaBackground="#FF2F2F2F"
-                                     Visibility="{Binding MessageBoxViewModel.MessageBoxVisibility}" Message="{Binding MessageBoxViewModel.MessageBoxMessage}"
+                                     Visibility="{Binding MessageBoxViewModel.MessageBoxVisibility, FallbackValue=Collapsed}" Message="{Binding MessageBoxViewModel.MessageBoxMessage}"
                                      Title="{Binding MessageBoxViewModel.MessageBoxTitle}" MessageBoxImage="{Binding MessageBoxViewModel.MessageBoxImage}"
                                      Result="{Binding MessageBoxViewModel.MessageBoxResult, Mode=TwoWay}" IsModal="{Binding MessageBoxViewModel.MessageBoxIsModal}"
                                      MessageBoxButton="{Binding MessageBoxViewModel.MessageBoxButton}"

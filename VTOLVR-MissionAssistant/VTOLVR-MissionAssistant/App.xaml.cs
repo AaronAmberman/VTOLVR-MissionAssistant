@@ -41,7 +41,7 @@ namespace VTOLVR_MissionAssistant
                 Translation keyContract = new Translation(new ResourceDictionary
                 {
                     Source = new Uri("pack://application:,,,/Languages/Language.en.xaml")
-                }, rdtdp);
+                }, rdtdp, false);
 
                 // setup our language resources
                 Translator<ResourceDictionary> translator = new Translator<ResourceDictionary>
@@ -53,23 +53,23 @@ namespace VTOLVR_MissionAssistant
                 translator.AddResourceForTranslation("en", new ResourceDictionary
                 {
                     Source = new Uri("pack://application:,,,/Languages/Language.en.xaml")
-                });
+                }, false);
                 translator.AddResourceForTranslation("ja", new ResourceDictionary
                 {
                     Source = new Uri("pack://application:,,,/Languages/Language.ja.xaml")
-                });
+                }, false);
                 translator.AddResourceForTranslation("ko", new ResourceDictionary
                 {
                     Source = new Uri("pack://application:,,,/Languages/Language.ko.xaml")
-                });
+                }, false);
                 translator.AddResourceForTranslation("ru", new ResourceDictionary
                 {
                     Source = new Uri("pack://application:,,,/Languages/Language.ru.xaml")
-                });
+                }, false);
                 translator.AddResourceForTranslation("zh-Hans", new ResourceDictionary
                 {
                     Source = new Uri("pack://application:,,,/Languages/Language.zh-Hans.xaml")
-                });
+                }, false);
 
                 ServiceLocator.Instance.Translator = translator;
                 ServiceLocator.Instance.Translator.CurrentTranslations = translator.Translations[VTOLVR_MissionAssistant.Properties.Settings.Default.Culture];

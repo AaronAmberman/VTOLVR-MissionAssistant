@@ -12,7 +12,7 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
         private int completionReward;
         private ObjectiveFieldsViewModel fields;
         private string objectiveInfo;
-        private int objectiveID;
+        private int objectiveId;
         private string objectiveName;
         private string objectiveType;
         private int orderID;
@@ -68,12 +68,12 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
             }
         }
 
-        public int ObjectiveID
+        public int ObjectiveId
         {
-            get => objectiveID; 
+            get => objectiveId; 
             set
             {
-                objectiveID = value;
+                objectiveId = value;
                 OnPropertyChanged();
             }
         }
@@ -199,7 +199,7 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
                 CompletionReward = CompletionReward,
                 Fields = Fields?.Clone(),
                 ObjectiveInfo = ObjectiveInfo,
-                ObjectiveID = ObjectiveID,
+                ObjectiveId = ObjectiveId,
                 ObjectiveName = ObjectiveName,
                 ObjectiveType = ObjectiveType,
                 OrderID = OrderID,

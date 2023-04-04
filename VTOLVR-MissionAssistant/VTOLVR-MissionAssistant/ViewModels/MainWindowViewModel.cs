@@ -30,8 +30,16 @@ namespace VTOLVR_MissionAssistant.ViewModels
         private CollectionViewSource conditionalActionsSource;
         private CollectionView conditionals;
         private CollectionViewSource conditionalsSource;
-        private ICommand copyUnitCommand;
         private ICommand copyEnemyUnitCommand;
+        private ICommand copyEventSequenceCommand;
+        private ICommand copyFriendlyUnitCommand;
+        private ICommand copyObjectivesCommand;
+        private ICommand copyObjectivesOpForCommand;
+        private ICommand copyPathsCommand;
+        private ICommand copyStaticObjectsCommand;
+        private ICommand copyTimedEventsCommand;
+        private ICommand copyTriggeredEventsCommand;
+        private ICommand copyWaypointsCommand;
         private Visibility dataNeededVisibility = Visibility.Collapsed;
         private ObservableCollection<string> errors = new ObservableCollection<string>();
         private CollectionView enemyBases;
@@ -55,8 +63,16 @@ namespace VTOLVR_MissionAssistant.ViewModels
         private ICommand openCommand;
         private CollectionView paths;
         private CollectionViewSource pathsSource;
-        private ICommand reIndexUnitsCommand;
         private ICommand reIndexEnemyUnitsCommand;
+        private ICommand reIndexEventSequencesCommand;
+        private ICommand reIndexFriendlyUnitsCommand;
+        private ICommand reIndexObjectivesCommand;
+        private ICommand reIndexObjectivesOpForCommand;
+        private ICommand reIndexPathsCommand;
+        private ICommand reIndexTimedEventsCommand;
+        private ICommand reIndexTriggeredCommand;
+        private ICommand reIndexStaticObjectsCommand;
+        private ICommand reIndexWaypointsCommand;
         private CollectionView resourceManifest;
         private CollectionViewSource resourceManifestSource;
         private ICommand saveCommand;
@@ -144,9 +160,25 @@ namespace VTOLVR_MissionAssistant.ViewModels
             }
         }
 
-        public ICommand CopyUnitCommand => copyUnitCommand ??= new RelayCommand(CopyUnit);
-
         public ICommand CopyEnemyUnitCommand => copyEnemyUnitCommand ??= new RelayCommand(CopyEnemyUnit);
+
+        public ICommand CopyEventSequenceCommand => copyEventSequenceCommand ??= new RelayCommand(CopyEventSequence);
+
+        public ICommand CopyFriendlyUnitCommand => copyFriendlyUnitCommand ??= new RelayCommand(CopyFriendlyUnit);
+
+        public ICommand CopyObjectivesCommand => copyObjectivesCommand ??= new RelayCommand(CopyObjectives);
+
+        public ICommand CopyObjectivesOpForCommand => copyObjectivesOpForCommand ??= new RelayCommand(CopyObjectivesOpFor);
+
+        public ICommand CopyPathsCommand => copyPathsCommand ??= new RelayCommand(CopyPaths);
+
+        public ICommand CopyStaticObjectsCommand => copyStaticObjectsCommand ??= new RelayCommand(CopyStaticObjects);
+
+        public ICommand CopyTimedEventsCommand => copyTimedEventsCommand ??= new RelayCommand(CopyTimedEvents);
+
+        public ICommand CopyTriggeredEventsCommand => copyTriggeredEventsCommand ??= new RelayCommand(CopyTriggeredEvents);
+
+        public ICommand CopyWaypointsCommand => copyWaypointsCommand ??= new RelayCommand(CopyWaypoints);
 
         public Visibility DataNeededVisibility
         {
@@ -304,9 +336,25 @@ namespace VTOLVR_MissionAssistant.ViewModels
             }
         }
 
-        public ICommand ReIndexUnitsCommand => reIndexUnitsCommand ??= new RelayCommand(ReIndexUnits);
-
         public ICommand ReIndexEnemyUnitsCommand => reIndexEnemyUnitsCommand ??= new RelayCommand(ReIndexUnits);
+
+        public ICommand ReIndexEventSequencesCommand => reIndexEventSequencesCommand ??= new RelayCommand(ReIndexEventSequences);
+
+        public ICommand ReIndexFriendlyUnitsCommand => reIndexFriendlyUnitsCommand ??= new RelayCommand(ReIndexUnits);
+
+        public ICommand ReIndexObjectivesCommand => reIndexObjectivesCommand ??= new RelayCommand(ReIndexObjectives);
+
+        public ICommand ReIndexObjectivesOpForCommand => reIndexObjectivesOpForCommand ??= new RelayCommand(ReIndexObjectivesOpFor);
+
+        public ICommand ReIndexPathsCommand => reIndexPathsCommand ??= new RelayCommand(ReIndexPaths);
+
+        public ICommand ReIndexTimedEventsCommand => reIndexTimedEventsCommand ??= new RelayCommand(ReIndexTimedEvents);
+
+        public ICommand ReIndexTriggeredCommand => reIndexTriggeredCommand ??= new RelayCommand(ReIndexTriggered);
+
+        public ICommand ReIndexStaticObjectsCommand => reIndexStaticObjectsCommand ??= new RelayCommand(ReIndexStaticObjects);
+
+        public ICommand ReIndexWaypointsCommand => reIndexWaypointsCommand ??= new RelayCommand(ReIndexWaypoints);
 
         public CollectionView ResourceManifest
         {
@@ -892,13 +940,137 @@ namespace VTOLVR_MissionAssistant.ViewModels
             List<UnitSpawnerViewModel> selectedUnits = GetSelectedEnemyUnits().OfType<UnitSpawnerViewModel>().ToList();
 
             CopyUnits(selectedUnits);
+
+            EnemyUnits.Refresh();
         }
 
-        private void CopyUnit()
+        private void CopyEventSequence()
+        {
+            List<SequenceViewModel> eventSequences = GetSelectedEventSequences().OfType<SequenceViewModel>().ToList();
+
+            int maxId = VtsFile.EventSequences.Max(seq => seq.Id);
+
+            foreach (SequenceViewModel es in eventSequences)
+            {
+                SequenceViewModel clone = es.Clone();
+                clone.Id = maxId += 1;
+
+                VtsFile.EventSequences.Add(clone);
+            }
+        }
+
+        private void CopyFriendlyUnit()
         {
             List<UnitSpawnerViewModel> selectedUnits = GetSelectedFriendlyUnits().OfType<UnitSpawnerViewModel>().ToList();
 
             CopyUnits(selectedUnits);
+
+            FriendlyUnits.Refresh();
+        }
+
+        private void CopyObjectives()
+        {
+            List<ObjectiveViewModel> objectives = GetSelectedObjectives().OfType<ObjectiveViewModel>().ToList();
+
+            int maxId = VtsFile.Objectives.Max(obj => obj.ObjectiveId);
+
+            foreach (ObjectiveViewModel objective in objectives)
+            {
+                ObjectiveViewModel clone = objective.Clone();
+                clone.ObjectiveId = maxId += 1;
+
+                VtsFile.Objectives.Add(clone);
+            }
+        }
+
+        private void CopyObjectivesOpFor()
+        {
+            List<ObjectiveViewModel> objectives = GetSelectedObjectivesOpFor().OfType<ObjectiveViewModel>().ToList();
+
+            int maxId = VtsFile.ObjectivesOpFor.Max(obj => obj.ObjectiveId);
+
+            foreach (ObjectiveViewModel objective in objectives)
+            {
+                ObjectiveViewModel clone = objective.Clone();
+                clone.ObjectiveId = maxId += 1;
+
+                VtsFile.ObjectivesOpFor.Add(clone);
+            }
+        }
+
+        private void CopyPaths()
+        {
+            List<PathViewModel> objectives = GetSelectedPaths().OfType<PathViewModel>().ToList();
+
+            int maxId = VtsFile.Paths.Max(obj => obj.Id);
+
+            foreach (PathViewModel objective in objectives)
+            {
+                PathViewModel clone = objective.Clone();
+                clone.Id = maxId += 1;
+
+                VtsFile.Paths.Add(clone);
+            }
+        }
+
+        private void CopyStaticObjects()
+        {
+            List<StaticObjectViewModel> staticObjects = GetSelectedPaths().OfType<StaticObjectViewModel>().ToList();
+
+            int maxId = VtsFile.StaticObjects.Max(so => so.Id);
+
+            foreach (StaticObjectViewModel objective in staticObjects)
+            {
+                StaticObjectViewModel clone = objective.Clone();
+                clone.Id = maxId += 1;
+
+                VtsFile.StaticObjects.Add(clone);
+            }
+        }
+
+        private void CopyTimedEvents()
+        {
+            List<TimedEventGroupViewModel> timedEvents = GetSelectedTimedEvents().OfType<TimedEventGroupViewModel>().ToList();
+
+            int maxId = VtsFile.TimedEventGroups.Max(teg => teg.GroupId);
+
+            foreach (TimedEventGroupViewModel timedEvent in timedEvents)
+            {
+                TimedEventGroupViewModel clone = timedEvent.Clone();
+                clone.GroupId = maxId += 1;
+
+                VtsFile.TimedEventGroups.Add(clone);
+            }
+        }
+
+        private void CopyTriggeredEvents()
+        {
+            List<TriggerEventViewModel> triggerEvents = GetSelectedTriggeredEvents().OfType<TriggerEventViewModel>().ToList();
+
+            int maxId = VtsFile.TriggerEvents.Max(te => te.Id);
+
+            foreach (TriggerEventViewModel triggerEvent in triggerEvents)
+            {
+                TriggerEventViewModel clone = triggerEvent.Clone();
+                clone.Id = maxId += 1;
+
+                VtsFile.TriggerEvents.Add(clone);
+            }
+        }
+
+        private void CopyWaypoints()
+        {
+            List<WaypointViewModel> waypoints = GetSelectedTriggeredEvents().OfType<WaypointViewModel>().ToList();
+
+            int maxId = VtsFile.Waypoints.Max(wp => wp.Id);
+
+            foreach (WaypointViewModel waypoint in waypoints)
+            {
+                WaypointViewModel clone = waypoint.Clone();
+                clone.Id = maxId += 1;
+
+                VtsFile.Waypoints.Add(clone);
+            }
         }
 
         private void CopyUnits(List<UnitSpawnerViewModel> units)
@@ -909,6 +1081,68 @@ namespace VTOLVR_MissionAssistant.ViewModels
 
                 return;
             }
+
+            List<UnitSpawnerViewModel> results = new List<UnitSpawnerViewModel>();
+
+            int maxId = VtsFile.Units.Max(unit => unit.UnitInstanceId);
+
+            foreach (UnitSpawnerViewModel unit in units)
+            {
+                UnitSpawnerViewModel clone = unit.Clone();
+                clone.UnitInstanceId = maxId += 1;
+
+                results.Add(clone);
+
+                // add the unit reference to a group...if needed
+                if (!string.IsNullOrWhiteSpace(unit.UnitFields.UnitGroup))
+                {
+                    UnitGroupViewModel cloneGroup = null;
+                    string group = string.Empty;
+
+                    if (unit.UnitFields.UnitGroup.StartsWith(KeywordStrings.AlliedUnitGroup, StringComparison.OrdinalIgnoreCase))
+                    {
+                        cloneGroup = VtsFile.UnitGroups[0];
+
+                        group = unit.UnitFields.UnitGroup.Replace($"{KeywordStrings.AlliedUnitGroup}:", "");
+                    }
+                    else if (unit.UnitFields.UnitGroup.StartsWith(KeywordStrings.EnemyUnitGroup, StringComparison.OrdinalIgnoreCase))
+                    {
+                        cloneGroup = VtsFile.UnitGroups[1];
+
+                        group = unit.UnitFields.UnitGroup.Replace($"{KeywordStrings.EnemyUnitGroup}:", "");
+                    }
+
+                    // add to appropriate group
+                    if (group == KeywordStrings.Alpha) cloneGroup.Alpha.Units.Add(unit);
+                    else if (group == KeywordStrings.Bravo) cloneGroup.Bravo.Units.Add(unit);
+                    else if (group == KeywordStrings.Charlie) cloneGroup.Charlie.Units.Add(unit);
+                    else if (group == KeywordStrings.Delta) cloneGroup.Delta.Units.Add(unit);
+                    else if (group == KeywordStrings.Echo) cloneGroup.Echo.Units.Add(unit);
+                    else if (group == KeywordStrings.Foxtrot) cloneGroup.Foxtrot.Units.Add(unit);
+                    else if (group == KeywordStrings.Golf) cloneGroup.Golf.Units.Add(unit);
+                    else if (group == KeywordStrings.Hotel) cloneGroup.Hotel.Units.Add(unit);
+                    else if (group == KeywordStrings.India) cloneGroup.India.Units.Add(unit);
+                    else if (group == KeywordStrings.Juliet) cloneGroup.Juliet.Units.Add(unit);
+                    else if (group == KeywordStrings.Kilo) cloneGroup.Kilo.Units.Add(unit);
+                    else if (group == KeywordStrings.Lima) cloneGroup.Lima.Units.Add(unit);
+                    else if (group == KeywordStrings.Mike) cloneGroup.Mike.Units.Add(unit);
+                    else if (group == KeywordStrings.November) cloneGroup.November.Units.Add(unit);
+                    else if (group == KeywordStrings.Oscar) cloneGroup.Oscar.Units.Add(unit);
+                    else if (group == KeywordStrings.Papa) cloneGroup.Papa.Units.Add(unit);
+                    else if (group == KeywordStrings.Quebec) cloneGroup.Quebec.Units.Add(unit);
+                    else if (group == KeywordStrings.Romeo) cloneGroup.Romeo.Units.Add(unit);
+                    else if (group == KeywordStrings.Sierra) cloneGroup.Sierra.Units.Add(unit);
+                    else if (group == KeywordStrings.Tango) cloneGroup.Tango.Units.Add(unit);
+                    else if (group == KeywordStrings.Uniform) cloneGroup.Uniform.Units.Add(unit);
+                    else if (group == KeywordStrings.Victor) cloneGroup.Victor.Units.Add(unit);
+                    else if (group == KeywordStrings.Whiskey) cloneGroup.Whiskey.Units.Add(unit);
+                    else if (group == KeywordStrings.Xray) cloneGroup.Xray.Units.Add(unit);
+                    else if (group == KeywordStrings.Yankee) cloneGroup.Yankee.Units.Add(unit);
+                    else if (group == KeywordStrings.Zulu) cloneGroup.Zulu.Units.Add(unit);
+                }
+            }
+
+            VtsFile.Units.AddRange(results);
         }
 
         private bool EnemyBaseFilter(object obj)
@@ -1015,6 +1249,46 @@ namespace VTOLVR_MissionAssistant.ViewModels
             if (path.Name.Contains(SearchFilterPaths, StringComparison.OrdinalIgnoreCase)) return true;
 
             return false;
+        }
+
+        private void ReIndexEventSequences()
+        {
+
+        }
+
+        private void ReIndexObjectives()
+        {
+
+        }
+
+        private void ReIndexObjectivesOpFor()
+        {
+
+        }
+
+        private void ReIndexPaths()
+        {
+
+        }
+
+        private void ReIndexTimedEvents()
+        {
+
+        }
+
+        private void ReIndexTriggered()
+        {
+
+        }
+
+        private void ReIndexStaticObjects()
+        {
+
+        }
+
+        private void ReIndexWaypoints()
+        {
+
         }
 
         private void ReIndexUnits()
