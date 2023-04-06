@@ -611,7 +611,146 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
 
             cs.customScenario = customScenario.Clone();
 
-            // todo : update all object references to ensure they point to the clones and not the original objects, some will already be set...some won't be
+            // set references to conditional actions, trigger events, event sequences, objectives, objectives op for, timed event groups
+            for (int i = 0; i < ConditionalActions.Count; i++)
+            {
+                ConditionalActionViewModel conditionalAction = ConditionalActions[i];
+                ConditionalActionViewModel ca = cs.ConditionalActions[i];
+
+                for (int j = 0; j < conditionalAction.BaseBlock.Actions.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = conditionalAction.BaseBlock.Actions.EventTargets[j];
+                    EventTargetViewModel et = ca.BaseBlock.Actions.EventTargets[j];
+
+                    ProcessEventTargetObjectReferences(eventTarget, et, cs);
+                }
+
+                for (int j = 0; j < conditionalAction.BaseBlock.ElseActions.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = conditionalAction.BaseBlock.ElseActions.EventTargets[j];
+                    EventTargetViewModel et = ca.BaseBlock.ElseActions.EventTargets[j];
+
+                    ProcessEventTargetObjectReferences(eventTarget, et, cs);
+                }
+            }
+
+            for (int i = 0; i < TriggerEvents.Count; i++)
+            {
+                TriggerEventViewModel triggerEvent = TriggerEvents[i];
+                TriggerEventViewModel te = cs.TriggerEvents[i];
+
+                for (int j = 0; j < triggerEvent.EventInfo.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = triggerEvent.EventInfo.EventTargets[j];
+                    EventTargetViewModel et = te.EventInfo.EventTargets[j];
+
+                    ProcessEventTargetObjectReferences(eventTarget, et, cs);
+                }
+            }
+
+            for (int i = 0; i < EventSequences.Count; i++)
+            {
+                SequenceViewModel sequence = EventSequences[i];
+                SequenceViewModel s = cs.EventSequences[i];
+
+                for (int j = 0; j < sequence.Events.Count; j++)
+                {
+                    EventViewModel @event = sequence.Events[j];
+                    EventViewModel e = s.Events[j];
+
+                    for (int k = 0; k < @event.EventInfo.EventTargets.Count; k++)
+                    {
+                        EventTargetViewModel eventTarget = @event.EventInfo.EventTargets[k];
+                        EventTargetViewModel et = e.EventInfo.EventTargets[k];
+
+                        ProcessEventTargetObjectReferences(eventTarget, et, cs);
+                    }
+                }
+            }
+
+            for (int i = 0; i < Objectives.Count; i++)
+            {
+                ObjectiveViewModel objective = Objectives[i];
+                ObjectiveViewModel o = cs.Objectives[i];
+
+                for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.CompleteEvent.EventTargets[j];
+                    EventTargetViewModel et = o.CompleteEvent.EventTargets[j];
+
+                    ProcessEventTargetObjectReferences(eventTarget, et, cs);
+                }
+
+                for (int j = 0; j < objective.FailEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.FailEvent.EventTargets[j];
+                    EventTargetViewModel et = o.FailEvent.EventTargets[j];
+
+                    ProcessEventTargetObjectReferences(eventTarget, et, cs);
+                }
+
+                for (int j = 0; j < objective.StartEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.StartEvent.EventTargets[j];
+                    EventTargetViewModel et = o.StartEvent.EventTargets[j];
+
+                    ProcessEventTargetObjectReferences(eventTarget, et, cs);
+                }
+
+                ProcessObjectivePreReqs(i, false, cs);
+            }
+
+            for (int i = 0; i < ObjectivesOpFor.Count; i++)
+            {
+                ObjectiveViewModel objective = ObjectivesOpFor[i];
+                ObjectiveViewModel o = cs.ObjectivesOpFor[i];
+
+                for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.CompleteEvent.EventTargets[j];
+                    EventTargetViewModel et = o.CompleteEvent.EventTargets[j];
+
+                    ProcessEventTargetObjectReferences(eventTarget, et, cs);
+                }
+
+                for (int j = 0; j < objective.FailEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.FailEvent.EventTargets[j];
+                    EventTargetViewModel et = o.FailEvent.EventTargets[j];
+
+                    ProcessEventTargetObjectReferences(eventTarget, et, cs);
+                }
+
+                for (int j = 0; j < objective.StartEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.StartEvent.EventTargets[j];
+                    EventTargetViewModel et = o.StartEvent.EventTargets[j];
+
+                    ProcessEventTargetObjectReferences(eventTarget, et, cs);
+                }
+
+                ProcessObjectivePreReqs(i, true, cs);
+            }
+
+            for (int i = 0; i < TimedEventGroups.Count; i++)
+            {
+                TimedEventGroupViewModel timedEventGroup = TimedEventGroups[i];
+                TimedEventGroup teg = customScenario.TimedEventGroups[i];
+
+                for (int j = 0; j < timedEventGroup.TimedEventInfos.Count; j++)
+                {
+                    TimedEventInfoViewModel timedEventInfo = timedEventGroup.TimedEventInfos[j];
+                    TimedEventInfo tei = teg.TimedEventInfos[j];
+
+                    for (int k = 0; k < timedEventInfo.EventTargets.Count; k++)
+                    {
+                        EventTargetViewModel eventTarget = timedEventInfo.EventTargets[k];
+                        EventTarget et = tei.EventTargets[k];
+
+                        ProcessEventTargetObjectReferences(eventTarget, et);
+                    }
+                }
+            }
 
             return cs;
         }
@@ -664,6 +803,59 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
                     if (reference != null)
                     {
                         paramInfoViewModel.Value = reference;
+                    }
+                }
+            }
+        }
+
+        private void ProcessEventTargetObjectReferences(EventTargetViewModel eventTarget, EventTargetViewModel et, CustomScenarioViewModel cs)
+        {
+            if (eventTarget.Target is TriggerEventViewModel triggerEvent)
+            {
+                TriggerEventViewModel trigEve = cs.TriggerEvents.FirstOrDefault(te => te.Id == triggerEvent.Id);
+
+                et.Target = trigEve;
+            }
+            else if (eventTarget.Target is SequenceViewModel sequenceViewModel)
+            {
+                SequenceViewModel sequence = cs.EventSequences.FirstOrDefault(es => es.Id == sequenceViewModel.Id);
+
+                et.Target = sequence;
+            }
+            else if (eventTarget.Target is ObjectiveViewModel objectiveViewModel)
+            {
+                ObjectiveViewModel objective = cs.Objectives.FirstOrDefault(so => so.ObjectiveId == objectiveViewModel.ObjectiveId);
+
+                if (objective == null)
+                {
+                    objective = cs.ObjectivesOpFor.FirstOrDefault(so => so.ObjectiveId == objectiveViewModel.ObjectiveId);
+
+                    et.Target = objective;
+                }
+                else
+                {
+                    et.Target = objective;
+                }
+            }
+            else if (eventTarget.Target is TimedEventGroupViewModel timedEventGroupViewModel)
+            {
+                TimedEventGroupViewModel timedEventGroup = cs.TimedEventGroups.FirstOrDefault(teg => teg.GroupId == timedEventGroupViewModel.GroupId);
+
+                et.Target = timedEventGroup;
+            }
+
+            for (int k = 0; k < eventTarget.ParamInfos.Count; k++)
+            {
+                ParamInfoViewModel paramInfoViewModel = eventTarget.ParamInfos[k];
+                ParamInfoViewModel pi = et.ParamInfos[k];
+
+                if (paramInfoViewModel.Value is ConditionalActionViewModel conditionalActionViewModel)
+                {
+                    ConditionalActionViewModel reference = cs.ConditionalActions.FirstOrDefault(x => x.Id == conditionalActionViewModel.Id);
+
+                    if (reference != null)
+                    {
+                        pi.Value = reference;
                     }
                 }
             }
@@ -742,6 +934,31 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
                         ObjectiveViewModel match = Objectives.FirstOrDefault(x => x.ObjectiveId == obj.ObjectiveID);
 
                         objective.PreReqObjectives.Add(match);
+                    }
+                }
+            }
+        }
+
+        private void ProcessObjectivePreReqs(int index, bool opFor, CustomScenarioViewModel cs)
+        {
+            ObjectiveViewModel objective = opFor ? ObjectivesOpFor[index] : Objectives[index];
+            ObjectiveViewModel o = opFor ? cs.ObjectivesOpFor[index] : cs.Objectives[index];
+
+            if (objective.PreReqObjectives.Count > 0)
+            {
+                foreach (ObjectiveViewModel obj in objective.PreReqObjectives)
+                {
+                    if (opFor)
+                    {
+                        ObjectiveViewModel match = cs.ObjectivesOpFor.FirstOrDefault(x => x.ObjectiveId == obj.ObjectiveId);
+
+                        o.PreReqObjectives.Add(match);
+                    }
+                    else
+                    {
+                        ObjectiveViewModel match = cs.Objectives.FirstOrDefault(x => x.ObjectiveId == obj.ObjectiveId);
+
+                        o.PreReqObjectives.Add(match);
                     }
                 }
             }
