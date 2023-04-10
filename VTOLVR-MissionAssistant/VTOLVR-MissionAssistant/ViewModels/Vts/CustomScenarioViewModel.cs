@@ -3255,7 +3255,464 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
             }
 
             // update all references to our new ids
-            // todo
+            for (int i = 0; i < ConditionalActions.Count; i++)
+            {
+                ConditionalActionViewModel conditionalAction = ConditionalActions[i];
+
+                for (int j = 0; j < conditionalAction.BaseBlock.Actions.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = conditionalAction.BaseBlock.Actions.EventTargets[j];
+
+                    if (eventTarget.Target is UnitSpawnerViewModel unit)
+                    {
+                        unit.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unit.UnitInstanceId).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is UnitSpawnerViewModel unitParamInfo)
+                            unitParamInfo.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitParamInfo.UnitInstanceId).Item1;
+                    }
+                }
+
+                for (int j = 0; j < conditionalAction.BaseBlock.ElseActions.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = conditionalAction.BaseBlock.ElseActions.EventTargets[j];
+
+                    if (eventTarget.Target is UnitSpawnerViewModel unit)
+                    {
+                        unit.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unit.UnitInstanceId).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is UnitSpawnerViewModel unitParamInfo)
+                            unitParamInfo.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitParamInfo.UnitInstanceId).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < TriggerEvents.Count; i++)
+            {
+                TriggerEventViewModel triggerEvent = TriggerEvents[i];
+
+                for (int j = 0; j < triggerEvent.EventInfo.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = triggerEvent.EventInfo.EventTargets[j];
+
+                    if (eventTarget.Target is UnitSpawnerViewModel unit)
+                    {
+                        unit.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unit.UnitInstanceId).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is UnitSpawnerViewModel unitParamInfo)
+                            unitParamInfo.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitParamInfo.UnitInstanceId).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < EventSequences.Count; i++)
+            {
+                SequenceViewModel sequence = EventSequences[i];
+
+                for (int j = 0; j < sequence.Events.Count; j++)
+                {
+                    EventViewModel @event = sequence.Events[j];
+
+                    for (int k = 0; k < @event.EventInfo.EventTargets.Count; k++)
+                    {
+                        EventTargetViewModel eventTarget = @event.EventInfo.EventTargets[k];
+
+                        if (eventTarget.Target is UnitSpawnerViewModel unit)
+                        {
+                            unit.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unit.UnitInstanceId).Item1;
+                        }
+
+                        foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                        {
+                            if (paramInfo.Value is UnitSpawnerViewModel unitParamInfo)
+                                unitParamInfo.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitParamInfo.UnitInstanceId).Item1;
+                        }
+                    }
+                }
+            }
+
+            for (int i = 0; i < Objectives.Count; i++)
+            {
+                ObjectiveViewModel objective = Objectives[i];
+
+                if (objective.Fields.Target is UnitSpawnerViewModel objectiveFieldUnit)
+                    objective.Fields.Target.UnitInstanceId = idMap.First(idVal => idVal.Item2 == objectiveFieldUnit.UnitInstanceId).Item1;
+
+                if (objective.Fields.TargetUnit is UnitSpawnerViewModel objectiveFieldUnit2)
+                    objective.Fields.TargetUnit.UnitInstanceId = idMap.First(idVal => idVal.Item2 == objectiveFieldUnit2.UnitInstanceId).Item1;
+
+                for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.CompleteEvent.EventTargets[j];
+
+                    if (eventTarget.Target is UnitSpawnerViewModel unit)
+                    {
+                        unit.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unit.UnitInstanceId).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is UnitSpawnerViewModel unitParamInfo)
+                            unitParamInfo.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitParamInfo.UnitInstanceId).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.FailEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.FailEvent.EventTargets[j];
+
+                    if (eventTarget.Target is UnitSpawnerViewModel unit)
+                    {
+                        unit.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unit.UnitInstanceId).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is UnitSpawnerViewModel unitParamInfo)
+                            unitParamInfo.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitParamInfo.UnitInstanceId).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.StartEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.StartEvent.EventTargets[j];
+
+                    if (eventTarget.Target is UnitSpawnerViewModel unit)
+                    {
+                        unit.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unit.UnitInstanceId).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is UnitSpawnerViewModel unitParamInfo)
+                            unitParamInfo.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitParamInfo.UnitInstanceId).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < ObjectivesOpFor.Count; i++)
+            {
+                ObjectiveViewModel objective = ObjectivesOpFor[i];
+
+                if (objective.Fields.Target is UnitSpawnerViewModel objectiveFieldUnit)
+                    objective.Fields.Target.UnitInstanceId = idMap.First(idVal => idVal.Item2 == objectiveFieldUnit.UnitInstanceId).Item1;
+
+                if (objective.Fields.TargetUnit is UnitSpawnerViewModel objectiveFieldUnit2)
+                    objective.Fields.TargetUnit.UnitInstanceId = idMap.First(idVal => idVal.Item2 == objectiveFieldUnit2.UnitInstanceId).Item1;
+
+                for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.CompleteEvent.EventTargets[j];
+
+                    if (eventTarget.Target is UnitSpawnerViewModel unit)
+                    {
+                        unit.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unit.UnitInstanceId).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is UnitSpawnerViewModel unitParamInfo)
+                            unitParamInfo.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitParamInfo.UnitInstanceId).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.FailEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.FailEvent.EventTargets[j];
+
+                    if (eventTarget.Target is UnitSpawnerViewModel unit)
+                    {
+                        unit.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unit.UnitInstanceId).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is UnitSpawnerViewModel unitParamInfo)
+                            unitParamInfo.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitParamInfo.UnitInstanceId).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.StartEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.StartEvent.EventTargets[j];
+
+                    if (eventTarget.Target is UnitSpawnerViewModel unit)
+                    {
+                        unit.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unit.UnitInstanceId).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is UnitSpawnerViewModel unitParamInfo)
+                            unitParamInfo.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitParamInfo.UnitInstanceId).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < TimedEventGroups.Count; i++)
+            {
+                TimedEventGroupViewModel timedEventGroup = TimedEventGroups[i];
+
+                for (int j = 0; j < timedEventGroup.TimedEventInfos.Count; j++)
+                {
+                    TimedEventInfoViewModel timedEventInfo = timedEventGroup.TimedEventInfos[j];
+
+                    for (int k = 0; k < timedEventInfo.EventTargets.Count; k++)
+                    {
+                        EventTargetViewModel eventTarget = timedEventInfo.EventTargets[k];
+
+                        if (eventTarget.Target is UnitSpawnerViewModel unit)
+                        {
+                            unit.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unit.UnitInstanceId).Item1;
+                        }
+
+                        foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                        {
+                            if (paramInfo.Value is UnitSpawnerViewModel unitParamInfo)
+                                unitParamInfo.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitParamInfo.UnitInstanceId).Item1;
+                        }
+                    }
+                }
+            }
+
+            if (ReturnToBaseDestination is UnitSpawnerViewModel unitRtb)
+                unitRtb.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitRtb.UnitInstanceId).Item1;
+
+            if (RefuelWaypoint is UnitSpawnerViewModel unitFuel)
+                unitFuel.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFuel.UnitInstanceId).Item1;
+
+            foreach (ConditionalViewModel conditionalViewModel in Conditionals)
+            {
+                foreach (ComputationViewModel computationViewModel in conditionalViewModel.Computations)
+                {
+                    if (computationViewModel.Unit != null)
+                        computationViewModel.Unit.UnitInstanceId = idMap.First(idVal => idVal.Item2 == computationViewModel.Unit.UnitInstanceId).Item1;
+
+                    foreach (UnitSpawnerViewModel unitInList in computationViewModel.UnitList)
+                    {
+                        unitInList.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitInList.UnitInstanceId).Item1;
+                    }
+                }
+            }
+
+            foreach (UnitGroupViewModel unitGroup in UnitGroups)
+            {
+                if (unitGroup.Alpha != null)
+                {
+                    foreach (UnitSpawnerViewModel unitFromGroup in unitGroup.Alpha.Units)
+                    {
+                        unitFromGroup.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFromGroup.UnitInstanceId).Item1;
+                    }
+                }
+
+                if (unitGroup.Bravo != null)
+                {
+                    foreach (UnitSpawnerViewModel unitFromGroup in unitGroup.Bravo.Units)
+                    {
+                        unitFromGroup.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFromGroup.UnitInstanceId).Item1;
+                    }
+                }
+
+                if (unitGroup.Charlie != null)
+                {
+                    foreach (UnitSpawnerViewModel unitFromGroup in unitGroup.Charlie.Units)
+                    {
+                        unitFromGroup.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFromGroup.UnitInstanceId).Item1;
+                    }
+                }
+
+                if (unitGroup.Delta != null)
+                {
+                    foreach (UnitSpawnerViewModel unitFromGroup in unitGroup.Delta.Units)
+                    {
+                        unitFromGroup.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFromGroup.UnitInstanceId).Item1;
+                    }
+                }
+
+                if (unitGroup.Echo != null)
+                {
+                    foreach (UnitSpawnerViewModel unitFromGroup in unitGroup.Echo.Units)
+                    {
+                        unitFromGroup.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFromGroup.UnitInstanceId).Item1;
+                    }
+                }
+
+                if (unitGroup.Foxtrot != null)
+                {
+                    foreach (UnitSpawnerViewModel unitFromGroup in unitGroup.Foxtrot.Units)
+                    {
+                        unitFromGroup.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFromGroup.UnitInstanceId).Item1;
+                    }
+                }
+
+                if (unitGroup.Golf != null)
+                {
+                    foreach (UnitSpawnerViewModel unitFromGroup in unitGroup.Golf.Units)
+                    {
+                        unitFromGroup.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFromGroup.UnitInstanceId).Item1;
+                    }
+                }
+
+                if (unitGroup.Hotel != null)
+                {
+                    foreach (UnitSpawnerViewModel unitFromGroup in unitGroup.Hotel.Units)
+                    {
+                        unitFromGroup.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFromGroup.UnitInstanceId).Item1;
+                    }
+                }
+
+                if (unitGroup.India != null)
+                {
+                    foreach (UnitSpawnerViewModel unitFromGroup in unitGroup.India.Units)
+                    {
+                        unitFromGroup.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFromGroup.UnitInstanceId).Item1;
+                    }
+                }
+
+                if (unitGroup.Juliet != null)
+                {
+                    foreach (UnitSpawnerViewModel unitFromGroup in unitGroup.Juliet.Units)
+                    {
+                        unitFromGroup.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFromGroup.UnitInstanceId).Item1;
+                    }
+                }
+
+                if (unitGroup.Kilo != null)
+                {
+                    foreach (UnitSpawnerViewModel unitFromGroup in unitGroup.Kilo.Units)
+                    {
+                        unitFromGroup.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFromGroup.UnitInstanceId).Item1;
+                    }
+                }
+
+                if (unitGroup.Lima != null)
+                {
+                    foreach (UnitSpawnerViewModel unitFromGroup in unitGroup.Lima.Units)
+                    {
+                        unitFromGroup.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFromGroup.UnitInstanceId).Item1;
+                    }
+                }
+
+                if (unitGroup.Mike != null)
+                {
+                    foreach (UnitSpawnerViewModel unitFromGroup in unitGroup.Mike.Units)
+                    {
+                        unitFromGroup.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFromGroup.UnitInstanceId).Item1;
+                    }
+                }
+
+                if (unitGroup.November != null)
+                {
+                    foreach (UnitSpawnerViewModel unitFromGroup in unitGroup.November.Units)
+                    {
+                        unitFromGroup.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFromGroup.UnitInstanceId).Item1;
+                    }
+                }
+
+                if (unitGroup.Oscar != null)
+                {
+                    foreach (UnitSpawnerViewModel unitFromGroup in unitGroup.Oscar.Units)
+                    {
+                        unitFromGroup.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFromGroup.UnitInstanceId).Item1;
+                    }
+                }
+
+                if (unitGroup.Papa != null)
+                {
+                    foreach (UnitSpawnerViewModel unitFromGroup in unitGroup.Papa.Units)
+                    {
+                        unitFromGroup.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFromGroup.UnitInstanceId).Item1;
+                    }
+                }
+
+                if (unitGroup.Quebec != null)
+                {
+                    foreach (UnitSpawnerViewModel unitFromGroup in unitGroup.Quebec.Units)
+                    {
+                        unitFromGroup.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFromGroup.UnitInstanceId).Item1;
+                    }
+                }
+
+                if (unitGroup.Romeo != null)
+                {
+                    foreach (UnitSpawnerViewModel unitFromGroup in unitGroup.Romeo.Units)
+                    {
+                        unitFromGroup.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFromGroup.UnitInstanceId).Item1;
+                    }
+                }
+
+                if (unitGroup.Sierra != null)
+                {
+                    foreach (UnitSpawnerViewModel unitFromGroup in unitGroup.Sierra.Units)
+                    {
+                        unitFromGroup.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFromGroup.UnitInstanceId).Item1;
+                    }
+                }
+
+                if (unitGroup.Tango != null)
+                {
+                    foreach (UnitSpawnerViewModel unitFromGroup in unitGroup.Tango.Units)
+                    {
+                        unitFromGroup.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFromGroup.UnitInstanceId).Item1;
+                    }
+                }
+
+                if (unitGroup.Uniform != null)
+                {
+                    foreach (UnitSpawnerViewModel unitFromGroup in unitGroup.Uniform.Units)
+                    {
+                        unitFromGroup.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFromGroup.UnitInstanceId).Item1;
+                    }
+                }
+
+                if (unitGroup.Victor != null)
+                {
+                    foreach (UnitSpawnerViewModel unitFromGroup in unitGroup.Victor.Units)
+                    {
+                        unitFromGroup.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFromGroup.UnitInstanceId).Item1;
+                    }
+                }
+
+                if (unitGroup.Whiskey != null)
+                {
+                    foreach (UnitSpawnerViewModel unitFromGroup in unitGroup.Whiskey.Units)
+                    {
+                        unitFromGroup.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFromGroup.UnitInstanceId).Item1;
+                    }
+                }
+
+                if (unitGroup.Xray != null)
+                {
+                    foreach (UnitSpawnerViewModel unitFromGroup in unitGroup.Xray.Units)
+                    {
+                        unitFromGroup.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFromGroup.UnitInstanceId).Item1;
+                    }
+                }
+
+                if (unitGroup.Yankee != null)
+                {
+                    foreach (UnitSpawnerViewModel unitFromGroup in unitGroup.Yankee.Units)
+                    {
+                        unitFromGroup.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFromGroup.UnitInstanceId).Item1;
+                    }
+                }
+
+                if (unitGroup.Zulu != null)
+                {
+                    foreach (UnitSpawnerViewModel unitFromGroup in unitGroup.Zulu.Units)
+                    {
+                        unitFromGroup.UnitInstanceId = idMap.First(idVal => idVal.Item2 == unitFromGroup.UnitInstanceId).Item1;
+                    }
+                }
+            }
         }
 
         public void ReIndexWaypoints()
@@ -3364,6 +3821,9 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
 
                 if (objective.Waypoint is WaypointViewModel objectiveWaypoint)
                     objectiveWaypoint.Id = idMap.First(idVal => idVal.Item2 == objectiveWaypoint.Id).Item1;
+
+                if (objective.Fields.DropoffRallyPoint is WaypointViewModel dropoffWaypoint)
+                    dropoffWaypoint.Id = idMap.First(idVal => idVal.Item2 == dropoffWaypoint.Id).Item1;
 
                 for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
                 {
