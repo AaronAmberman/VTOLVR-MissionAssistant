@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using VTOLVR_MissionAssistant.Collections;
-using VTS;
 using VTS.Data.Runtime;
 
 namespace VTOLVR_MissionAssistant.ViewModels.Vts
@@ -2009,6 +2008,1508 @@ namespace VTOLVR_MissionAssistant.ViewModels.Vts
             }
 
             return unitGroupGroupingViewModel;
+        }
+
+        public void ReIndexEventSequences()
+        {
+            List<Tuple<int, int>> idMap = new List<Tuple<int, int>>();
+            int id = 0;
+
+            foreach (SequenceViewModel sequence in EventSequences)
+            {
+                idMap.Add(new Tuple<int, int>(id++, sequence.Id));
+
+                sequence.Id = id;
+            }
+
+            // update all references to our new ids
+            for (int i = 0; i < ConditionalActions.Count; i++)
+            {
+                ConditionalActionViewModel conditionalAction = ConditionalActions[i];
+
+                for (int j = 0; j < conditionalAction.BaseBlock.Actions.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = conditionalAction.BaseBlock.Actions.EventTargets[j];
+
+                    if (eventTarget.Target is SequenceViewModel sequence)
+                    {
+                        sequence.Id = idMap.First(idVal => idVal.Item2 == sequence.Id).Item1;
+                    }
+                }
+
+                for (int j = 0; j < conditionalAction.BaseBlock.ElseActions.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = conditionalAction.BaseBlock.ElseActions.EventTargets[j];
+
+                    if (eventTarget.Target is SequenceViewModel sequence)
+                    {
+                        sequence.Id = idMap.First(idVal => idVal.Item2 == sequence.Id).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < TriggerEvents.Count; i++)
+            {
+                TriggerEventViewModel triggerEvent = TriggerEvents[i];
+
+                for (int j = 0; j < triggerEvent.EventInfo.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = triggerEvent.EventInfo.EventTargets[j];
+
+                    if (eventTarget.Target is SequenceViewModel sequence)
+                    {
+                        sequence.Id = idMap.First(idVal => idVal.Item2 == sequence.Id).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < EventSequences.Count; i++)
+            {
+                SequenceViewModel sequence = EventSequences[i];
+
+                for (int j = 0; j < sequence.Events.Count; j++)
+                {
+                    EventViewModel @event = sequence.Events[j];
+
+                    for (int k = 0; k < @event.EventInfo.EventTargets.Count; k++)
+                    {
+                        EventTargetViewModel eventTarget = @event.EventInfo.EventTargets[k];
+
+                        if (eventTarget.Target is SequenceViewModel sequenceTarget)
+                        {
+                            sequenceTarget.Id = idMap.First(idVal => idVal.Item2 == sequenceTarget.Id).Item1;
+                        }
+                    }
+                }
+            }
+
+            for (int i = 0; i < Objectives.Count; i++)
+            {
+                ObjectiveViewModel objective = Objectives[i];
+
+                for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.CompleteEvent.EventTargets[j];
+
+                    if (eventTarget.Target is SequenceViewModel sequence)
+                    {
+                        sequence.Id = idMap.First(idVal => idVal.Item2 == sequence.Id).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.FailEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.FailEvent.EventTargets[j];
+
+                    if (eventTarget.Target is SequenceViewModel sequence)
+                    {
+                        sequence.Id = idMap.First(idVal => idVal.Item2 == sequence.Id).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.StartEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.StartEvent.EventTargets[j];
+
+                    if (eventTarget.Target is SequenceViewModel sequence)
+                    {
+                        sequence.Id = idMap.First(idVal => idVal.Item2 == sequence.Id).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < ObjectivesOpFor.Count; i++)
+            {
+                ObjectiveViewModel objective = ObjectivesOpFor[i];
+
+                for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.CompleteEvent.EventTargets[j];
+
+                    if (eventTarget.Target is SequenceViewModel sequence)
+                    {
+                        sequence.Id = idMap.First(idVal => idVal.Item2 == sequence.Id).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.FailEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.FailEvent.EventTargets[j];
+
+                    if (eventTarget.Target is SequenceViewModel sequence)
+                    {
+                        sequence.Id = idMap.First(idVal => idVal.Item2 == sequence.Id).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.StartEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.StartEvent.EventTargets[j];
+
+                    if (eventTarget.Target is SequenceViewModel sequence)
+                    {
+                        sequence.Id = idMap.First(idVal => idVal.Item2 == sequence.Id).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < TimedEventGroups.Count; i++)
+            {
+                TimedEventGroupViewModel timedEventGroup = TimedEventGroups[i];
+
+                for (int j = 0; j < timedEventGroup.TimedEventInfos.Count; j++)
+                {
+                    TimedEventInfoViewModel timedEventInfo = timedEventGroup.TimedEventInfos[j];
+
+                    for (int k = 0; k < timedEventInfo.EventTargets.Count; k++)
+                    {
+                        EventTargetViewModel eventTarget = timedEventInfo.EventTargets[k];
+
+                        if (eventTarget.Target is SequenceViewModel sequence)
+                        {
+                            sequence.Id = idMap.First(idVal => idVal.Item2 == sequence.Id).Item1;
+                        }
+                    }
+                }
+            }
+        }
+
+        public void ReIndexObjectives()
+        {
+            List<Tuple<int, int>> idMap = new List<Tuple<int, int>>();
+            int id = 0;
+
+            foreach (ObjectiveViewModel objective in Objectives)
+            {
+                idMap.Add(new Tuple<int, int>(id++, objective.ObjectiveId));
+
+                objective.ObjectiveId = id;
+            }
+
+            // update all references to our new ids
+            for (int i = 0; i < ConditionalActions.Count; i++)
+            {
+                ConditionalActionViewModel conditionalAction = ConditionalActions[i];
+
+                for (int j = 0; j < conditionalAction.BaseBlock.Actions.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = conditionalAction.BaseBlock.Actions.EventTargets[j];
+
+                    if (eventTarget.Target is ObjectiveViewModel objective)
+                    {
+                        objective.ObjectiveId = idMap.First(idVal => idVal.Item2 == objective.ObjectiveId).Item1;
+                    }
+                }
+
+                for (int j = 0; j < conditionalAction.BaseBlock.ElseActions.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = conditionalAction.BaseBlock.ElseActions.EventTargets[j];
+
+                    if (eventTarget.Target is ObjectiveViewModel objective)
+                    {
+                        objective.ObjectiveId = idMap.First(idVal => idVal.Item2 == objective.ObjectiveId).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < TriggerEvents.Count; i++)
+            {
+                TriggerEventViewModel triggerEvent = TriggerEvents[i];
+
+                for (int j = 0; j < triggerEvent.EventInfo.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = triggerEvent.EventInfo.EventTargets[j];
+
+                    if (eventTarget.Target is ObjectiveViewModel objective)
+                    {
+                        objective.ObjectiveId = idMap.First(idVal => idVal.Item2 == objective.ObjectiveId).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < EventSequences.Count; i++)
+            {
+                SequenceViewModel sequence = EventSequences[i];
+
+                for (int j = 0; j < sequence.Events.Count; j++)
+                {
+                    EventViewModel @event = sequence.Events[j];
+
+                    for (int k = 0; k < @event.EventInfo.EventTargets.Count; k++)
+                    {
+                        EventTargetViewModel eventTarget = @event.EventInfo.EventTargets[k];
+
+                        if (eventTarget.Target is ObjectiveViewModel obective)
+                        {
+                            obective.ObjectiveId = idMap.First(idVal => idVal.Item2 == obective.ObjectiveId).Item1;
+                        }
+                    }
+                }
+            }
+
+            for (int i = 0; i < Objectives.Count; i++)
+            {
+                ObjectiveViewModel objective = Objectives[i];
+
+                for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.CompleteEvent.EventTargets[j];
+
+                    if (eventTarget.Target is ObjectiveViewModel objectiveTarget)
+                    {
+                        objectiveTarget.ObjectiveId = idMap.First(idVal => idVal.Item2 == objectiveTarget.ObjectiveId).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.FailEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.FailEvent.EventTargets[j];
+
+                    if (eventTarget.Target is ObjectiveViewModel objectiveTarget)
+                    {
+                        objectiveTarget.ObjectiveId = idMap.First(idVal => idVal.Item2 == objectiveTarget.ObjectiveId).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.StartEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.StartEvent.EventTargets[j];
+
+                    if (eventTarget.Target is ObjectiveViewModel objectiveTarget)
+                    {
+                        objectiveTarget.ObjectiveId = idMap.First(idVal => idVal.Item2 == objectiveTarget.ObjectiveId).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < ObjectivesOpFor.Count; i++)
+            {
+                ObjectiveViewModel objective = ObjectivesOpFor[i];
+
+                for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.CompleteEvent.EventTargets[j];
+
+                    if (eventTarget.Target is ObjectiveViewModel objectiveTarget)
+                    {
+                        objectiveTarget.ObjectiveId = idMap.First(idVal => idVal.Item2 == objectiveTarget.ObjectiveId).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.FailEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.FailEvent.EventTargets[j];
+
+                    if (eventTarget.Target is ObjectiveViewModel objectiveTarget)
+                    {
+                        objectiveTarget.ObjectiveId = idMap.First(idVal => idVal.Item2 == objectiveTarget.ObjectiveId).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.StartEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.StartEvent.EventTargets[j];
+
+                    if (eventTarget.Target is ObjectiveViewModel objectiveTarget)
+                    {
+                        objectiveTarget.ObjectiveId = idMap.First(idVal => idVal.Item2 == objectiveTarget.ObjectiveId).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < TimedEventGroups.Count; i++)
+            {
+                TimedEventGroupViewModel timedEventGroup = TimedEventGroups[i];
+
+                for (int j = 0; j < timedEventGroup.TimedEventInfos.Count; j++)
+                {
+                    TimedEventInfoViewModel timedEventInfo = timedEventGroup.TimedEventInfos[j];
+
+                    for (int k = 0; k < timedEventInfo.EventTargets.Count; k++)
+                    {
+                        EventTargetViewModel eventTarget = timedEventInfo.EventTargets[k];
+
+                        if (eventTarget.Target is ObjectiveViewModel objective)
+                        {
+                            objective.ObjectiveId = idMap.First(idVal => idVal.Item2 == objective.ObjectiveId).Item1;
+                        }
+                    }
+                }
+            }
+
+            // handle pre-req updates
+            foreach (ObjectiveViewModel objective in Objectives)
+            {
+                foreach (ObjectiveViewModel prereq in objective.PreReqObjectives)
+                {
+                    prereq.ObjectiveId = idMap.First(idVal => idVal.Item2 == objective.ObjectiveId).Item1;
+                }
+            }
+        }
+
+        public void ReIndexObjectivesOpFor()
+        {
+            List<Tuple<int, int>> idMap = new List<Tuple<int, int>>();
+            int id = 0;
+
+            foreach (ObjectiveViewModel objective in ObjectivesOpFor)
+            {
+                idMap.Add(new Tuple<int, int>(id++, objective.ObjectiveId));
+
+                objective.ObjectiveId = id;
+            }
+
+            // update all references to our new ids
+            for (int i = 0; i < ConditionalActions.Count; i++)
+            {
+                ConditionalActionViewModel conditionalAction = ConditionalActions[i];
+
+                for (int j = 0; j < conditionalAction.BaseBlock.Actions.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = conditionalAction.BaseBlock.Actions.EventTargets[j];
+
+                    if (eventTarget.Target is ObjectiveViewModel objective)
+                    {
+                        objective.ObjectiveId = idMap.First(idVal => idVal.Item2 == objective.ObjectiveId).Item1;
+                    }
+                }
+
+                for (int j = 0; j < conditionalAction.BaseBlock.ElseActions.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = conditionalAction.BaseBlock.ElseActions.EventTargets[j];
+
+                    if (eventTarget.Target is ObjectiveViewModel objective)
+                    {
+                        objective.ObjectiveId = idMap.First(idVal => idVal.Item2 == objective.ObjectiveId).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < TriggerEvents.Count; i++)
+            {
+                TriggerEventViewModel triggerEvent = TriggerEvents[i];
+
+                for (int j = 0; j < triggerEvent.EventInfo.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = triggerEvent.EventInfo.EventTargets[j];
+
+                    if (eventTarget.Target is ObjectiveViewModel objective)
+                    {
+                        objective.ObjectiveId = idMap.First(idVal => idVal.Item2 == objective.ObjectiveId).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < EventSequences.Count; i++)
+            {
+                SequenceViewModel sequence = EventSequences[i];
+
+                for (int j = 0; j < sequence.Events.Count; j++)
+                {
+                    EventViewModel @event = sequence.Events[j];
+
+                    for (int k = 0; k < @event.EventInfo.EventTargets.Count; k++)
+                    {
+                        EventTargetViewModel eventTarget = @event.EventInfo.EventTargets[k];
+
+                        if (eventTarget.Target is ObjectiveViewModel obective)
+                        {
+                            obective.ObjectiveId = idMap.First(idVal => idVal.Item2 == obective.ObjectiveId).Item1;
+                        }
+                    }
+                }
+            }
+
+            for (int i = 0; i < Objectives.Count; i++)
+            {
+                ObjectiveViewModel objective = Objectives[i];
+
+                for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.CompleteEvent.EventTargets[j];
+
+                    if (eventTarget.Target is ObjectiveViewModel objectiveTarget)
+                    {
+                        objectiveTarget.ObjectiveId = idMap.First(idVal => idVal.Item2 == objectiveTarget.ObjectiveId).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.FailEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.FailEvent.EventTargets[j];
+
+                    if (eventTarget.Target is ObjectiveViewModel objectiveTarget)
+                    {
+                        objectiveTarget.ObjectiveId = idMap.First(idVal => idVal.Item2 == objectiveTarget.ObjectiveId).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.StartEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.StartEvent.EventTargets[j];
+
+                    if (eventTarget.Target is ObjectiveViewModel objectiveTarget)
+                    {
+                        objectiveTarget.ObjectiveId = idMap.First(idVal => idVal.Item2 == objectiveTarget.ObjectiveId).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < ObjectivesOpFor.Count; i++)
+            {
+                ObjectiveViewModel objective = ObjectivesOpFor[i];
+
+                for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.CompleteEvent.EventTargets[j];
+
+                    if (eventTarget.Target is ObjectiveViewModel objectiveTarget)
+                    {
+                        objectiveTarget.ObjectiveId = idMap.First(idVal => idVal.Item2 == objectiveTarget.ObjectiveId).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.FailEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.FailEvent.EventTargets[j];
+
+                    if (eventTarget.Target is ObjectiveViewModel objectiveTarget)
+                    {
+                        objectiveTarget.ObjectiveId = idMap.First(idVal => idVal.Item2 == objectiveTarget.ObjectiveId).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.StartEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.StartEvent.EventTargets[j];
+
+                    if (eventTarget.Target is ObjectiveViewModel objectiveTarget)
+                    {
+                        objectiveTarget.ObjectiveId = idMap.First(idVal => idVal.Item2 == objectiveTarget.ObjectiveId).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < TimedEventGroups.Count; i++)
+            {
+                TimedEventGroupViewModel timedEventGroup = TimedEventGroups[i];
+
+                for (int j = 0; j < timedEventGroup.TimedEventInfos.Count; j++)
+                {
+                    TimedEventInfoViewModel timedEventInfo = timedEventGroup.TimedEventInfos[j];
+
+                    for (int k = 0; k < timedEventInfo.EventTargets.Count; k++)
+                    {
+                        EventTargetViewModel eventTarget = timedEventInfo.EventTargets[k];
+
+                        if (eventTarget.Target is ObjectiveViewModel objective)
+                        {
+                            objective.ObjectiveId = idMap.First(idVal => idVal.Item2 == objective.ObjectiveId).Item1;
+                        }
+                    }
+                }
+            }
+
+            // handle pre-req updates
+            foreach (ObjectiveViewModel objective in ObjectivesOpFor)
+            {
+                foreach (ObjectiveViewModel prereq in objective.PreReqObjectives)
+                {
+                    prereq.ObjectiveId = idMap.First(idVal => idVal.Item2 == objective.ObjectiveId).Item1;
+                }
+            }
+        }
+
+        public void ReIndexPaths()
+        {
+            List<Tuple<int, int>> idMap = new List<Tuple<int, int>>();
+            int id = 0;
+
+            foreach (PathViewModel path in Paths)
+            {
+                idMap.Add(new Tuple<int, int>(id++, path.Id));
+
+                path.Id = id;
+            }
+
+            // update all references to our new ids
+            for (int i = 0; i < ConditionalActions.Count; i++)
+            {
+                ConditionalActionViewModel conditionalAction = ConditionalActions[i];
+
+                for (int j = 0; j < conditionalAction.BaseBlock.Actions.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = conditionalAction.BaseBlock.Actions.EventTargets[j];
+
+                    if (eventTarget.Target is PathViewModel path)
+                    {
+                        path.Id = idMap.First(idVal => idVal.Item2 == path.Id).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is PathViewModel pathParamInfo)
+                            pathParamInfo.Id = idMap.First(idVal => idVal.Item2 == pathParamInfo.Id).Item1;
+                    }
+                }
+
+                for (int j = 0; j < conditionalAction.BaseBlock.ElseActions.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = conditionalAction.BaseBlock.ElseActions.EventTargets[j];
+
+                    if (eventTarget.Target is PathViewModel path)
+                    {
+                        path.Id = idMap.First(idVal => idVal.Item2 == path.Id).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is PathViewModel pathParamInfo)
+                            pathParamInfo.Id = idMap.First(idVal => idVal.Item2 == pathParamInfo.Id).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < TriggerEvents.Count; i++)
+            {
+                TriggerEventViewModel triggerEvent = TriggerEvents[i];
+
+                for (int j = 0; j < triggerEvent.EventInfo.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = triggerEvent.EventInfo.EventTargets[j];
+
+                    if (eventTarget.Target is PathViewModel path)
+                    {
+                        path.Id = idMap.First(idVal => idVal.Item2 == path.Id).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is PathViewModel pathParamInfo)
+                            pathParamInfo.Id = idMap.First(idVal => idVal.Item2 == pathParamInfo.Id).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < EventSequences.Count; i++)
+            {
+                SequenceViewModel sequence = EventSequences[i];
+
+                for (int j = 0; j < sequence.Events.Count; j++)
+                {
+                    EventViewModel @event = sequence.Events[j];
+
+                    for (int k = 0; k < @event.EventInfo.EventTargets.Count; k++)
+                    {
+                        EventTargetViewModel eventTarget = @event.EventInfo.EventTargets[k];
+
+                        if (eventTarget.Target is PathViewModel path)
+                        {
+                            path.Id = idMap.First(idVal => idVal.Item2 == path.Id).Item1;
+                        }
+
+                        foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                        {
+                            if (paramInfo.Value is PathViewModel pathParamInfo)
+                                pathParamInfo.Id = idMap.First(idVal => idVal.Item2 == pathParamInfo.Id).Item1;
+                        }
+                    }
+                }
+            }
+
+            for (int i = 0; i < Objectives.Count; i++)
+            {
+                ObjectiveViewModel objective = Objectives[i];
+
+                for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.CompleteEvent.EventTargets[j];
+
+                    if (eventTarget.Target is PathViewModel path)
+                    {
+                        path.Id = idMap.First(idVal => idVal.Item2 == path.Id).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is PathViewModel pathParamInfo)
+                            pathParamInfo.Id = idMap.First(idVal => idVal.Item2 == pathParamInfo.Id).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.FailEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.FailEvent.EventTargets[j];
+
+                    if (eventTarget.Target is PathViewModel path)
+                    {
+                        path.Id = idMap.First(idVal => idVal.Item2 == path.Id).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is PathViewModel pathParamInfo)
+                            pathParamInfo.Id = idMap.First(idVal => idVal.Item2 == pathParamInfo.Id).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.StartEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.StartEvent.EventTargets[j];
+
+                    if (eventTarget.Target is PathViewModel path)
+                    {
+                        path.Id = idMap.First(idVal => idVal.Item2 == path.Id).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is PathViewModel pathParamInfo)
+                            pathParamInfo.Id = idMap.First(idVal => idVal.Item2 == pathParamInfo.Id).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < ObjectivesOpFor.Count; i++)
+            {
+                ObjectiveViewModel objective = ObjectivesOpFor[i];
+
+                for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.CompleteEvent.EventTargets[j];
+
+                    if (eventTarget.Target is PathViewModel path)
+                    {
+                        path.Id = idMap.First(idVal => idVal.Item2 == path.Id).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is PathViewModel pathParamInfo)
+                            pathParamInfo.Id = idMap.First(idVal => idVal.Item2 == pathParamInfo.Id).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.FailEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.FailEvent.EventTargets[j];
+
+                    if (eventTarget.Target is PathViewModel path)
+                    {
+                        path.Id = idMap.First(idVal => idVal.Item2 == path.Id).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is PathViewModel pathParamInfo)
+                            pathParamInfo.Id = idMap.First(idVal => idVal.Item2 == pathParamInfo.Id).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.StartEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.StartEvent.EventTargets[j];
+
+                    if (eventTarget.Target is PathViewModel path)
+                    {
+                        path.Id = idMap.First(idVal => idVal.Item2 == path.Id).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is PathViewModel pathParamInfo)
+                            pathParamInfo.Id = idMap.First(idVal => idVal.Item2 == pathParamInfo.Id).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < TimedEventGroups.Count; i++)
+            {
+                TimedEventGroupViewModel timedEventGroup = TimedEventGroups[i];
+
+                for (int j = 0; j < timedEventGroup.TimedEventInfos.Count; j++)
+                {
+                    TimedEventInfoViewModel timedEventInfo = timedEventGroup.TimedEventInfos[j];
+
+                    for (int k = 0; k < timedEventInfo.EventTargets.Count; k++)
+                    {
+                        EventTargetViewModel eventTarget = timedEventInfo.EventTargets[k];
+
+                        if (eventTarget.Target is PathViewModel path)
+                        {
+                            path.Id = idMap.First(idVal => idVal.Item2 == path.Id).Item1;
+                        }
+
+                        foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                        {
+                            if (paramInfo.Value is PathViewModel pathParamInfo)
+                                pathParamInfo.Id = idMap.First(idVal => idVal.Item2 == pathParamInfo.Id).Item1;
+                        }
+                    }
+                }
+            }
+        }
+
+        public void ReIndexStaticObjects()
+        {
+            List<Tuple<int, int>> idMap = new List<Tuple<int, int>>();
+            int id = 0;
+
+            foreach (StaticObjectViewModel staticObject in StaticObjects)
+            {
+                idMap.Add(new Tuple<int, int>(id++, staticObject.Id));
+
+                staticObject.Id = id;
+            }
+
+            // update all references to our new ids
+            for (int i = 0; i < ConditionalActions.Count; i++)
+            {
+                ConditionalActionViewModel conditionalAction = ConditionalActions[i];
+
+                for (int j = 0; j < conditionalAction.BaseBlock.Actions.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = conditionalAction.BaseBlock.Actions.EventTargets[j];
+
+                    if (eventTarget.Target is StaticObjectViewModel staticObject)
+                    {
+                        staticObject.Id = idMap.First(idVal => idVal.Item2 == staticObject.Id).Item1;
+                    }
+                }
+
+                for (int j = 0; j < conditionalAction.BaseBlock.ElseActions.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = conditionalAction.BaseBlock.ElseActions.EventTargets[j];
+
+                    if (eventTarget.Target is StaticObjectViewModel staticObject)
+                    {
+                        staticObject.Id = idMap.First(idVal => idVal.Item2 == staticObject.Id).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < TriggerEvents.Count; i++)
+            {
+                TriggerEventViewModel triggerEvent = TriggerEvents[i];
+
+                for (int j = 0; j < triggerEvent.EventInfo.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = triggerEvent.EventInfo.EventTargets[j];
+
+                    if (eventTarget.Target is StaticObjectViewModel staticObject)
+                    {
+                        staticObject.Id = idMap.First(idVal => idVal.Item2 == staticObject.Id).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < EventSequences.Count; i++)
+            {
+                SequenceViewModel sequence = EventSequences[i];
+
+                for (int j = 0; j < sequence.Events.Count; j++)
+                {
+                    EventViewModel @event = sequence.Events[j];
+
+                    for (int k = 0; k < @event.EventInfo.EventTargets.Count; k++)
+                    {
+                        EventTargetViewModel eventTarget = @event.EventInfo.EventTargets[k];
+
+                        if (eventTarget.Target is StaticObjectViewModel staticObject)
+                        {
+                            staticObject.Id = idMap.First(idVal => idVal.Item2 == staticObject.Id).Item1;
+                        }
+                    }
+                }
+            }
+
+            for (int i = 0; i < Objectives.Count; i++)
+            {
+                ObjectiveViewModel objective = Objectives[i];
+
+                for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.CompleteEvent.EventTargets[j];
+
+                    if (eventTarget.Target is StaticObjectViewModel staticObject)
+                    {
+                        staticObject.Id = idMap.First(idVal => idVal.Item2 == staticObject.Id).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.FailEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.FailEvent.EventTargets[j];
+
+                    if (eventTarget.Target is StaticObjectViewModel staticObject)
+                    {
+                        staticObject.Id = idMap.First(idVal => idVal.Item2 == staticObject.Id).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.StartEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.StartEvent.EventTargets[j];
+
+                    if (eventTarget.Target is StaticObjectViewModel staticObject)
+                    {
+                        staticObject.Id = idMap.First(idVal => idVal.Item2 == staticObject.Id).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < ObjectivesOpFor.Count; i++)
+            {
+                ObjectiveViewModel objective = ObjectivesOpFor[i];
+
+                for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.CompleteEvent.EventTargets[j];
+
+                    if (eventTarget.Target is StaticObjectViewModel staticObject)
+                    {
+                        staticObject.Id = idMap.First(idVal => idVal.Item2 == staticObject.Id).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.FailEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.FailEvent.EventTargets[j];
+
+                    if (eventTarget.Target is StaticObjectViewModel staticObject)
+                    {
+                        staticObject.Id = idMap.First(idVal => idVal.Item2 == staticObject.Id).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.StartEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.StartEvent.EventTargets[j];
+
+                    if (eventTarget.Target is StaticObjectViewModel staticObject)
+                    {
+                        staticObject.Id = idMap.First(idVal => idVal.Item2 == staticObject.Id).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < TimedEventGroups.Count; i++)
+            {
+                TimedEventGroupViewModel timedEventGroup = TimedEventGroups[i];
+
+                for (int j = 0; j < timedEventGroup.TimedEventInfos.Count; j++)
+                {
+                    TimedEventInfoViewModel timedEventInfo = timedEventGroup.TimedEventInfos[j];
+
+                    for (int k = 0; k < timedEventInfo.EventTargets.Count; k++)
+                    {
+                        EventTargetViewModel eventTarget = timedEventInfo.EventTargets[k];
+
+                        if (eventTarget.Target is StaticObjectViewModel staticObject)
+                        {
+                            staticObject.Id = idMap.First(idVal => idVal.Item2 == staticObject.Id).Item1;
+                        }
+                    }
+                }
+            }
+        }
+
+        public void ReIndexTimedEvents()
+        {
+            List<Tuple<int, int>> idMap = new List<Tuple<int, int>>();
+            int id = 0;
+
+            foreach (TimedEventGroupViewModel timedEvent in TimedEventGroups)
+            {
+                idMap.Add(new Tuple<int, int>(id++, timedEvent.GroupId));
+
+                timedEvent.GroupId = id;
+            }
+
+            // update all references to our new ids
+            for (int i = 0; i < ConditionalActions.Count; i++)
+            {
+                ConditionalActionViewModel conditionalAction = ConditionalActions[i];
+
+                for (int j = 0; j < conditionalAction.BaseBlock.Actions.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = conditionalAction.BaseBlock.Actions.EventTargets[j];
+
+                    if (eventTarget.Target is TimedEventGroupViewModel timedEvent)
+                    {
+                        timedEvent.GroupId = idMap.First(idVal => idVal.Item2 == timedEvent.GroupId).Item1;
+                    }
+                }
+
+                for (int j = 0; j < conditionalAction.BaseBlock.ElseActions.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = conditionalAction.BaseBlock.ElseActions.EventTargets[j];
+
+                    if (eventTarget.Target is TimedEventGroupViewModel timedEvent)
+                    {
+                        timedEvent.GroupId = idMap.First(idVal => idVal.Item2 == timedEvent.GroupId).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < TriggerEvents.Count; i++)
+            {
+                TriggerEventViewModel triggerEvent = TriggerEvents[i];
+
+                for (int j = 0; j < triggerEvent.EventInfo.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = triggerEvent.EventInfo.EventTargets[j];
+
+                    if (eventTarget.Target is TimedEventGroupViewModel timedEvent)
+                    {
+                        timedEvent.GroupId = idMap.First(idVal => idVal.Item2 == timedEvent.GroupId).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < EventSequences.Count; i++)
+            {
+                SequenceViewModel sequence = EventSequences[i];
+
+                for (int j = 0; j < sequence.Events.Count; j++)
+                {
+                    EventViewModel @event = sequence.Events[j];
+
+                    for (int k = 0; k < @event.EventInfo.EventTargets.Count; k++)
+                    {
+                        EventTargetViewModel eventTarget = @event.EventInfo.EventTargets[k];
+
+                        if (eventTarget.Target is TimedEventGroupViewModel timedEvent)
+                        {
+                            timedEvent.GroupId = idMap.First(idVal => idVal.Item2 == timedEvent.GroupId).Item1;
+                        }
+                    }
+                }
+            }
+
+            for (int i = 0; i < Objectives.Count; i++)
+            {
+                ObjectiveViewModel objective = Objectives[i];
+
+                for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.CompleteEvent.EventTargets[j];
+
+                    if (eventTarget.Target is TimedEventGroupViewModel timedEvent)
+                    {
+                        timedEvent.GroupId = idMap.First(idVal => idVal.Item2 == timedEvent.GroupId).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.FailEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.FailEvent.EventTargets[j];
+
+                    if (eventTarget.Target is TimedEventGroupViewModel timedEvent)
+                    {
+                        timedEvent.GroupId = idMap.First(idVal => idVal.Item2 == timedEvent.GroupId).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.StartEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.StartEvent.EventTargets[j];
+
+                    if (eventTarget.Target is TimedEventGroupViewModel timedEvent)
+                    {
+                        timedEvent.GroupId = idMap.First(idVal => idVal.Item2 == timedEvent.GroupId).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < ObjectivesOpFor.Count; i++)
+            {
+                ObjectiveViewModel objective = ObjectivesOpFor[i];
+
+                for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.CompleteEvent.EventTargets[j];
+
+                    if (eventTarget.Target is TimedEventGroupViewModel timedEvent)
+                    {
+                        timedEvent.GroupId = idMap.First(idVal => idVal.Item2 == timedEvent.GroupId).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.FailEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.FailEvent.EventTargets[j];
+
+                    if (eventTarget.Target is TimedEventGroupViewModel timedEvent)
+                    {
+                        timedEvent.GroupId = idMap.First(idVal => idVal.Item2 == timedEvent.GroupId).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.StartEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.StartEvent.EventTargets[j];
+
+                    if (eventTarget.Target is TimedEventGroupViewModel timedEvent)
+                    {
+                        timedEvent.GroupId = idMap.First(idVal => idVal.Item2 == timedEvent.GroupId).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < TimedEventGroups.Count; i++)
+            {
+                TimedEventGroupViewModel timedEventGroup = TimedEventGroups[i];
+
+                for (int j = 0; j < timedEventGroup.TimedEventInfos.Count; j++)
+                {
+                    TimedEventInfoViewModel timedEventInfo = timedEventGroup.TimedEventInfos[j];
+
+                    for (int k = 0; k < timedEventInfo.EventTargets.Count; k++)
+                    {
+                        EventTargetViewModel eventTarget = timedEventInfo.EventTargets[k];
+
+                        if (eventTarget.Target is TimedEventGroupViewModel timedEvent)
+                        {
+                            timedEvent.GroupId = idMap.First(idVal => idVal.Item2 == timedEvent.GroupId).Item1;
+                        }
+                    }
+                }
+            }
+        }
+
+        public void ReIndexTriggered()
+        {
+            List<Tuple<int, int>> idMap = new List<Tuple<int, int>>();
+            int id = 0;
+
+            foreach (TriggerEventViewModel triggerEvent in TriggerEvents)
+            {
+                idMap.Add(new Tuple<int, int>(id++, triggerEvent.Id));
+
+                triggerEvent.Id = id;
+            }
+
+            // update all references to our new ids
+            for (int i = 0; i < ConditionalActions.Count; i++)
+            {
+                ConditionalActionViewModel conditionalAction = ConditionalActions[i];
+
+                for (int j = 0; j < conditionalAction.BaseBlock.Actions.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = conditionalAction.BaseBlock.Actions.EventTargets[j];
+
+                    if (eventTarget.Target is TriggerEventViewModel triggerEvent)
+                    {
+                        triggerEvent.Id = idMap.First(idVal => idVal.Item2 == triggerEvent.Id).Item1;
+                    }
+                }
+
+                for (int j = 0; j < conditionalAction.BaseBlock.ElseActions.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = conditionalAction.BaseBlock.ElseActions.EventTargets[j];
+
+                    if (eventTarget.Target is TriggerEventViewModel triggerEvent)
+                    {
+                        triggerEvent.Id = idMap.First(idVal => idVal.Item2 == triggerEvent.Id).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < TriggerEvents.Count; i++)
+            {
+                TriggerEventViewModel triggerEvent = TriggerEvents[i];
+
+                for (int j = 0; j < triggerEvent.EventInfo.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = triggerEvent.EventInfo.EventTargets[j];
+
+                    if (eventTarget.Target is TriggerEventViewModel triggerEventTarget)
+                    {
+                        triggerEventTarget.Id = idMap.First(idVal => idVal.Item2 == triggerEventTarget.Id).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < EventSequences.Count; i++)
+            {
+                SequenceViewModel sequence = EventSequences[i];
+
+                for (int j = 0; j < sequence.Events.Count; j++)
+                {
+                    EventViewModel @event = sequence.Events[j];
+
+                    for (int k = 0; k < @event.EventInfo.EventTargets.Count; k++)
+                    {
+                        EventTargetViewModel eventTarget = @event.EventInfo.EventTargets[k];
+
+                        if (eventTarget.Target is TriggerEventViewModel triggerEVent)
+                        {
+                            triggerEVent.Id = idMap.First(idVal => idVal.Item2 == triggerEVent.Id).Item1;
+                        }
+                    }
+                }
+            }
+
+            for (int i = 0; i < Objectives.Count; i++)
+            {
+                ObjectiveViewModel objective = Objectives[i];
+
+                for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.CompleteEvent.EventTargets[j];
+
+                    if (eventTarget.Target is TriggerEventViewModel triggerEvent)
+                    {
+                        triggerEvent.Id = idMap.First(idVal => idVal.Item2 == triggerEvent.Id).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.FailEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.FailEvent.EventTargets[j];
+
+                    if (eventTarget.Target is TriggerEventViewModel triggerEvent)
+                    {
+                        triggerEvent.Id = idMap.First(idVal => idVal.Item2 == triggerEvent.Id).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.StartEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.StartEvent.EventTargets[j];
+
+                    if (eventTarget.Target is TriggerEventViewModel triggerEvent)
+                    {
+                        triggerEvent.Id = idMap.First(idVal => idVal.Item2 == triggerEvent.Id).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < ObjectivesOpFor.Count; i++)
+            {
+                ObjectiveViewModel objective = ObjectivesOpFor[i];
+
+                for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.CompleteEvent.EventTargets[j];
+
+                    if (eventTarget.Target is TriggerEventViewModel triggerEvent)
+                    {
+                        triggerEvent.Id = idMap.First(idVal => idVal.Item2 == triggerEvent.Id).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.FailEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.FailEvent.EventTargets[j];
+
+                    if (eventTarget.Target is TriggerEventViewModel triggerEvent)
+                    {
+                        triggerEvent.Id = idMap.First(idVal => idVal.Item2 == triggerEvent.Id).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.StartEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.StartEvent.EventTargets[j];
+
+                    if (eventTarget.Target is TriggerEventViewModel triggerEvent)
+                    {
+                        triggerEvent.Id = idMap.First(idVal => idVal.Item2 == triggerEvent.Id).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < TimedEventGroups.Count; i++)
+            {
+                TimedEventGroupViewModel timedEventGroup = TimedEventGroups[i];
+
+                for (int j = 0; j < timedEventGroup.TimedEventInfos.Count; j++)
+                {
+                    TimedEventInfoViewModel timedEventInfo = timedEventGroup.TimedEventInfos[j];
+
+                    for (int k = 0; k < timedEventInfo.EventTargets.Count; k++)
+                    {
+                        EventTargetViewModel eventTarget = timedEventInfo.EventTargets[k];
+
+                        if (eventTarget.Target is TriggerEventViewModel triggerEvent)
+                        {
+                            triggerEvent.Id = idMap.First(idVal => idVal.Item2 == triggerEvent.Id).Item1;
+                        }
+                    }
+                }
+            }
+        }
+
+        public void ReIndexUnits()
+        {
+            List<Tuple<int, int>> idMap = new List<Tuple<int, int>>();
+            int id = 0;
+
+            foreach (UnitSpawnerViewModel unit in Units)
+            {
+                idMap.Add(new Tuple<int, int>(id++, unit.UnitInstanceId));
+
+                unit.UnitInstanceId = id;
+            }
+
+            // update all references to our new ids
+            // todo
+        }
+
+        public void ReIndexWaypoints()
+        {
+            List<Tuple<int, int>> idMap = new List<Tuple<int, int>>();
+            int id = 0;
+
+            foreach (WaypointViewModel waypoint in Waypoints)
+            {
+                idMap.Add(new Tuple<int, int>(id++, waypoint.Id));
+
+                waypoint.Id = id;
+            }
+
+            // update all references to our new ids
+            for (int i = 0; i < ConditionalActions.Count; i++)
+            {
+                ConditionalActionViewModel conditionalAction = ConditionalActions[i];
+
+                for (int j = 0; j < conditionalAction.BaseBlock.Actions.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = conditionalAction.BaseBlock.Actions.EventTargets[j];
+
+                    if (eventTarget.Target is WaypointViewModel waypoint)
+                    {
+                        waypoint.Id = idMap.First(idVal => idVal.Item2 == waypoint.Id).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is WaypointViewModel waypointParamInfo)
+                            waypointParamInfo.Id = idMap.First(idVal => idVal.Item2 == waypointParamInfo.Id).Item1;
+                    }
+                }
+
+                for (int j = 0; j < conditionalAction.BaseBlock.ElseActions.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = conditionalAction.BaseBlock.ElseActions.EventTargets[j];
+
+                    if (eventTarget.Target is WaypointViewModel waypoint)
+                    {
+                        waypoint.Id = idMap.First(idVal => idVal.Item2 == waypoint.Id).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is WaypointViewModel waypointParamInfo)
+                            waypointParamInfo.Id = idMap.First(idVal => idVal.Item2 == waypointParamInfo.Id).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < TriggerEvents.Count; i++)
+            {
+                TriggerEventViewModel triggerEvent = TriggerEvents[i];
+
+                if (triggerEvent.Waypoint is WaypointViewModel teWaypoint)
+                    teWaypoint.Id = idMap.First(idVal => idVal.Item2 == teWaypoint.Id).Item1;
+
+                for (int j = 0; j < triggerEvent.EventInfo.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = triggerEvent.EventInfo.EventTargets[j];
+
+                    if (eventTarget.Target is WaypointViewModel waypoint)
+                    {
+                        waypoint.Id = idMap.First(idVal => idVal.Item2 == waypoint.Id).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is WaypointViewModel waypointParamInfo)
+                            waypointParamInfo.Id = idMap.First(idVal => idVal.Item2 == waypointParamInfo.Id).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < EventSequences.Count; i++)
+            {
+                SequenceViewModel sequence = EventSequences[i];
+
+                for (int j = 0; j < sequence.Events.Count; j++)
+                {
+                    EventViewModel @event = sequence.Events[j];
+
+                    for (int k = 0; k < @event.EventInfo.EventTargets.Count; k++)
+                    {
+                        EventTargetViewModel eventTarget = @event.EventInfo.EventTargets[k];
+
+                        if (eventTarget.Target is WaypointViewModel waypoint)
+                        {
+                            waypoint.Id = idMap.First(idVal => idVal.Item2 == waypoint.Id).Item1;
+                        }
+
+                        foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                        {
+                            if (paramInfo.Value is WaypointViewModel waypointParamInfo)
+                                waypointParamInfo.Id = idMap.First(idVal => idVal.Item2 == waypointParamInfo.Id).Item1;
+                        }
+                    }
+                }
+            }
+
+            for (int i = 0; i < Objectives.Count; i++)
+            {
+                ObjectiveViewModel objective = Objectives[i];
+
+                if (objective.Waypoint is WaypointViewModel objectiveWaypoint)
+                    objectiveWaypoint.Id = idMap.First(idVal => idVal.Item2 == objectiveWaypoint.Id).Item1;
+
+                for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.CompleteEvent.EventTargets[j];
+
+                    if (eventTarget.Target is WaypointViewModel waypoint)
+                    {
+                        waypoint.Id = idMap.First(idVal => idVal.Item2 == waypoint.Id).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is WaypointViewModel waypointParamInfo)
+                            waypointParamInfo.Id = idMap.First(idVal => idVal.Item2 == waypointParamInfo.Id).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.FailEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.FailEvent.EventTargets[j];
+
+                    if (eventTarget.Target is WaypointViewModel waypoint)
+                    {
+                        waypoint.Id = idMap.First(idVal => idVal.Item2 == waypoint.Id).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is WaypointViewModel waypointParamInfo)
+                            waypointParamInfo.Id = idMap.First(idVal => idVal.Item2 == waypointParamInfo.Id).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.StartEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.StartEvent.EventTargets[j];
+
+                    if (eventTarget.Target is WaypointViewModel waypoint)
+                    {
+                        waypoint.Id = idMap.First(idVal => idVal.Item2 == waypoint.Id).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is WaypointViewModel waypointParamInfo)
+                            waypointParamInfo.Id = idMap.First(idVal => idVal.Item2 == waypointParamInfo.Id).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < ObjectivesOpFor.Count; i++)
+            {
+                ObjectiveViewModel objective = ObjectivesOpFor[i];
+
+                if (objective.Waypoint is WaypointViewModel objectiveWaypoint)
+                    objectiveWaypoint.Id = idMap.First(idVal => idVal.Item2 == objectiveWaypoint.Id).Item1;
+
+                if (objective.Fields.DropoffRallyPoint is WaypointViewModel dropoffWaypoint)
+                    dropoffWaypoint.Id = idMap.First(idVal => idVal.Item2 == dropoffWaypoint.Id).Item1;
+
+                for (int j = 0; j < objective.CompleteEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.CompleteEvent.EventTargets[j];
+
+                    if (eventTarget.Target is WaypointViewModel waypoint)
+                    {
+                        waypoint.Id = idMap.First(idVal => idVal.Item2 == waypoint.Id).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is WaypointViewModel waypointParamInfo)
+                            waypointParamInfo.Id = idMap.First(idVal => idVal.Item2 == waypointParamInfo.Id).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.FailEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.FailEvent.EventTargets[j];
+
+                    if (eventTarget.Target is WaypointViewModel waypoint)
+                    {
+                        waypoint.Id = idMap.First(idVal => idVal.Item2 == waypoint.Id).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is WaypointViewModel waypointParamInfo)
+                            waypointParamInfo.Id = idMap.First(idVal => idVal.Item2 == waypointParamInfo.Id).Item1;
+                    }
+                }
+
+                for (int j = 0; j < objective.StartEvent.EventTargets.Count; j++)
+                {
+                    EventTargetViewModel eventTarget = objective.StartEvent.EventTargets[j];
+
+                    if (eventTarget.Target is WaypointViewModel waypoint)
+                    {
+                        waypoint.Id = idMap.First(idVal => idVal.Item2 == waypoint.Id).Item1;
+                    }
+
+                    foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                    {
+                        if (paramInfo.Value is WaypointViewModel waypointParamInfo)
+                            waypointParamInfo.Id = idMap.First(idVal => idVal.Item2 == waypointParamInfo.Id).Item1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < TimedEventGroups.Count; i++)
+            {
+                TimedEventGroupViewModel timedEventGroup = TimedEventGroups[i];
+
+                for (int j = 0; j < timedEventGroup.TimedEventInfos.Count; j++)
+                {
+                    TimedEventInfoViewModel timedEventInfo = timedEventGroup.TimedEventInfos[j];
+
+                    for (int k = 0; k < timedEventInfo.EventTargets.Count; k++)
+                    {
+                        EventTargetViewModel eventTarget = timedEventInfo.EventTargets[k];
+
+                        if (eventTarget.Target is WaypointViewModel waypoint)
+                        {
+                            waypoint.Id = idMap.First(idVal => idVal.Item2 == waypoint.Id).Item1;
+                        }
+
+                        foreach (ParamInfoViewModel paramInfo in eventTarget.ParamInfos)
+                        {
+                            if (paramInfo.Value is WaypointViewModel waypointParamInfo)
+                                waypointParamInfo.Id = idMap.First(idVal => idVal.Item2 == waypointParamInfo.Id).Item1;
+                        }
+                    }
+                }
+            }
+
+            if (ReturnToBaseDestination is WaypointViewModel waypointRtb)
+                waypointRtb.Id = idMap.First(idVal => idVal.Item2 == waypointRtb.Id).Item1;
+
+            if (RefuelWaypoint is WaypointViewModel waypointFuel)
+                waypointFuel.Id = idMap.First(idVal => idVal.Item2 == waypointFuel.Id).Item1;
+
+            foreach (UnitSpawnerViewModel unit in Units)
+            {
+                if (unit.UnitFields.Waypoint is WaypointViewModel unitWaypoint)
+                    unitWaypoint.Id = idMap.First(idVal => idVal.Item2 == unitWaypoint.Id).Item1;
+            }
         }
 
         public bool Save()

@@ -1253,42 +1253,51 @@ namespace VTOLVR_MissionAssistant.ViewModels
 
         private void ReIndexEventSequences()
         {
+            VtsFile.ReIndexEventSequences();
 
+            EventSequences.Refresh();
         }
 
         private void ReIndexObjectives()
         {
+            VtsFile.ReIndexObjectives();
 
+            Objectives.Refresh();
         }
 
         private void ReIndexObjectivesOpFor()
         {
+            VtsFile.ReIndexObjectivesOpFor();
 
+            ObjectivesOpFor.Refresh();
         }
 
         private void ReIndexPaths()
         {
+            VtsFile.ReIndexPaths();
 
-        }
-
-        private void ReIndexTimedEvents()
-        {
-
-        }
-
-        private void ReIndexTriggered()
-        {
-
+            Paths.Refresh();
         }
 
         private void ReIndexStaticObjects()
         {
+            VtsFile.ReIndexStaticObjects();
 
+            StaticObjects.Refresh();
         }
 
-        private void ReIndexWaypoints()
+        private void ReIndexTimedEvents()
         {
+            VtsFile.ReIndexTimedEvents();
 
+            TimedEvents.Refresh();
+        }
+
+        private void ReIndexTriggered()
+        {
+            VtsFile.ReIndexTriggered();
+
+            TriggerEvents.Refresh();
         }
 
         private void ReIndexUnits()
@@ -1297,7 +1306,17 @@ namespace VTOLVR_MissionAssistant.ViewModels
 
             if (result == MessageBoxResult.No) return;
 
+            VtsFile.ReIndexUnits();
 
+            EnemyUnits.Refresh();
+            FriendlyUnits.Refresh();
+        }
+
+        private void ReIndexWaypoints()
+        {
+            VtsFile.ReIndexWaypoints();
+
+            Waypoints.Refresh();
         }
 
         private bool ResourceManifestFilter(object obj)
