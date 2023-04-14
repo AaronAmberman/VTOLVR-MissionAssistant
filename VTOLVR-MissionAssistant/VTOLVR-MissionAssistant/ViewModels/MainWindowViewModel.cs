@@ -957,6 +957,8 @@ namespace VTOLVR_MissionAssistant.ViewModels
 
                 VtsFile.EventSequences.Add(clone);
             }
+
+            EventSequences.Refresh();
         }
 
         private void CopyFriendlyUnit()
@@ -981,6 +983,8 @@ namespace VTOLVR_MissionAssistant.ViewModels
 
                 VtsFile.Objectives.Add(clone);
             }
+
+            Objectives.Refresh();
         }
 
         private void CopyObjectivesOpFor()
@@ -996,21 +1000,25 @@ namespace VTOLVR_MissionAssistant.ViewModels
 
                 VtsFile.ObjectivesOpFor.Add(clone);
             }
+
+            ObjectivesOpFor.Refresh();
         }
 
         private void CopyPaths()
         {
-            List<PathViewModel> objectives = GetSelectedPaths().OfType<PathViewModel>().ToList();
+            List<PathViewModel> paths = GetSelectedPaths().OfType<PathViewModel>().ToList();
 
             int maxId = VtsFile.Paths.Max(obj => obj.Id);
 
-            foreach (PathViewModel objective in objectives)
+            foreach (PathViewModel path in paths)
             {
-                PathViewModel clone = objective.Clone();
+                PathViewModel clone = path.Clone();
                 clone.Id = maxId += 1;
 
                 VtsFile.Paths.Add(clone);
             }
+
+            Paths.Refresh();
         }
 
         private void CopyStaticObjects()
@@ -1019,13 +1027,15 @@ namespace VTOLVR_MissionAssistant.ViewModels
 
             int maxId = VtsFile.StaticObjects.Max(so => so.Id);
 
-            foreach (StaticObjectViewModel objective in staticObjects)
+            foreach (StaticObjectViewModel staticObject in staticObjects)
             {
-                StaticObjectViewModel clone = objective.Clone();
+                StaticObjectViewModel clone = staticObject.Clone();
                 clone.Id = maxId += 1;
 
                 VtsFile.StaticObjects.Add(clone);
             }
+
+            StaticObjects.Refresh();
         }
 
         private void CopyTimedEvents()
@@ -1041,6 +1051,8 @@ namespace VTOLVR_MissionAssistant.ViewModels
 
                 VtsFile.TimedEventGroups.Add(clone);
             }
+
+            TimedEvents.Refresh();
         }
 
         private void CopyTriggeredEvents()
@@ -1056,11 +1068,13 @@ namespace VTOLVR_MissionAssistant.ViewModels
 
                 VtsFile.TriggerEvents.Add(clone);
             }
+
+            TriggerEvents.Refresh();
         }
 
         private void CopyWaypoints()
         {
-            List<WaypointViewModel> waypoints = GetSelectedTriggeredEvents().OfType<WaypointViewModel>().ToList();
+            List<WaypointViewModel> waypoints = GetSelectedWaypoints().OfType<WaypointViewModel>().ToList();
 
             int maxId = VtsFile.Waypoints.Max(wp => wp.Id);
 
@@ -1071,6 +1085,8 @@ namespace VTOLVR_MissionAssistant.ViewModels
 
                 VtsFile.Waypoints.Add(clone);
             }
+
+            Waypoints.Refresh();
         }
 
         private void CopyUnits(List<UnitSpawnerViewModel> units)
