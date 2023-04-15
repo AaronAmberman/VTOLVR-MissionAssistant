@@ -44,4 +44,4 @@ Translations include English, Chinese, Korean, Japanese and Russian.
 I have added a setup directory with a build of the software.
 
 ## Known Issues
-Location points are truncated down from up to 15 characters. I plan on convert the values to strings in the future as I do not need numbers...I do no calculations with them. Or if I can figure out a more proper conversion from float to string then string to float. Proper in terms of matching the previous output.
+Location points are truncated down from up to 15 characters. I plan on convert the values to strings in the future as I do not need numbers...I do no calculations with them. Or if I can figure out a more proper conversion from float to string then string back to float. Proper in terms of matching the previous output.
