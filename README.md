@@ -38,7 +38,7 @@ I've started development and have been working to build out the UI and basic ing
 
 ![image](https://user-images.githubusercontent.com/23512394/220999419-2b8f336a-a097-425c-9429-e4fa79b32510.png)
 
-Translations are not started yet. Trying to follow suite with VTOL VR and have English, Chinese, Korean, Japanese and Russian.
+Translations include English, Chinese, Korean, Japanese and Russian.
 
 # Beta
 I have added a setup directory with a build of the software.
