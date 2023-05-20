@@ -78,7 +78,7 @@ namespace VTOLVR_MissionAssistant
             {
                 Debug.WriteLine($"An error occurred attempting to add a resource dictionary to the translator.{Environment.NewLine}{ex}");
 
-                MessageBox.Show("The translator for the application could be setup properly. Existing application.");
+                MessageBox.Show("The translator for the application could be setup properly. Exiting application.");
 
                 Environment.Exit(-1);
                 return;
